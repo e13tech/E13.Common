@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>E13.Common.Core</name>
+    </assembly>
+    <members>
+        <member name="T:E13.Common.Core.PagedCollection`1">
+            <summary>
+            Represents the default implementation of the <see cref="!:IPagedCollection&lt;T&gt;"/> interface.
+            </summary>
+            <typeparam name="T">The type of the data to page</typeparam>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.PageIndex">
+            <summary>
+            Gets or sets the index of the page.
+            </summary>
+            <value>The index of the page.</value>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.PageSize">
+            <summary>
+            Gets or sets the size of the page.
+            </summary>
+            <value>The size of the page.</value>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.TotalCount">
+            <summary>
+            Gets or sets the total count.
+            </summary>
+            <value>The total count.</value>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.IndexFrom">
+            <summary>
+            Gets or sets the index from.
+            </summary>
+            <value>The index from.</value>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.TotalPages">
+            <summary>
+            Gets the total pages.
+            </summary>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.HasPreviousPage">
+            <summary>
+            Gets the has previous page.
+            </summary>
+            <value>The has previous page.</value>
+        </member>
+        <member name="P:E13.Common.Core.PagedCollection`1.HasNextPage">
+            <summary>
+            Gets the has next page.
+            </summary>
+            <value>The has next page.</value>
+        </member>
+        <member name="M:E13.Common.Core.PagedCollection`1.#ctor(System.Linq.IQueryable{`0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="!:PagedList&lt;TSource, TResult&gt;" /> class.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="pageIndex">The index of the page.</param>
+            <param name="pageSize">The size of the page.</param>
+            <param name="indexFrom">The index from.</param>
+        </member>
+        <member name="M:E13.Common.Core.PagedCollection`1.#ctor">
+            <summary>
+            internal modifier to restrict usage of the default constructor only to
+            to projects that have been explicitly exposed to
+            </summary>
+        </member>
+        <member name="M:System.Linq.IQueryableExtensions.ToPagedCollection``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts the specified source to <see cref="!:IPagedCollection&lt;T&gt;"/> by the specified <paramref name="pageIndex"/> and <paramref name="pageSize"/>.
+            </summary>
+            <typeparam name="T">The type of the source.</typeparam>
+            <param name="source">The source to paging.</param>
+            <param name="pageIndex">The index of the page.</param>
+            <param name="pageSize">The size of the page.</param>
+            <param name="indexFrom">The start index value.</param>
+            <returns>An instance of the inherited from <see cref="!:IPagedCollection&lt;T&gt;"/> interface.</returns>
+        </member>
+    </members>
+</doc>
