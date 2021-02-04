@@ -21,7 +21,5 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: OWASP ZAP Full Scan
-      uses: zaproxy/action-full-scan@v0.2.0
     - name: Test
       run: dotnet test --no-build --verbosity normal
