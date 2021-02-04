@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 
 namespace E13.Common.Nunit.Tests.Extensions
@@ -12,9 +13,11 @@ namespace E13.Common.Nunit.Tests.Extensions
     public class BitmapExtensionsTests
     {
         private readonly static string CWD = TestContext.CurrentContext.WorkDirectory;
-        private readonly static string ImageA = $@"{CWD}\Extensions\BitmapExtensionsFiles\TestImageA.jpg";
-        private readonly static string ImageB = $@"{CWD}\Extensions\BitmapExtensionsFiles\TestImageB.jpg";
-        private readonly static string CompareA2B = $@"{CWD}\Extensions\BitmapExtensionsFiles\CompareAtoB.jpg";
+        private readonly static string Extensions = "Extensions";
+        private readonly static string BitmapExtensionsFiles = "BitmapExtensionsFiles";
+        private readonly static string ImageA = Path.Combine(CWD, Extensions, BitmapExtensionsFiles, "TestImageA.jpg");
+        private readonly static string ImageB = Path.Combine(CWD, Extensions, BitmapExtensionsFiles, "TestImageB.jpg");
+        private readonly static string CompareA2B = Path.Combine(CWD, Extensions, BitmapExtensionsFiles, "CompareAtoB.jpg");
 
         [Test]
         public void Compare_SameImage_NullResult()
@@ -33,7 +36,7 @@ namespace E13.Common.Nunit.Tests.Extensions
         [Test]
         public void Compare_DifferentImages_GenerateExpected()
         {
-            var tempPath = $@"{CWD}\Extensions\BitmapExtensionsFiles\{nameof(Compare_DifferentImages_GenerateExpected)}.jpg";
+            var tempPath = Path.Combine(CWD, Extensions, BitmapExtensionsFiles, $"{nameof(Compare_DifferentImages_GenerateExpected)}.jpg");
             using var imageA = new Bitmap(ImageA);
             using var imageB = new Bitmap(ImageB);
 
