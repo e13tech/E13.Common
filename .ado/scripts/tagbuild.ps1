@@ -4,6 +4,8 @@ foreach($file in $changes){
     Write-Host $file
 }
 
+Write-Host "##vso[build.addbuildtag]JJ"
+
 foreach($file in $changes){
     if($null -ne ("design/"| ? { $file.StartsWith($_) })){
     Write-Host "##vso[build.addbuildtag]Design"
