@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: pack
+      run: dotnet pack --no-build
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        PROJECT_FILE_PATH: src/E13.Common.Core/E13.Common.Core.csproj
+
