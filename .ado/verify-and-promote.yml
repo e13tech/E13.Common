@@ -4,10 +4,10 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-trigger:
+pr:
   branches:
     include:
-      - dev
+      - master
 
 pool:
   vmImage: windows-latest
@@ -86,37 +86,37 @@ steps:
     arguments: '--no-build --configuration Release ' 
 
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish deploy'
-  inputs:
-    PathtoPublish: 'deploy/'
-    ArtifactName: 'deploy'
-  condition: succeededOrFailed()
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publish deploy'
+#  inputs:
+#    PathtoPublish: 'deploy/'
+#    ArtifactName: 'deploy'
+#  condition: succeededOrFailed()
 
-- task: CopyFiles@2 
-  displayName: 'Copy source code for integration testing in release pipelines' 
-  inputs:
-    SourceFolder: '$(Agent.BuildDirectory)/s'
-    Contents: |
-      design/*
-      src/*
-      test/*
-      infra/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/repo'
+#- task: CopyFiles@2 
+#  displayName: 'Copy source code for integration testing in release pipelines' 
+#  inputs:
+#    SourceFolder: '$(Agent.BuildDirectory)/s'
+#    Contents: |
+#      design/*
+#      src/*
+#      test/*
+#      infra/*
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)/repo'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish repo'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)/repo'
-    ArtifactName: 'repo'
-  condition: succeededOrFailed()
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publish repo'
+#  inputs:
+#    PathtoPublish: '$(build.artifactstagingdirectory)/repo'
+#    ArtifactName: 'repo'
+#  condition: succeededOrFailed()
 
-- task: CmdLine@2
-  displayName: Merge to Master
-  inputs:
-    script: |
-      git init
-      git tag -f temp
-      git checkout -q master
-      git merge temp
-      git push origin -v
+#- task: CmdLine@2
+#  displayName: Merge to Master
+#  inputs:
+#    script: |
+#      git init
+#      git tag -f temp
+#      git checkout -q master
+#      git merge temp
+#      git push origin -v
