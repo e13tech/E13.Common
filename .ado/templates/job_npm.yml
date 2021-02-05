@@ -1,0 +1,44 @@
+parameters:
+- name: name
+  type: string
+- name: project
+  type: string
+
+jobs:
+- job: check${{ parameters.name }}
+  steps:
+  - pwsh: |
+        $changes=$(git diff head head~ --name-only)
+        Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
+        foreach($file in $changes){
+          if($null -ne ("src/${{ parameters.project }}"| ? { $file.StartsWith($_) })){
+            Write-Host Match $file
+            Write-Host "##vso[task.setvariable variable=exists;isOutput=true]true"
+            break
+          } else {
+            Write-Host $file
+          }
+        }
+
+    name: changes
+
+- job: package${{ parameters.name }}
+  dependsOn: check${{ parameters.name }}
+  condition: eq(dependencies.check${{ parameters.name }}.outputs['changes.exists'], true)
+  steps:
+  - task: PowerShell@2
+    displayName: 'npm version'
+    inputs:
+      targetType: inline
+      script: 'npm version ($env:BUILD_BUILDNUMBER -replace ''\.0'', ''.'')'
+      pwsh: true
+      workingDirectory: src/${{ parameters.project }}
+
+  - task: Npm@1
+    displayName: 'npm publish'
+    inputs:
+      command: publish
+      workingDir: src/${{ parameters.project }}
+      verbose: false
+      publishRegistry: useFeed
+      publishFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'

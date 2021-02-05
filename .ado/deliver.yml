@@ -1,0 +1,170 @@
+
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - src/*
+
+pool:
+  vmImage: windows-latest
+
+# This name is also the build_number
+name: $(date:yyyy).$(DayOfYear).$(rev:r)
+
+stages:
+- stage: pre
+  jobs:
+  - job: setup
+    steps:
+    - checkout: self
+      persistCredentials: true
+  
+    - task: UseDotNet@2
+      enabled: false
+      displayName: 'Use .Net Core sdk 5.x'
+      inputs:
+        version: 5.x
+        includePreviewVersions: true
+        
+    - task: PowerShell@2
+      displayName: 'Tag Build'
+      inputs:
+        targetType: filePath
+        filePath: ./build/scripts/tagBuild.ps1
+
+
+- stage: Batch0
+  jobs:
+  - template: templates/job_nuget.yml
+    parameters:
+      name: core
+      project: E13.Common.Core
+
+#- stage: Batch1
+#  dependsOn: Batch0
+#  jobs:
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: domain
+#      project: E13.Common.Domain
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: restease
+#      project: E13.Common.RestEase
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: infra
+#      project: E13.Common.Infra
+
+#  - template: templates/job_npm.yml
+#    parameters:
+#      name: react
+#      project: E13.Common.React
+
+#- stage: Batch2
+#  dependsOn: Batch1
+#  jobs:
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: data
+#      project: E13.Common.Data
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: aspnet
+#      project: E13.Common.AspNet
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: nunit
+#      project: E13.Common.Nunit
+
+#- stage: Batch3  
+#  dependsOn: Batch2
+#  jobs:
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: api
+#      project: E13.Common.Api
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: blazor
+#      project: E13.Common.Blazor
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: logic
+#      project: E13.Common.Logic
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: nunit_api
+#      project: E13.Common.Nunit.Api
+
+#  - template: templates/job_nuget.yml
+#    parameters:
+#      name: nunit_ui
+#      project: E13.Common.Nunit.UI
+
+#- stage: Post
+#  dependsOn: Batch3
+#  jobs:
+#    - job: publish
+#      steps:
+      
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Restore
+#        inputs:
+#          command: restore
+#          projects: '**/*TestWeb.*.csproj'
+#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
+      
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Restore
+#        inputs:
+#          command: restore
+#          projects: '**/*TestsApi.csproj'
+#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
+      
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Restore
+#        inputs:
+#          command: restore
+#          projects: '**/*TestsUI.csproj'
+#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
+          
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Build
+#        inputs:
+#          command: build
+#          projects: '**/*TestWeb.*.csproj'
+          
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Build
+#        inputs:
+#          command: build
+#          projects: '**/*TestsApi.csproj'
+          
+#      - task: DotNetCoreCLI@2
+#        displayName: dotnetcore Build
+#        inputs:
+#          command: build
+#          projects: '**/*TestsUI.csproj'
+
+#      - task: PublishBuildArtifacts@1
+#        displayName: 'Publish Artifact'
+#        inputs:
+#          PathtoPublish: '$(build.artifactstagingdirectory)'
+#        enabled: false
+#        condition: succeededOrFailed()
+    

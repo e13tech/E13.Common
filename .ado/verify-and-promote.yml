@@ -1,0 +1,122 @@
+
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - dev
+
+pool:
+  vmImage: windows-latest
+
+# This name is also the build_number
+name: $(date:yyyy).$(DayOfYear).$(rev:r)
+
+steps:
+- checkout: self
+  persistCredentials: true
+  
+- task: UseDotNet@2
+  displayName: 'Use .Net Core sdk 5.x'
+  inputs:
+    version: 5.x
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  displayName: dotnetcore Restore
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnetcore Build
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration Release'
+
+- task: dependency-check-build-task@5
+  displayName: OWASP Scan
+  enabled: false
+  inputs:
+    projectName: 'Common'
+    scanPath: '**/*.csproj'
+    format: 'ALL'
+    failOnCVSS: '8'
+
+- task: PublishTestResults@2
+  displayName: OWASP Result Upload
+  enabled: false
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/dependency-check-junit.xml'
+    searchFolder: '$(Common.TestResultsDirectory)'
+    testRunTitle: 'OWASP'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnetcore Test
+  enabled: false
+  inputs:
+    command: test
+    projects: '**/*[Tt]ests/*.csproj'
+    arguments: '--no-build --configuration Release --collect:"Code Coverage"'
+
+- task: DotNetCoreCLI@2
+  env:
+    InMemory: true
+  displayName: dotnetcore API Test
+  condition: succeededOrFailed()
+  enabled: false
+  inputs:
+    command: test
+    projects: '**/*[Tt]estsApi/*.csproj'
+    arguments: '--no-build --configuration Release --collect:"Code Coverage"'
+
+- task: DotNetCoreCLI@2
+  env:
+    InMemory: true
+  displayName: dotnetcore UI Test
+  condition: succeededOrFailed()
+  enabled: false
+  inputs:
+    command: test
+    projects: '**/*[Tt]estsUI/*.csproj'
+    arguments: '--no-build --configuration Release ' 
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish deploy'
+  inputs:
+    PathtoPublish: 'deploy/'
+    ArtifactName: 'deploy'
+  condition: succeededOrFailed()
+
+- task: CopyFiles@2 
+  displayName: 'Copy source code for integration testing in release pipelines' 
+  inputs:
+    SourceFolder: '$(Agent.BuildDirectory)/s'
+    Contents: |
+      design/*
+      src/*
+      test/*
+      infra/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/repo'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish repo'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)/repo'
+    ArtifactName: 'repo'
+  condition: succeededOrFailed()
+
+- task: CmdLine@2
+  displayName: Merge to Master
+  inputs:
+    script: |
+      git init
+      git tag -f temp
+      git checkout -q master
+      git merge temp
+      git push origin -v
