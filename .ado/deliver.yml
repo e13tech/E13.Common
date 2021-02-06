@@ -42,7 +42,7 @@ stages:
 
 - stage: Batch0
   jobs:
-  - template: templates/job_nuget.yml
+  - template: templates/job_nuget_github.yml
     parameters:
       name: core
       project: E13.Common.Core

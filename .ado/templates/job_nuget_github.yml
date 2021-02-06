@@ -1,0 +1,111 @@
+parameters:
+- name: name
+  type: string
+- name: project
+  type: string
+
+  #Your build pipeline references an undefined variable named �$env:SYSTEM_ACCESSTOKEN�. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+jobs:
+- job: check${{ parameters.name }}
+  steps:
+  - pwsh: |
+        $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)"))
+        $header = @{authorization = "Basic $token"}
+        git status
+        
+        $files = [System.Collections.ArrayList]@()
+        Write-Host "$env:org$env:proj/_apis/build/builds/$env:build_id/changes?api-version=5.1"
+        
+        $changes = Invoke-RestMethod -Uri $env:org$env:proj/_apis/build/builds/$env:build_id/changes?api-version=5.1 -Headers $header
+        foreach($change in $changes.value) {
+          $id = $change.id
+          $commits = Invoke-RestMethod -Uri $env:org$env:proj/_apis/git/repositories/$env:repo/commits/$id/changes -Headers $header
+          foreach($change in $commits.changes) {
+            if(-not $change.item.IsFolder) {
+              $path = $change.item.path
+              $files.Add($path)
+            }
+          }
+        }
+        $files = $files | Sort-Object | Get-Unique -AsString
+        Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
+        foreach($file in $files){
+          Write-Host "Testing against src/${{ parameters.project }}"
+          if($null -ne ("/src/${{ parameters.project }}"| ? { $file.StartsWith($_) })){
+            Write-Host Match $file
+            Write-Host "##vso[task.setvariable variable=exists;isOutput=true]true"
+            break
+          } else {
+            Write-Host $file
+          }
+        }
+
+    name: changes
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      BUILD_ID: $(Build.BuildId)
+      ORG: $(System.CollectionUri)
+      PROJ: $(System.TeamProject)
+      REPO: $(Build.Repository.ID)
+
+- job: package${{ parameters.name }}
+  dependsOn: check${{ parameters.name }}
+  condition: eq(dependencies.check${{ parameters.name }}.outputs['changes.exists'], true)
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Use NuGet '
+
+  - pwsh: |
+        nuget sources add -name Internal -Source "https://pkgs.dev.azure.com/e13tech/_packaging/Internal/nuget/v3/index.json"  -Username "Internal" -Password $env:SYSTEM_ACCESSTOKEN
+        $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
+        $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
+        $projects = $projects | select-object -skip 2
+        foreach($project in $projects){ 
+            $start = $project.LastIndexOf('\') + 1
+            $package = $project.Substring($start, $project.IndexOf('.csproj') - $start)
+            dotnet remove $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference $project
+            dotnet add $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj package $package --source https://pkgs.dev.azure.com/e13tech/_packaging/Internal/nuget/v3/index.json
+        }
+
+    name: reference2package
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+  - task: DotNetCoreCLI@2
+    displayName: dotnetcore Restore
+    inputs:
+      command: restore
+      projects: '**/${{ parameters.project }}/*.csproj'
+      feedsToUse: 'select'
+      vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
+
+  - task: DotNetCoreCLI@2
+    displayName: dotnetcore Build
+    inputs:
+      projects: '**/${{ parameters.project }}/*.csproj'
+      arguments: '--configuration Release --no-restore'
+            
+  - task: DotNetCoreCLI@2
+    displayName: dotnetcore Package
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/${{ parameters.project }}/*.csproj'
+      versioningScheme: 'byBuildNumber'
+      configuration: Release
+      nobuild: true
+  
+ # - task: DotNetCoreCLI@2
+ #   inputs:
+ #     command: 'push'
+ #     packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
+ #     nuGetFeedType: 'external'
+ #     publishFeedCredentials: 'nuget'
+
+  - task: DotNetCoreCLI@2
+    displayName: dotnetcore Push
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
