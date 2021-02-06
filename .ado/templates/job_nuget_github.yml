@@ -12,6 +12,7 @@ jobs:
   - pwsh: |
         $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)"))
         $header = @{authorization = "Basic $token"}
+        git fetch
         git diff deploy...master --name-only
         
         $files = [System.Collections.ArrayList]@()
