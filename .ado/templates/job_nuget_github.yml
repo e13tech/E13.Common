@@ -14,6 +14,8 @@ jobs:
         $header = @{authorization = "Basic $token"}
         
         git branch
+        git checkout --track -b master origin/master
+        git branch
         git checkout --track -b deploy origin/deploy
         git branch
         $files = git diff deploy...master --name-only
