@@ -12,24 +12,11 @@ jobs:
   - pwsh: |
         $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)"))
         $header = @{authorization = "Basic $token"}
-        git fetch
-        git diff deploy...master --name-only
         
-        $files = [System.Collections.ArrayList]@()
-        Write-Host "$env:org$env:proj/_apis/build/builds/$env:build_id/changes?api-version=5.1"
+        git checkout --track -b deploy origin/deploy
+        $files = git diff deploy...master --name-only
+        $files
         
-        $changes = Invoke-RestMethod -Uri $env:org$env:proj/_apis/build/builds/$env:build_id/changes?api-version=5.1 -Headers $header
-        foreach($change in $changes.value) {
-          $id = $change.id
-          $commits = Invoke-RestMethod -Uri $env:org$env:proj/_apis/git/repositories/$env:repo/commits/$id/changes -Headers $header
-          foreach($change in $commits.changes) {
-            if(-not $change.item.IsFolder) {
-              $path = $change.item.path
-              $files.Add($path)
-            }
-          }
-        }
-        $files = $files | Sort-Object | Get-Unique -AsString
         Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
         foreach($file in $files){
           Write-Host "Testing against src/${{ parameters.project }}"
