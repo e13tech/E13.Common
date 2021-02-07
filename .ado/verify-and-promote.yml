@@ -7,7 +7,7 @@
 pr:
   branches:
     include:
-      - master
+      - disabled
 
 pool:
   vmImage: windows-latest
