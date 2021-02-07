@@ -20,7 +20,7 @@ jobs:
         
         Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
         foreach($file in $files){
-          Write-Host "Testing against src/${{ parameters.project }}"
+          Write-Host "Testing $file against src/${{ parameters.project }}"
           if($null -ne ("/src/${{ parameters.project }}"| ? { $file.StartsWith($_) })){
             Write-Host Match $file
             Write-Host "##vso[task.setvariable variable=exists;isOutput=true]true"
