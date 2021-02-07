@@ -10,15 +10,12 @@ jobs:
 - job: check${{ parameters.name }}
   steps:
   - pwsh: |
-        $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)"))
-        $header = @{authorization = "Basic $token"}
-        
-        git branch
         git checkout --track -b master origin/master
-        git branch
         git checkout --track -b deploy origin/deploy
         git branch
         $files = git diff deploy...master --name-only
+
+        Write-Host "Files from master needing to be deployed"
         $files
         
         Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
@@ -28,8 +25,6 @@ jobs:
             Write-Host Match $file
             Write-Host "##vso[task.setvariable variable=exists;isOutput=true]true"
             break
-          } else {
-            Write-Host $file
           }
         }
 
