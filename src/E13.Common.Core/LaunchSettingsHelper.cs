@@ -8,10 +8,16 @@ using System.Text;
 
 namespace E13.Common.Core
 {
+    /// <summary>
+    /// Helpers used to help getting settings primarily for unit test execution
+    /// </summary>
     public static class LaunchSettingsHelper
     {
         private static bool _evLoaded;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void EnsureEnvironmentVariables()
         {
             if (_evLoaded) return;
