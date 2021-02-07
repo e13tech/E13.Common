@@ -13,8 +13,9 @@ jobs:
         $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)"))
         $header = @{authorization = "Basic $token"}
         
-        git status
+        git branch
         git checkout --track -b deploy origin/deploy
+        git branch
         $files = git diff deploy...master --name-only
         $files
         
