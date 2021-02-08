@@ -8,8 +8,11 @@ jobs:
 - job: check${{ parameters.name }}
   steps:
   - pwsh: |
+        git fetch
         git checkout --track -b master origin/master
+        git pull
         git checkout --track -b deploy origin/deploy
+        git pull
         git branch
         $files = git diff deploy...master --name-only
 
