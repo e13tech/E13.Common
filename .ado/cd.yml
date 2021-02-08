@@ -127,7 +127,7 @@ stages:
             git merge master
             Write-Host "Ready to push changes to deploy"
             git remote -v
-            git remote set-url origin https://${env:GITHUBKEY}github.com/e13tech/common
+            git remote set-url origin https://${env:GITHUBKEY}@github.com/e13tech/common
             git remote -v
             git push
 
