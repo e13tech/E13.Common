@@ -4,6 +4,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+pr: none
+
 trigger:
   branches:
     include:
@@ -55,10 +57,10 @@ stages:
       name: nunit
       project: E13.Common.Nunit
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: domain
-#      project: E13.Common.Domain
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: domain
+      project: E13.Common.Domain
 
 #  - template: templates/job_nuget_github.yml
 #    parameters:
