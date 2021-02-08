@@ -1,5 +1,6 @@
-![.NET](https://github.com/e13tech/common/workflows/.NET/badge.svg)
-[![Build Status](https://dev.azure.com/e13tech/Common/_apis/build/status/e13tech.common?branchName=master)](https://dev.azure.com/e13tech/Common/_build/latest?definitionId=26&branchName=master)
+CI: [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/ci?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=29&branchName=master)
+
+CD: [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=30&branchName=master)
 
 # E13.common
 
