@@ -119,7 +119,7 @@ stages:
 #      project: E13.Common.Nunit.UI
 
 - stage: Post
-  dependsOn: Batch1
+  dependsOn: Batch2
   jobs:
     - job: git_cleanup
       steps:
