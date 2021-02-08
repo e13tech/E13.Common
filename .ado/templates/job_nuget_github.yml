@@ -4,8 +4,6 @@ parameters:
 - name: project
   type: string
 
-  #Your build pipeline references an undefined variable named �$env:SYSTEM_ACCESSTOKEN�. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
-
 jobs:
 - job: check${{ parameters.name }}
   steps:
@@ -29,12 +27,6 @@ jobs:
         }
 
     name: changes
-    env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      BUILD_ID: $(Build.BuildId)
-      ORG: $(System.CollectionUri)
-      PROJ: $(System.TeamProject)
-      REPO: $(Build.Repository.ID)
 
 - job: package${{ parameters.name }}
   dependsOn: check${{ parameters.name }}
@@ -54,7 +46,7 @@ jobs:
             dotnet add $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj package $package
         }
 
-    name: reference2package
+    name: convert relative project references to nuget ones
 
   
   - task: UseDotNet@2
