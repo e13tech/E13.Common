@@ -44,6 +44,7 @@ jobs:
     displayName: 'Use NuGet '
 
   - pwsh: |
+        pwd
         nuget sources add -name Internal -Source "https://pkgs.dev.azure.com/e13tech/_packaging/Internal/nuget/v3/index.json"  -Username "Internal" -Password $env:SYSTEM_ACCESSTOKEN
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
