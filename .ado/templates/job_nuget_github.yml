@@ -84,10 +84,9 @@ jobs:
       configuration: Release
       nobuild: true
   
-  - task: DotNetCoreCLI@2
+  - task: NuGetCommand@2
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
       nuGetFeedType: 'external'
       publishFeedCredentials: 'nuget.org'
-
