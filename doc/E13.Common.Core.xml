@@ -4,6 +4,16 @@
         <name>E13.Common.Core</name>
     </assembly>
     <members>
+        <member name="T:E13.Common.Core.LaunchSettingsHelper">
+            <summary>
+            Helpers used to help getting settings primarily for unit test execution
+            </summary>
+        </member>
+        <member name="M:E13.Common.Core.LaunchSettingsHelper.EnsureEnvironmentVariables">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:E13.Common.Core.PagedCollection`1">
             <summary>
             Represents the default implementation of the <see cref="!:IPagedCollection&lt;T&gt;"/> interface.

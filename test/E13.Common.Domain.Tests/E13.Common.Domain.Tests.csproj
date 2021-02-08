@@ -20,8 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\E13.Common.Core\E13.Common.Core.csproj" />
+    <ProjectReference Include="..\..\src\E13.Common.Domain\E13.Common.Domain.csproj" />
     <ProjectReference Include="..\..\src\E13.Common.Nunit\E13.Common.Nunit.csproj" />
   </ItemGroup>
-
 </Project>

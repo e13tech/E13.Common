@@ -55,10 +55,10 @@ stages:
       name: nunit
       project: E13.Common.Nunit
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: domain
-#      project: E13.Common.Domain
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: domain
+      project: E13.Common.Domain
 
 #  - template: templates/job_nuget_github.yml
 #    parameters:
