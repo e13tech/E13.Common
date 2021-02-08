@@ -37,7 +37,7 @@ stages:
       displayName: 'Tag Build'
       inputs:
         targetType: filePath
-        filePath: ./.ado/scripts/tagBuild.ps1
+        filePath: ./build/scripts/tagBuild.ps1
 
 
 - stage: Batch0
