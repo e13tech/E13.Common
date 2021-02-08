@@ -50,22 +50,22 @@ stages:
 - stage: Batch1
   dependsOn: Batch0
   jobs:
-  - template: templates/job_nuget.yml
+  - template: templates/job_nuget_github.yml
     parameters:
       name: nunit
       project: E13.Common.Nunit
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: domain
 #      project: E13.Common.Domain
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: restease
 #      project: E13.Common.RestEase
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: infra
 #      project: E13.Common.Infra
@@ -78,17 +78,17 @@ stages:
 #- stage: Batch2
 #  dependsOn: Batch1
 #  jobs:
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: data
 #      project: E13.Common.Data
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: aspnet
 #      project: E13.Common.AspNet
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: nunit
 #      project: E13.Common.Nunit
@@ -96,27 +96,27 @@ stages:
 #- stage: Batch3  
 #  dependsOn: Batch2
 #  jobs:
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: api
 #      project: E13.Common.Api
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: blazor
 #      project: E13.Common.Blazor
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: logic
 #      project: E13.Common.Logic
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: nunit_api
 #      project: E13.Common.Nunit.Api
 
-#  - template: templates/job_nuget.yml
+#  - template: templates/job_nuget_github.yml
 #    parameters:
 #      name: nunit_ui
 #      project: E13.Common.Nunit.UI
