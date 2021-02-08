@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Domain", "src\E1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Domain.Tests", "test\E13.Common.Domain.Tests\E13.Common.Domain.Tests.csproj", "{1C96B136-221B-4BF9-8626-F14637A37555}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.RestEase", "src\E13.Common.RestEase\E13.Common.RestEase.csproj", "{49C0701B-30C1-4639-92F8-4F57A39FC885}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Infra", "src\E13.Common.Infra\E13.Common.Infra.csproj", "{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{1C96B136-221B-4BF9-8626-F14637A37555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C96B136-221B-4BF9-8626-F14637A37555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C96B136-221B-4BF9-8626-F14637A37555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C0701B-30C1-4639-92F8-4F57A39FC885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C0701B-30C1-4639-92F8-4F57A39FC885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C0701B-30C1-4639-92F8-4F57A39FC885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C0701B-30C1-4639-92F8-4F57A39FC885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
