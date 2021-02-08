@@ -77,23 +77,18 @@ stages:
 #      name: react
 #      project: E13.Common.React
 
-#- stage: Batch2
-#  dependsOn: Batch1
-#  jobs:
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: data
-#      project: E13.Common.Data
+- stage: Batch2
+  dependsOn: Batch1
+  jobs:
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: data
+      project: E13.Common.Data.Db
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: aspnet
-#      project: E13.Common.AspNet
-
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: nunit
-#      project: E13.Common.Nunit
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: aspnet
+      project: E13.Common.AspNet
 
 #- stage: Batch3  
 #  dependsOn: Batch2
