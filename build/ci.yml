@@ -41,7 +41,7 @@ steps:
 
 - task: dependency-check-build-task@5
   displayName: OWASP Scan
-  enabled: false
+  enabled: true
   inputs:
     projectName: 'Common'
     scanPath: '**/*.csproj'
@@ -50,7 +50,7 @@ steps:
 
 - task: PublishTestResults@2
   displayName: OWASP Result Upload
-  enabled: false
+  enabled: true
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/dependency-check-junit.xml'
@@ -59,7 +59,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: dotnetcore Test
-  enabled: false
+  enabled: true
   inputs:
     command: test
     projects: '**/*[Tt]ests/*.csproj'
