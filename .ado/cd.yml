@@ -132,7 +132,9 @@ stages:
             git push
 
           name: merge_master_into_deploy
-
+          env:
+            GITHUBKEY: $(GITHUBKEY)
+            
 #- stage: Post
 #  dependsOn: Batch3
 #  jobs:
