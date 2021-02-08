@@ -9,7 +9,7 @@ trigger: none
 pr:
   branches:
     include:
-      - disabled
+      - master
 
 pool:
   vmImage: windows-latest
@@ -86,39 +86,3 @@ steps:
     command: test
     projects: '**/*[Tt]estsUI/*.csproj'
     arguments: '--no-build --configuration Release ' 
-
-
-#- task: PublishBuildArtifacts@1
-#  displayName: 'Publish deploy'
-#  inputs:
-#    PathtoPublish: 'deploy/'
-#    ArtifactName: 'deploy'
-#  condition: succeededOrFailed()
-
-#- task: CopyFiles@2 
-#  displayName: 'Copy source code for integration testing in release pipelines' 
-#  inputs:
-#    SourceFolder: '$(Agent.BuildDirectory)/s'
-#    Contents: |
-#      design/*
-#      src/*
-#      test/*
-#      infra/*
-#    TargetFolder: '$(Build.ArtifactStagingDirectory)/repo'
-
-#- task: PublishBuildArtifacts@1
-#  displayName: 'Publish repo'
-#  inputs:
-#    PathtoPublish: '$(build.artifactstagingdirectory)/repo'
-#    ArtifactName: 'repo'
-#  condition: succeededOrFailed()
-
-#- task: CmdLine@2
-#  displayName: Merge to Master
-#  inputs:
-#    script: |
-#      git init
-#      git tag -f temp
-#      git checkout -q master
-#      git merge temp
-#      git push origin -v
