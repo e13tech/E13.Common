@@ -6,8 +6,18 @@ using System.Text;
 
 namespace System
 {
+    /// <summary>
+    /// Extension methods for streamlining guid to GuidAttrribute interactions
+    /// </summary>
     public static class GuidExtensions
     {
+        /// <summary>
+        /// Looks for an enum with a GuidAttribute having this guid value
+        /// </summary>
+        /// <typeparam name="T">Enum type to search</typeparam>
+        /// <param name="value">Guid value </param>
+        /// <returns>found enum</returns>
+        /// <exception cref="ArgumentException">Thrown if a matching enum cannot be found</exception>
         public static T AsEnum<T>(this Guid value) where T : Enum
         {
             var enumValues = Enum.GetValues(typeof(T));
