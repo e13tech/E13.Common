@@ -89,5 +89,5 @@ jobs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
       nuGetFeedType: 'external'
-      publishFeedCredentials: 'nuget'
+      publishFeedCredentials: 'nuget.org'
 
