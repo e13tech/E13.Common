@@ -125,6 +125,7 @@ stages:
             git checkout --track -b master origin/master
             git checkout --track -b deploy origin/deploy
             git merge master
+            Write-Host "Ready to push changes to deploy"
             git push
 
           name: merge_master_into_deploy
