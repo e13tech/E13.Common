@@ -47,9 +47,14 @@ stages:
       name: core
       project: E13.Common.Core
 
-#- stage: Batch1
-#  dependsOn: Batch0
-#  jobs:
+- stage: Batch1
+  dependsOn: Batch0
+  jobs:
+  - template: templates/job_nuget.yml
+    parameters:
+      name: nunit
+      project: E13.Common.Nunit
+
 #  - template: templates/job_nuget.yml
 #    parameters:
 #      name: domain
@@ -117,7 +122,7 @@ stages:
 #      project: E13.Common.Nunit.UI
 
 - stage: Post
-  dependsOn: Batch0
+  dependsOn: Batch1
   jobs:
     - job: git_cleanup
       steps:
