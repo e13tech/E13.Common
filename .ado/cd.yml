@@ -119,7 +119,7 @@ stages:
 - stage: Post
   dependsOn: Batch0
   jobs:
-    - job: git cleanup
+    - job: git_cleanup
       steps:
         - pwsh: |
             git checkout --track -b master origin/master
@@ -127,7 +127,7 @@ stages:
             git merge master
             git push
 
-          name: merge master into deploy
+          name: merge_master_into_deploy
 
 #- stage: Post
 #  dependsOn: Batch3

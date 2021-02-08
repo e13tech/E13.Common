@@ -46,7 +46,7 @@ jobs:
             dotnet add $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj package $package
         }
 
-    name: convert relative project references to nuget ones
+    name: fix_references
 
   
   - task: UseDotNet@2
@@ -56,19 +56,19 @@ jobs:
       includePreviewVersions: true
 
   - task: DotNetCoreCLI@2
-    displayName: dotnetcore Restore
+    displayName: dotnet Restore
     inputs:
       command: restore
       projects: '**/${{ parameters.project }}/*.csproj'
 
   - task: DotNetCoreCLI@2
-    displayName: dotnetcore Build
+    displayName: dotnet Build
     inputs:
       projects: '**/${{ parameters.project }}/*.csproj'
       arguments: '--configuration Release --no-restore'
             
   - task: DotNetCoreCLI@2
-    displayName: dotnetcore Package
+    displayName: dotnet Package
     inputs:
       command: 'pack'
       packagesToPack: '**/${{ parameters.project }}/*.csproj'
