@@ -44,8 +44,6 @@ jobs:
     displayName: 'Use NuGet '
 
   - pwsh: |
-        pwd
-        nuget sources add -name Internal -Source "https://pkgs.dev.azure.com/e13tech/_packaging/Internal/nuget/v3/index.json"  -Username "Internal" -Password $env:SYSTEM_ACCESSTOKEN
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
         $projects = $projects | select-object -skip 2
@@ -53,20 +51,23 @@ jobs:
             $start = $project.LastIndexOf('\') + 1
             $package = $project.Substring($start, $project.IndexOf('.csproj') - $start)
             dotnet remove $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference $project
-            dotnet add $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj package $package --source https://pkgs.dev.azure.com/e13tech/_packaging/Internal/nuget/v3/index.json
+            dotnet add $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj package $package
         }
 
     name: reference2package
-    env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+  
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core sdk 5.x'
+    inputs:
+      version: 5.x
+      includePreviewVersions: true
 
   - task: DotNetCoreCLI@2
     displayName: dotnetcore Restore
     inputs:
       command: restore
       projects: '**/${{ parameters.project }}/*.csproj'
-      feedsToUse: 'select'
-      vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
 
   - task: DotNetCoreCLI@2
     displayName: dotnetcore Build
@@ -83,17 +84,10 @@ jobs:
       configuration: Release
       nobuild: true
   
- # - task: DotNetCoreCLI@2
- #   inputs:
- #     command: 'push'
- #     packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
- #     nuGetFeedType: 'external'
- #     publishFeedCredentials: 'nuget'
-
   - task: DotNetCoreCLI@2
-    displayName: dotnetcore Push
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
-      nuGetFeedType: 'internal'
-      publishVstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
+      nuGetFeedType: 'external'
+      publishFeedCredentials: 'nuget'
+
