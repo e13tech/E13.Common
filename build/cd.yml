@@ -15,7 +15,7 @@ trigger:
 #      - src/*
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
