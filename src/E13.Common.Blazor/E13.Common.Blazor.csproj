@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Company>E13 Tech</Company>
     <Authors>JJ Bussert</Authors>
+    <PackageProjectUrl>https://www.e13.tech</PackageProjectUrl>
     <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
     <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
