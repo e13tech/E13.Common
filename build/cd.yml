@@ -38,9 +38,20 @@ stages:
         includePreviewVersions: true
 
     - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          get-content ./build/scripts/tagBuild.ps1
+        showWarnings: true
+        pwsh: true
+
+    - task: PowerShell@2
       displayName: 'Tag Build'
       inputs:
         filePath: './build/scripts/tagBuild.ps1'
+        showWarnings: true
         pwsh: true
 
 - stage: Batch0
