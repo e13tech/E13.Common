@@ -38,24 +38,9 @@ stages:
         includePreviewVersions: true
 
     - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          ls
-          cd build
-          ls
-          cd scripts
-          ls
-          get-content tagbuild.ps1
-
-        showWarnings: true
-        pwsh: true
-
-    - task: PowerShell@2
       displayName: 'Tag Build'
       inputs:
-        filePath: './build/scripts/tagbuild.ps1'
+        filePath: '$(System.DefaultWorkingDirectory)/build/scripts/tagbuild.ps1'
         showWarnings: true
         pwsh: true
 
