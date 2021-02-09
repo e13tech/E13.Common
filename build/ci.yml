@@ -11,8 +11,17 @@ pr:
     include:
       - master
 
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-latest'
+    mac:
+      imageName: 'macOS-latest'
+    windows:
+      imageName: 'windows-latest'
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(imageName)
 
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
