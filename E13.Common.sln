@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.RestEase", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Infra", "src\E13.Common.Infra\E13.Common.Infra.csproj", "{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.AspNet", "src\E13.Common.AspNet\E13.Common.AspNet.csproj", "{EDCCDA61-46AD-4522-8650-CA764071958E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Data.Db", "src\E13.Common.Data.Db\E13.Common.Data.Db.csproj", "{A8E6C5A6-B6EA-4DFE-B704-F469F201D8C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89586F6C-A8E1-4CE3-ABCA-41B5B8C71A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCCDA61-46AD-4522-8650-CA764071958E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCCDA61-46AD-4522-8650-CA764071958E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCCDA61-46AD-4522-8650-CA764071958E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCCDA61-46AD-4522-8650-CA764071958E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8E6C5A6-B6EA-4DFE-B704-F469F201D8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E6C5A6-B6EA-4DFE-B704-F469F201D8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8E6C5A6-B6EA-4DFE-B704-F469F201D8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E6C5A6-B6EA-4DFE-B704-F469F201D8C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

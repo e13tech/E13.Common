@@ -6,7 +6,7 @@ using System.Text;
 namespace E13.Common.Core
 {
     /// <summary>
-    /// Represents the default implementation of the <see cref="IPagedCollection{T}"/> interface.
+    /// Represents the default implementation of the <see cref="PagedCollection{T}"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of the data to page</typeparam>
     public class PagedCollection<T> : List<T>
@@ -61,7 +61,7 @@ namespace E13.Common.Core
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PagedList{TSource, TResult}" /> class.
+        /// Initializes a new instance of the <see cref="PagedCollection{T}" /> class.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="pageIndex">The index of the page.</param>
