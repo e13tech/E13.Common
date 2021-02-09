@@ -5,3 +5,9 @@ CD: [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?
 # E13.common
 
 Common code used in all of my projects now shared for others
+
+| e13.common.core | !(https://badgen.net/nuget/v/e13.common.core/latest ) |   |   |   |
+
+# Introduction
+
+The Common packages are all designed for a layered application architecture.
