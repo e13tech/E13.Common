@@ -47,15 +47,15 @@ stages:
           ls
           cd scripts
           ls
-          get-content tagBuild.ps1
-          
+          get-content tagbuild.ps1
+
         showWarnings: true
         pwsh: true
 
     - task: PowerShell@2
       displayName: 'Tag Build'
       inputs:
-        filePath: './build/scripts/tagBuild.ps1'
+        filePath: './build/scripts/tagbuild.ps1'
         showWarnings: true
         pwsh: true
 
