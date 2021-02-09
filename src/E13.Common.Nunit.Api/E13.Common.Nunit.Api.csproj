@@ -7,6 +7,7 @@
     <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
     <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
+    <Description>Common package containing helpers for an Nunit based testing project targeting an Api layer</Description>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
