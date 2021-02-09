@@ -15,7 +15,7 @@ trigger:
 #      - src/*
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
@@ -39,7 +39,6 @@ stages:
       displayName: 'Tag Build'
       inputs:
         filePath: '$(System.DefaultWorkingDirectory)/build/scripts/tagbuild.ps1'
-        showWarnings: true
         pwsh: true
 
 - stage: Batch0
