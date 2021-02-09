@@ -1,10 +1,14 @@
-$changes=$(git diff head head~ --name-only)
+git fetch
+git checkout --track -b master origin/master
+git pull
+git checkout --track -b deploy origin/deploy
+git pull
+git branch
+$changes = git diff deploy...master --name-only
 
 foreach($file in $changes){
     Write-Host $file
 }
-
-Write-Host "##vso[build.addbuildtag]JJ"
 
 foreach($file in $changes){
     if($null -ne ("design/"| ? { $file.StartsWith($_) })){
