@@ -4,6 +4,54 @@
         <name>E13.Common.Core</name>
     </assembly>
     <members>
+        <member name="T:E13.Common.Core.Attributes.AbbrevationAttribute">
+            <summary>
+            Useful for when an abbrevation for a field is useful such as an enum
+            </summary>
+        </member>
+        <member name="M:E13.Common.Core.Attributes.AbbrevationAttribute.#ctor(System.String)">
+            <summary>
+            Constructor setting the StringValue for this attribute
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="P:E13.Common.Core.Attributes.AbbrevationAttribute.StringValue">
+            <summary>
+            string field backing
+            </summary>
+        </member>
+        <member name="T:E13.Common.Core.Attributes.DisplayAttribute">
+            <summary>
+            Useful for when a Display value for a field is useful such as an enum
+            </summary>
+        </member>
+        <member name="M:E13.Common.Core.Attributes.DisplayAttribute.#ctor(System.String)">
+            <summary>
+            Constructor setting the StringValue for this attribute
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="P:E13.Common.Core.Attributes.DisplayAttribute.StringValue">
+            <summary>
+            string field backing
+            </summary>
+        </member>
+        <member name="T:E13.Common.Core.Attributes.GuidAttribute">
+            <summary>
+            Useful for when a guid value for a field is useful such as an enum
+            </summary>
+        </member>
+        <member name="M:E13.Common.Core.Attributes.GuidAttribute.#ctor(System.String)">
+            <summary>
+            Constructor that accepts the string representation of a guid
+            </summary>
+            <param name="guidString"></param>
+        </member>
+        <member name="P:E13.Common.Core.Attributes.GuidAttribute.Value">
+            <summary>
+            the Guid representation of the string that was constructed
+            </summary>
+        </member>
         <member name="T:E13.Common.Core.LaunchSettingsHelper">
             <summary>
             Helpers used to help getting settings primarily for unit test execution
@@ -16,7 +64,7 @@
         </member>
         <member name="T:E13.Common.Core.PagedCollection`1">
             <summary>
-            Represents the default implementation of the <see cref="!:IPagedCollection&lt;T&gt;"/> interface.
+            Represents the default implementation of the <see cref="T:E13.Common.Core.PagedCollection`1"/> interface.
             </summary>
             <typeparam name="T">The type of the data to page</typeparam>
         </member>
@@ -63,7 +111,7 @@
         </member>
         <member name="M:E13.Common.Core.PagedCollection`1.#ctor(System.Linq.IQueryable{`0},System.Int32,System.Int32,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="!:PagedList&lt;TSource, TResult&gt;" /> class.
+            Initializes a new instance of the <see cref="T:E13.Common.Core.PagedCollection`1" /> class.
             </summary>
             <param name="source">The source.</param>
             <param name="pageIndex">The index of the page.</param>
@@ -76,16 +124,83 @@
             to projects that have been explicitly exposed to
             </summary>
         </member>
+        <member name="T:System.EnumExtensions">
+            <summary>
+            Extensions useful for dealing with enums
+            </summary>
+        </member>
+        <member name="M:System.EnumExtensions.AsDisplay(System.Enum)">
+            <summary>
+            Gets the StringValue of the associated DisplayAttribute
+            </summary>
+            <param name="value">enum to extend</param>
+            <returns>DisplayAttribute.StringValue</returns>
+        </member>
+        <member name="M:System.EnumExtensions.AsAbbreviation(System.Enum)">
+            <summary>
+            Gets the StringValue of the associated AbbrevationAttribute
+            </summary>
+            <param name="value">enum to extend</param>
+            <returns>AbbrevationAttribute.StringValue</returns>
+        </member>
+        <member name="M:System.EnumExtensions.AsGuid(System.Enum)">
+            <summary>
+            Gets the Value of the associated GuidAttribute
+            </summary>
+            <param name="value">enum to extend</param>
+            <returns>GuidAttribute.Value</returns>
+        </member>
+        <member name="T:System.GuidExtensions">
+            <summary>
+            Extension methods for streamlining guid to GuidAttrribute interactions
+            </summary>
+        </member>
+        <member name="M:System.GuidExtensions.AsEnum``1(System.Guid)">
+            <summary>
+            Looks for an enum with a GuidAttribute having this guid value
+            </summary>
+            <typeparam name="T">Enum type to search</typeparam>
+            <param name="value">Guid value </param>
+            <returns>found enum</returns>
+            <exception cref="T:System.ArgumentException">Thrown if a matching enum cannot be found</exception>
+        </member>
+        <member name="T:System.Linq.IQueryableExtensions">
+            <summary>
+            Extensions for IQueryable
+            </summary>
+        </member>
         <member name="M:System.Linq.IQueryableExtensions.ToPagedCollection``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Int32)">
             <summary>
-            Converts the specified source to <see cref="!:IPagedCollection&lt;T&gt;"/> by the specified <paramref name="pageIndex"/> and <paramref name="pageSize"/>.
+            Converts the specified source to <see cref="T:E13.Common.Core.PagedCollection`1"/> by the specified <paramref name="pageIndex"/> and <paramref name="pageSize"/>.
             </summary>
             <typeparam name="T">The type of the source.</typeparam>
             <param name="source">The source to paging.</param>
             <param name="pageIndex">The index of the page.</param>
             <param name="pageSize">The size of the page.</param>
             <param name="indexFrom">The start index value.</param>
-            <returns>An instance of the inherited from <see cref="!:IPagedCollection&lt;T&gt;"/> interface.</returns>
+            <returns>An instance of the inherited from <see cref="T:E13.Common.Core.PagedCollection`1"/> interface.</returns>
+        </member>
+        <member name="T:System.StringExtensions">
+            <summary>
+            Useful extensions dealing with strings
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.DefaultParse(System.String,System.Boolean)">
+            <summary>
+            Convenience for parsing a string value to a bool when you want to specify a 'default' value
+            </summary>
+            <param name="s">string to try parsing</param>
+            <param name="d">optional default value which defaults to bool default</param>
+            <returns>parsed bool or the default value</returns>
+        </member>
+        <member name="M:System.StringExtensions.AsEnum``1(System.String)">
+            <summary>
+            Parses a string value as an enum w/ the provided DisplayAttribute
+            </summary>
+            <typeparam name="T">enum type to search for</typeparam>
+            <param name="value">DisplayAttribute value to search for</param>
+            <returns>enum value</returns>
+            <exception cref="T:System.ArgumentException">Thrown when a matching enum DisplayAttribute cannot be found</exception>
         </member>
     </members>
 </doc>
