@@ -51,6 +51,7 @@ steps:
 - task: dependency-check-build-task@5
   displayName: OWASP Scan
   enabled: true
+  condition: eq( variables['Agent.OS'], 'Windows_NT' )
   inputs:
     projectName: 'Common'
     scanPath: '**/*.csproj'
@@ -59,6 +60,7 @@ steps:
 
 - task: PublishTestResults@2
   displayName: OWASP Result Upload
+  condition: eq( variables['Agent.OS'], 'Windows_NT' )
   enabled: true
   inputs:
     testResultsFormat: 'JUnit'
