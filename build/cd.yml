@@ -46,6 +46,13 @@ stages:
           
           Write-Host "Hello World"
           pwd
+          Write-Host "Hello World"
+          ls
+          cd build
+          Write-Host "Hello World"
+          ls
+          cd scripts
+          Write-Host "Hello World"
           ls
 
     - task: PowerShell@2
