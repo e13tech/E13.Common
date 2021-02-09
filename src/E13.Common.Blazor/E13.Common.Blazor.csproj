@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <Company>E13 Tech</Company>
-    <Authors>E13 Tech</Authors>
+    <Authors>JJ Bussert</Authors>
     <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
-    <PackageIconUrl>https://e13-cdn.azurewebsites.net/E13.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
+    <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
