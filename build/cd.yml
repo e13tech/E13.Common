@@ -90,36 +90,36 @@ stages:
       name: aspnet
       project: E13.Common.AspNet
 
-#- stage: Batch3  
-#  dependsOn: Batch2
-#  jobs:
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: api
-#      project: E13.Common.Api
+- stage: Batch3  
+  dependsOn: Batch2
+  jobs:
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: api
+      project: E13.Common.Api
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: blazor
-#      project: E13.Common.Blazor
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: blazor
+      project: E13.Common.Blazor
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: logic
-#      project: E13.Common.Logic
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: logic
+      project: E13.Common.Logic
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: nunit_api
-#      project: E13.Common.Nunit.Api
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: nunit_api
+      project: E13.Common.Nunit.Api
 
-#  - template: templates/job_nuget_github.yml
-#    parameters:
-#      name: nunit_ui
-#      project: E13.Common.Nunit.UI
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: nunit_ui
+      project: E13.Common.Nunit.UI
 
 - stage: Post
-  dependsOn: Batch2
+  dependsOn: Batch3
   jobs:
     - job: git_cleanup
       steps:
