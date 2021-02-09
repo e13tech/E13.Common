@@ -36,31 +36,12 @@ stages:
       inputs:
         version: 5.x
         includePreviewVersions: true
-        
-    - task: PowerShell@2
-      displayName: 'PWD'
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          
-          Write-Host "Hello World"
-          pwd
-          Write-Host "Hello World"
-          ls
-          cd build
-          Write-Host "Hello World"
-          ls
-          cd scripts
-          Write-Host "Hello World"
-          ls
 
     - task: PowerShell@2
       displayName: 'Tag Build'
       inputs:
-        targetType: filePath
-        filePath: build/scripts/tagBuild.ps1
-
+        filePath: './build/scripts/tagBuild.ps1'
+        pwsh: true
 
 - stage: Batch0
   jobs:
