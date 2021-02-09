@@ -38,11 +38,15 @@ stages:
         includePreviewVersions: true
         
     - task: PowerShell@2
-      displayName: 'Tag Build'
+      displayName: 'PWD'
       inputs:
-        targetType: filePath
-        filePath: build/scripts/tagBuild.ps1
-        
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "Hello World"
+          pwd
+
     - task: PowerShell@2
       displayName: 'Tag Build'
       inputs:
