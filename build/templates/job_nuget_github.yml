@@ -92,3 +92,10 @@ jobs:
       packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
       nuGetFeedType: 'external'
       publishFeedCredentials: 'pkg.github.com'
+      
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '$(vstsfeed)'
