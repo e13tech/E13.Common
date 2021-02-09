@@ -46,6 +46,7 @@ stages:
           
           Write-Host "Hello World"
           pwd
+          ls
 
     - task: PowerShell@2
       displayName: 'Tag Build'
