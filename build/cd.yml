@@ -42,9 +42,13 @@ stages:
         targetType: 'inline'
         script: |
           # Write your PowerShell commands here.
+          ls
           cd build
+          ls
           cd scripts
+          ls
           get-content tagBuild.ps1
+          
         showWarnings: true
         pwsh: true
 
