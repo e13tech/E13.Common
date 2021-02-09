@@ -10,7 +10,7 @@ package   | nuget.org
 ------ | ------
 e13.common.api | ![e13.common.api](https://badgen.net/nuget/v/e13.common.api/latest)
 e13.common.aspnet | ![e13.common.aspnet](https://badgen.net/nuget/v/e13.common.aspnet/latest)
-e13.common.blazor | ![e13.common.blazor](https://badgen.net/nuget/v/e13.common./latest)
+e13.common.blazor | ![e13.common.blazor](https://badgen.net/nuget/v/e13.common.blazor/latest)
 e13.common.core | ![e13.common.core](https://badgen.net/nuget/v/e13.common.core/latest)
 e13.common.data.db | ![e13.common.data.db](https://badgen.net/nuget/v/e13.common.data.db/latest)
 e13.common.domain | ![e13.common.domain](https://badgen.net/nuget/v/e13.common.domain/latest)
