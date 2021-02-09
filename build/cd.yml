@@ -10,9 +10,9 @@ trigger:
   branches:
     include:
       - master
-#  paths:
-#    include:
-#      - src/*
+  paths:
+    include:
+      - src/*
 
 pool:
   vmImage: ubuntu-latest
