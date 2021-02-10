@@ -11,6 +11,10 @@ pool:
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
 
+variables:
+- name: createRelease
+  value: false
+
 stages:
 - stage: pre
   jobs:
@@ -18,9 +22,8 @@ stages:
     steps:
     - checkout: self
       persistCredentials: true
-  
+
     - task: UseDotNet@2
-      enabled: false
       displayName: 'Use .Net Core sdk 5.x'
       inputs:
         version: 5.x
@@ -129,6 +132,17 @@ stages:
           name: merge_master_into_deploy
           env:
             GITHUBKEY: $(GITHUBKEY)
+        - task: GitHubRelease@1
+          condition: eq(variables['createRelease'], 'true')
+          inputs:
+            gitHubConnection: 'github.com_JJBussert'
+            repositoryName: '$(Build.Repository.Name)'
+            action: 'create'
+            target: '$(Build.SourceVersion)'
+            tagSource: 'userSpecifiedTag'
+            tag: '$(Build.BuildNumber)'
+            changeLogCompareToRelease: 'lastFullRelease'
+            changeLogType: 'commitBased'
             
 #- stage: Post
 #  dependsOn: Batch3
