@@ -11,6 +11,10 @@ pool:
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
 
+variables:
+- name: createRelease
+  value: false
+
 stages:
 - stage: pre
   jobs:
@@ -19,16 +23,14 @@ stages:
     - checkout: self
       persistCredentials: true
 
-    - task: GitHubRelease@1
+    - task: PowerShell@2
+      condition: eq('${{ variables.createRelease }}', 'true')
       inputs:
-        gitHubConnection: 'github.com_JJBussert'
-        repositoryName: '$(Build.Repository.Name)'
-        action: 'create'
-        target: '$(Build.SourceVersion)'
-        tagSource: 'userSpecifiedTag'
-        tag: '$(Build.BuildNumber)'
-        changeLogCompareToRelease: 'lastFullRelease'
-        changeLogType: 'commitBased'
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+      
+          Write-Host "Hello World"
 
     - task: UseDotNet@2
       displayName: 'Use .Net Core sdk 5.x'
@@ -139,7 +141,16 @@ stages:
           name: merge_master_into_deploy
           env:
             GITHUBKEY: $(GITHUBKEY)
-
+        - task: GitHubRelease@1
+          inputs:
+            gitHubConnection: 'github.com_JJBussert'
+            repositoryName: '$(Build.Repository.Name)'
+            action: 'create'
+            target: '$(Build.SourceVersion)'
+            tagSource: 'userSpecifiedTag'
+            tag: '$(Build.BuildNumber)'
+            changeLogCompareToRelease: 'lastFullRelease'
+            changeLogType: 'commitBased'
             
 #- stage: Post
 #  dependsOn: Batch3
