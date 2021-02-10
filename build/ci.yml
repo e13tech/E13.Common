@@ -25,7 +25,7 @@ steps:
   persistCredentials: true
 
 - task: Bash@3
-  condition: eq( variables['Agent.OS'], 'MacOS' )
+  condition: eq( variables['Agent.OS'], 'Darwin' )
   inputs:
     targetType: 'inline'
     script: |
