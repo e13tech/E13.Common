@@ -31,7 +31,7 @@ steps:
       # Write your commands here
       
       echo 'Hello world'
-      brew install gcc@7
+      apt-get install libgdiplus
     failOnStderr: true
 
 - task: UseDotNet@2
