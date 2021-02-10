@@ -127,6 +127,13 @@ stages:
             git remote -v
             git remote set-url origin https://${env:GITHUBKEY}@github.com/e13tech/common
             git remote -v
+            $files = git diff deploy...master --name-only
+            foreach($file in $files){
+              if($null -ne ("src/"| ? { $file.StartsWith($_) })){
+                Write-Host "##vso[task.setvariable variable=createRelease]true"
+                break
+              }
+            }
             git push
 
           name: merge_master_into_deploy
@@ -144,55 +151,4 @@ stages:
             changeLogCompareToRelease: 'lastFullRelease'
             changeLogType: 'commitBased'
             
-#- stage: Post
-#  dependsOn: Batch3
-#  jobs:
-#    - job: publish
-#      steps:
-      
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Restore
-#        inputs:
-#          command: restore
-#          projects: '**/*TestWeb.*.csproj'
-#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
-      
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Restore
-#        inputs:
-#          command: restore
-#          projects: '**/*TestsApi.csproj'
-#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
-      
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Restore
-#        inputs:
-#          command: restore
-#          projects: '**/*TestsUI.csproj'
-#          vstsFeed: 'a2c5aab5-1193-4bda-b55e-a1eab6bb4c0e'
-          
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Build
-#        inputs:
-#          command: build
-#          projects: '**/*TestWeb.*.csproj'
-          
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Build
-#        inputs:
-#          command: build
-#          projects: '**/*TestsApi.csproj'
-          
-#      - task: DotNetCoreCLI@2
-#        displayName: dotnetcore Build
-#        inputs:
-#          command: build
-#          projects: '**/*TestsUI.csproj'
-
-#      - task: PublishBuildArtifacts@1
-#        displayName: 'Publish Artifact'
-#        inputs:
-#          PathtoPublish: '$(build.artifactstagingdirectory)'
-#        enabled: false
-#        condition: succeededOrFailed()
     
