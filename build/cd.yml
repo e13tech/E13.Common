@@ -35,9 +35,9 @@ stages:
         targetType: 'inline'
         script: |
           git checkout --track -b master origin/master
-          git checkout --track -b release-test2 origin/release-test2
+          git checkout --track -b deploy origin/deploy
           git merge master
-          $files = git diff release-test2...master --name-only
+          $files = git diff deploy...master --name-only
           foreach($file in $files){
             if($null -ne ("src/"| ? { $file.StartsWith($_) })){
               Write-Host $file
