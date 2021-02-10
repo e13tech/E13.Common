@@ -25,6 +25,7 @@ jobs:
           if($null -ne ("src/${{ parameters.project }}"| ? { $file.StartsWith($_) })){
             Write-Host Match $file
             Write-Host "##vso[task.setvariable variable=exists;isOutput=true]true"
+            Write-Host "##vso[task.setvariable variable=createRelease]true"
             break
           }
         }
