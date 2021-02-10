@@ -22,7 +22,37 @@ stages:
     steps:
     - checkout: self
       persistCredentials: true
-
+    - task: PowerShell@2
+      condition: eq(variables['createRelease'], 'true')
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "Hello World"
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          git checkout --track -b master origin/master
+          git checkout --track -b deploy origin/deploy
+          git merge master
+          $files = git diff deploy...master --name-only
+          foreach($file in $files){
+            if($null -ne ("src/"| ? { $file.StartsWith($_) })){
+              Write-Host $file
+              Write-Host "##vso[task.setvariable variable=createRelease]true"
+              break
+            }
+          }
+    - task: PowerShell@2
+      condition: eq(variables['createRelease'], 'true')
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          Write-Host "Hello World"
     - task: UseDotNet@2
       displayName: 'Use .Net Core sdk 5.x'
       inputs:
@@ -123,10 +153,6 @@ stages:
             git checkout --track -b master origin/master
             git checkout --track -b deploy origin/deploy
             git merge master
-            Write-Host "Ready to push changes to deploy"
-            git remote -v
-            git remote set-url origin https://${env:GITHUBKEY}@github.com/e13tech/common
-            git remote -v
             $files = git diff deploy...master --name-only
             foreach($file in $files){
               if($null -ne ("src/"| ? { $file.StartsWith($_) })){
@@ -134,6 +160,11 @@ stages:
                 break
               }
             }
+
+            Write-Host "Ready to push changes to deploy"
+            git remote -v
+            git remote set-url origin https://${env:GITHUBKEY}@github.com/e13tech/common
+            git remote -v
             git push
 
           name: merge_master_into_deploy
