@@ -1,6 +1,9 @@
 CI | CD | License
 ------ | ------ | ------
-[![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/ci?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=29&branchName=master) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=30&branchName=master) | ![MIT](https://badgen.net/badge/license/MIT/blue)
+[![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/ci?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=29&branchName=master) [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/29)](https://dev.azure.com/e13tech/common/_build?definitionId=29) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=30&branchName=master) [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/30)](https://dev.azure.com/e13tech/common/_build?definitionId=30) | ![MIT](https://badgen.net/badge/license/MIT/blue)
+
+
+
 
 # E13.common
 
