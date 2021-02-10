@@ -34,6 +34,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
+          git fetch
           git checkout --track -b master origin/master
           git checkout --track -b deploy origin/deploy
           git merge master
