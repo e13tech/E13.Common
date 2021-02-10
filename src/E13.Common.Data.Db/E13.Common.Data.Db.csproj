@@ -8,6 +8,7 @@
     <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining a Data layer against an EFCore accessible backend</Description>
+    <PackageLicenseUrl>https://github.com/e13tech/common/blob/master/LICENSE</PackageLicenseUrl>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
