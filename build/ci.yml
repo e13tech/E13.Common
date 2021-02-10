@@ -28,10 +28,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      # Write your commands here
-      
-      echo 'Hello world'
-      apt-get install libgdiplus
+      brew install mono-libgdiplus
     failOnStderr: true
 
 - task: UseDotNet@2
