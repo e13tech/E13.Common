@@ -26,8 +26,7 @@ stages:
         action: 'create'
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
-        tag: '$(Build.Id)'
-        title: '$(Build.Id)'
+        tag: '$(Build.BuildNumber)'
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
 
