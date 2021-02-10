@@ -9,8 +9,8 @@ strategy:
   matrix:
     linux:
       imageName: 'ubuntu-latest'
-    #mac:
-    #  imageName: 'macOS-latest'
+    mac:
+      imageName: 'macOS-latest'
     windows:
       imageName: 'windows-latest'
 
@@ -23,7 +23,15 @@ name: $(date:yyyy).$(DayOfYear).$(rev:r)
 steps:
 - checkout: self
   persistCredentials: true
-  
+
+- task: Bash@3
+  condition: eq( variables['Agent.OS'], 'Darwin' )
+  inputs:
+    targetType: 'inline'
+    script: |
+      brew install mono-libgdiplus
+    failOnStderr: true
+
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk 5.x'
   inputs:
@@ -41,26 +49,6 @@ steps:
   inputs:
     projects: '**/*.csproj'
     arguments: '--configuration Release'
-
-- task: dependency-check-build-task@5
-  displayName: OWASP Scan
-  enabled: true
-  condition: eq( variables['Agent.OS'], 'Windows_NT' )
-  inputs:
-    projectName: 'Common'
-    scanPath: '**/*.csproj'
-    format: 'ALL'
-    failOnCVSS: '8'
-
-- task: PublishTestResults@2
-  displayName: OWASP Result Upload
-  condition: eq( variables['Agent.OS'], 'Windows_NT' )
-  enabled: true
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/dependency-check-junit.xml'
-    searchFolder: '$(Common.TestResultsDirectory)'
-    testRunTitle: 'OWASP'
 
 - task: DotNetCoreCLI@2
   displayName: dotnetcore Test
