@@ -7,12 +7,12 @@ pr:
 
 strategy:
   matrix:
-    linux:
-      imageName: 'ubuntu-latest'
+    #linux:
+    #  imageName: 'ubuntu-latest'
     mac:
       imageName: 'macOS-latest'
-    windows:
-      imageName: 'windows-latest'
+    #windows:
+    #  imageName: 'windows-latest'
 
 pool:
   vmImage: $(imageName)
@@ -23,7 +23,17 @@ name: $(date:yyyy).$(DayOfYear).$(rev:r)
 steps:
 - checkout: self
   persistCredentials: true
-  
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello world'
+      brew install gcc@7
+    failOnStderr: true
+
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk 5.x'
   inputs:
