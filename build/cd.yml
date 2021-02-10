@@ -37,6 +37,7 @@ stages:
           git checkout --track -b master origin/master
           git checkout --track -b deploy origin/deploy
           git merge master
+          git diff deploy...master --name-only
           $null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})
           if($null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})){
             Write-Host "##vso[task.setvariable variable=createRelease]true"
