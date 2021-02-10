@@ -1,19 +1,10 @@
-
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 pr: none
 
 trigger:
   branches:
     include:
       - master
-  paths:
-    include:
-      - src/*
-
+      
 pool:
   vmImage: ubuntu-latest
 
