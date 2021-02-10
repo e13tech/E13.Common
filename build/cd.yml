@@ -21,14 +21,13 @@ stages:
 
     - task: GitHubRelease@1
       inputs:
-        gitHubConnection: 'Common'
+        gitHubConnection: 'github.com_JJBussert'
         repositoryName: '$(Build.Repository.Name)'
         action: 'create'
         target: '$(Build.SourceVersion)'
         tagSource: 'userSpecifiedTag'
         tag: '$(Build.Id)'
         title: '$(Build.Id)'
-        assets: 
         changeLogCompareToRelease: 'lastFullRelease'
         changeLogType: 'commitBased'
 
