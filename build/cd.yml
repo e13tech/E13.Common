@@ -42,7 +42,6 @@ stages:
           git pull
           git checkout --track -b deploy origin/deploy
           git pull
-          git merge master
           Write-Host "diff"
           git diff deploy...master --name-only
           Write-Host "src"
