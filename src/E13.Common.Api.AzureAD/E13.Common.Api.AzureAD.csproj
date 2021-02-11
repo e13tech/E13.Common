@@ -5,10 +5,9 @@
     <Authors>JJ Bussert</Authors>
     <PackageProjectUrl>https://www.e13.tech</PackageProjectUrl>
     <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
-    <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
+    <PackageIcon>E13.png</PackageIcon>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining an Api layer that has an Azure AD backing for authentication</Description>
-    <PackageLicenseUrl>https://github.com/e13tech/common/blob/master/LICENSE</PackageLicenseUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <TargetFramework>net5.0</TargetFramework>

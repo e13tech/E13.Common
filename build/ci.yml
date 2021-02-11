@@ -8,7 +8,7 @@ pr:
 strategy:
   matrix:
     linux:
-      imageName: 'ubuntu-latest'
+      imageName: 'ubuntu-20.04'
     mac:
       imageName: 'macOS-latest'
     windows:
