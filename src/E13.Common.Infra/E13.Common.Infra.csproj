@@ -30,7 +30,7 @@
     </PackageReference>
     <PackageReference Include="Pulumi.Azure" Version="3.46.0" />
     <PackageReference Include="Pulumi.AzureAD" Version="3.3.0" />
-    <PackageReference Include="Pulumi.AzureNextGen" Version="0.6.0" />
+    <PackageReference Include="Pulumi.AzureNextGen" Version="0.6.1" />
   </ItemGroup>
 
   <ItemGroup>
