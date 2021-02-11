@@ -46,7 +46,7 @@ stages:
           git diff deploy...master --name-only
           echo "src"
           count=$(git diff deploy...master --name-only | grep abc | wc -l)
-          if [[ $count == 0*]]
+          if [[ $count == 0*]] ;
           then
             echo "##vso[task.setvariable variable=createRelease]true"
             echo "yes"
