@@ -92,7 +92,7 @@ jobs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
       nuGetFeedType: 'external'
-      publishFeedCredentials: 'pkg.github.com_e13.common'
+      publishFeedCredentials: 'pkg.github.com'
       
   - task: DotNetCoreCLI@2
     inputs:
