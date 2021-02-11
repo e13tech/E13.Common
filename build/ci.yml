@@ -51,11 +51,11 @@ steps:
     arguments: '--configuration Release'
                                
 - task: DotNetCoreCLI@2
-  displayName: dotnet Package
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
     nobuild: true
+    versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
   displayName: dotnetcore Test
