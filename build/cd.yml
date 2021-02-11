@@ -19,8 +19,6 @@ stages:
 - stage: pre
   jobs:
   - job: setup
-    workspace:
-       clean: true
     steps:
     - checkout: self
       persistCredentials: true
