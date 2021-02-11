@@ -38,11 +38,17 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
+          echo "--fetch"
           git fetch
+          echo "--master"
           git checkout --track -b master origin/master
+          echo "--pull"
           git pull
+          echo "--deploy"
           git checkout --track -b deploy origin/deploy
+          echo "--pull"
           git pull
+          echo "--merge"
           git merge master
           echo "diff"
           git diff deploy...master --name-only
