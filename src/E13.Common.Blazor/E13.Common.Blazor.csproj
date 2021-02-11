@@ -8,6 +8,8 @@
     <PackageIconUrl>https://github.com/e13tech/common/blob/master/design/E13.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining an Blazor front end project</Description>
+    <PackageLicenseUrl>https://github.com/e13tech/common/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
