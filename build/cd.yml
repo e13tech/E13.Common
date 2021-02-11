@@ -6,7 +6,7 @@ trigger:
       - master
       
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 # This name is also the build_number
 name: $(date:yyyy).$(DayOfYear).$(rev:r)
@@ -25,50 +25,41 @@ stages:
     - checkout: self
       persistCredentials: true
     
-    - task: Bash@3
+    - task: PowerShell@2
       condition: eq(variables['createRelease'], 'true')
       inputs:
         targetType: 'inline'
         script: |
-          # Write your commands here
+          # Write your PowerShell commands here.
           
-          echo 'Hello world'
-
-    - task: Bash@3
+          Write-Host "Hello World"
+    - task: PowerShell@2
       inputs:
         targetType: 'inline'
         script: |
-          echo "--fetch"
           git fetch
-          echo "--master"
           git checkout --track -b master origin/master
-          echo "--pull"
           git pull
-          echo "--deploy"
           git checkout --track -b deploy origin/deploy
-          echo "--pull"
           git pull
-          echo "--merge"
           git merge master
-          echo "diff"
+          Write-Host "diff"
           git diff deploy...master --name-only
-          echo "src"
-          count=$(git diff deploy...master --name-only | grep abc | wc -l)
-          if [ $count == 0* ];
-          then
-            echo "##vso[task.setvariable variable=createRelease]true"
-            echo "yes"
-          fi
-          echo "done"
-
-    - task: Bash@3
+          Write-Host "src"
+          $null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})
+          if($null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})){
+            Write-Host "##vso[task.setvariable variable=createRelease]true"
+            Write-Host "sad"
+          }
+          Write-Host "done"
+    - task: PowerShell@2
       condition: eq(variables['createRelease'], 'true')
       inputs:
         targetType: 'inline'
         script: |
-          # Write your commands here
+          # Write your PowerShell commands here.
           
-          echo 'Hello world'
+          Write-Host "Hello World"
           
     - task: UseDotNet@2
       displayName: 'Use .Net Core sdk 5.x'
