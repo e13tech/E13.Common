@@ -24,41 +24,6 @@ stages:
     steps:
     - checkout: self
       persistCredentials: true
-    
-    - task: PowerShell@2
-      condition: eq(variables['createRelease'], 'true')
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          
-          Write-Host "Hello World"
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          git fetch
-          git checkout --track -b master origin/master
-          git pull
-          git checkout --track -b deploy origin/deploy
-          git pull
-          Write-Host "diff"
-          git diff deploy...master --name-only
-          Write-Host "src"
-          $null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})
-          if($null -ne (git diff deploy...master --name-only | Where-Object {$_.StartsWith("src/")})){
-            Write-Host "##vso[task.setvariable variable=createRelease]true"
-            Write-Host "sad"
-          }
-          Write-Host "done"
-    - task: PowerShell@2
-      condition: eq(variables['createRelease'], 'true')
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          
-          Write-Host "Hello World"
           
     - task: UseDotNet@2
       displayName: 'Use .Net Core sdk 5.x'
@@ -159,7 +124,6 @@ stages:
         - pwsh: |
             git checkout --track -b master origin/master
             git checkout --track -b deploy origin/deploy
-            git merge master
             $files = git diff deploy...master --name-only
             foreach($file in $files){
               if($null -ne ("src/"| ? { $file.StartsWith($_) })){
@@ -168,7 +132,8 @@ stages:
               }
             }
 
-            Write-Host "Ready to push changes to deploy"
+            Write-Host "Ready to merge and push changes to deploy"
+            git merge master
             git remote -v
             git remote set-url origin https://${env:GITHUBKEY}@github.com/e13tech/common
             git remote -v
