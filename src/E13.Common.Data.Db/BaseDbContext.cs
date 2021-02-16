@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace E13.Common.Data.Db
 {
@@ -15,14 +16,13 @@ namespace E13.Common.Data.Db
         /// <summary>
         /// The user name used when the user name is null
         /// </summary>
-        private const string UnknownUser = "*Unknown";
+        public const string UnknownUser = "*Unknown";
 
         protected ILogger Logger { get;}
-        protected string User { get; set; }
-        protected BaseDbContext(ILogger logger, string user)
+        protected BaseDbContext(DbContextOptions options, ILogger logger)
+            : base(options)
         {
             Logger = logger;
-            User = user;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,24 +30,36 @@ namespace E13.Common.Data.Db
             base.OnConfiguring(optionsBuilder);
         }
 
-        public override int SaveChanges()
+        public int SaveChanges(string user, string source = null)
         {
-            var caller = new StackFrame(1).GetMethod();
-            TagEntries($"{caller.DeclaringType}.{caller.Name}");
+            if(source == null)
+            {
+                var caller = new StackFrame(1).GetMethod();
+                source = $"{caller.DeclaringType}.{caller.Name}";
+            }
+
+            TagEntries(source, user);
             var result = base.SaveChanges();
 
             // saving after a reload effectively clears the change tracker affecting no records
             Reload();
             base.SaveChanges();
-            
+
             return result;
+        }
+
+        public override int SaveChanges()
+        {
+            var caller = new StackFrame(1).GetMethod();
+
+            return SaveChanges(UnknownUser, $"{caller.DeclaringType}.{caller.Name}");
         }
 
         public void Reload() => ChangeTracker.Entries()
             .Where(e => e.Entity != null).ToList()
             .ForEach(e => e.State = EntityState.Detached);
 
-        private void TagEntries(string source)
+        private void TagEntries(string source, string user)
         {
             var entries = ChangeTracker.Entries().Where(e => 
                 e.Entity is IEntity && 
@@ -61,27 +73,27 @@ namespace E13.Common.Data.Db
                 Logger.LogDebug($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
                 var utcNow = DateTime.UtcNow;
 
-                if (entry.Entity is IEntity)
+                if (entry.Entity is IEntity entity)
                 {
                     if (entry.State == EntityState.Added)
                     {
-                        ((IEntity)entry.Entity).Created = utcNow;
-                        ((IEntity)entry.Entity).CreatedBy = User ?? UnknownUser;
-                        ((IEntity)entry.Entity).CreatedSource = source;
+                        entity.Created = utcNow;
+                        entity.CreatedBy = user;
+                        entity.CreatedSource = source;
                     }
 
-                    ((IEntity)entry.Entity).Modified = utcNow;
-                    ((IEntity)entry.Entity).ModifiedBy = User ?? UnknownUser;
-                    ((IEntity)entry.Entity).ModifiedSource = source;
+                    entity.Modified = utcNow;
+                    entity.ModifiedBy = user;
+                    entity.ModifiedSource = source;
 
-                    if (entry.State == EntityState.Deleted && entry.Entity is IDeletable)
+                    if (entry.State == EntityState.Deleted && entry.Entity is IDeletable deletable)
                     {
                         // Implementing IDeletable implies soft deletes required
                         entry.State = EntityState.Modified;
 
-                        ((IDeletable)entry.Entity).Deleted = utcNow;
-                        ((IDeletable)entry.Entity).DeletedBy = User ?? UnknownUser;
-                        ((IDeletable)entry.Entity).DeletedSource = source;
+                        deletable.Deleted = utcNow;
+                        deletable.DeletedBy = user;
+                        deletable.DeletedSource = source;
                     }
                 }
             }

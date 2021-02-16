@@ -282,7 +282,7 @@ namespace E13.Common.Data.Db
         /// <param name="entity">The entity to insert.</param>
         public virtual void Insert(TEntity entity)
         {
-            var entry = DbSet.Add(entity);
+            DbSet.Add(entity);
         }
 
         /// <summary>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IEffectable : IEntity
+    public interface IEffectable
     {
         string EffectiveBy { get; set; }
         string EffectiveSource { get; set; }
