@@ -61,6 +61,8 @@ namespace E13.Common.Data.Db
 
         private void TagEntries(string source, string user)
         {
+            var e = ChangeTracker.Entries().ToList();
+
             var entries = ChangeTracker.Entries().Where(e => 
                 e.Entity is IEntity && 
                 (e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
@@ -73,28 +75,28 @@ namespace E13.Common.Data.Db
                 Logger.LogDebug($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
                 var utcNow = DateTime.UtcNow;
 
-                if (entry.Entity is IEntity entity)
+                if (entry.State == EntityState.Added && entry.Entity is ICreatable creatable)
                 {
-                    if (entry.State == EntityState.Added)
-                    {
-                        entity.Created = utcNow;
-                        entity.CreatedBy = user;
-                        entity.CreatedSource = source;
-                    }
+                    creatable.Created = utcNow;
+                    creatable.CreatedBy = user;
+                    creatable.CreatedSource = source;
+                }
 
-                    entity.Modified = utcNow;
-                    entity.ModifiedBy = user;
-                    entity.ModifiedSource = source;
+                if (entry.Entity is IModifiable modifiable)
+                {
+                    modifiable.Modified = utcNow;
+                    modifiable.ModifiedBy = user;
+                    modifiable.ModifiedSource = source;
+                }
 
-                    if (entry.State == EntityState.Deleted && entry.Entity is IDeletable deletable)
-                    {
-                        // Implementing IDeletable implies soft deletes required
-                        entry.State = EntityState.Modified;
+                if (entry.State == EntityState.Deleted && entry.Entity is IDeletable deletable)
+                {
+                    // Implementing IDeletable implies soft deletes required
+                    entry.State = EntityState.Modified;
 
-                        deletable.Deleted = utcNow;
-                        deletable.DeletedBy = user;
-                        deletable.DeletedSource = source;
-                    }
+                    deletable.Deleted = utcNow;
+                    deletable.DeletedBy = user;
+                    deletable.DeletedSource = source;
                 }
             }
         }

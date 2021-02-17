@@ -10,7 +10,8 @@ namespace E13.Common.Data.Db.Tests.Sample
 {
     public class TestDbContext : BaseDbContext
     {
-        public DbSet<TestEntity> Entities { get; set; }
+        public DbSet<TestCreatable> Creatables { get; set; }
+        public DbSet<TestModifiable> Modifiables { get; set; }
         public DbSet<TestDeletable> Deletable { get; set; }
         public DbSet<TestEffectable> Effectable { get; set; }
         public DbSet<TestOwnable> Ownable { get; set; }
@@ -21,7 +22,11 @@ namespace E13.Common.Data.Db.Tests.Sample
 
         public void AddTestData()
         {
-            Entities.Add(new TestEntity
+            Creatables.Add(new TestCreatable
+            {
+                Id = Guid.Empty
+            });
+            Modifiables.Add(new TestModifiable
             {
                 Id = Guid.Empty
             });

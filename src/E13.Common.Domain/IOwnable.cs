@@ -4,7 +4,7 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IOwnable
+    public interface IOwnable : IEntity
     {
         string OwnedBy { get; set; }
         string OwnedSource { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IExpirable
+    public interface IExpirable : IEntity
     {
         string ExpirationBy { get; set; }
         string ExpirationSource { get; set; }

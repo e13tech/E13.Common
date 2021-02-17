@@ -31,6 +31,7 @@ namespace E13.Common.Data.Db.Tests
 
             Context.Deletable.Remove(arranged);
             Context.SaveChanges();
+            var a = Context.Deletable.Count();
 
             Context.Deletable.Count().Should().Be(1);
             Context.Deletable.Count(e => e.Deleted == null).Should().Be(0);
@@ -41,14 +42,14 @@ namespace E13.Common.Data.Db.Tests
         public void SaveChangesForUser_Deleting_SetsDeletedBy()
         {
             Context.Deletable.Count().Should().Be(1);
-            Context.Deletable.Count(e => e.DeletedBy == BaseDbContext.UnknownUser).Should().Be(1);
+            Context.Deletable.Count(e => e.DeletedBy == null).Should().Be(1);
             var arranged = Context.Deletable.First();
 
             Context.Deletable.Remove(arranged);
             Context.SaveChanges(nameof(SaveChangesForUser_Deleting_SetsDeletedBy));
 
             Context.Deletable.Count().Should().Be(1);
-            Context.Deletable.Count(e => e.DeletedBy == BaseDbContext.UnknownUser).Should().Be(0);
+            Context.Deletable.Count(e => e.DeletedBy == null).Should().Be(0);
             Context.Deletable.Count(e => e.DeletedBy == nameof(SaveChangesForUser_Deleting_SetsDeletedBy)).Should().Be(1);
         }
 

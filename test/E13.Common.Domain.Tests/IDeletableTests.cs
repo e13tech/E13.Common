@@ -10,14 +10,15 @@ namespace E13.Common.Domain.Tests
         [Test]
         public void IsDeleted_DeletedNull_False()
         {
-            //var arranged = new IDeletableSample { Deleted = null };
+            IDeletable arranged = new IDeletableSample { Deleted = null };
 
-            //arranged.IsDeleted();
+            arranged.IsDeleted();
         }
     }
 
     public class IDeletableSample : IDeletable
     {
+        public Guid Id { get; set; }
         public string DeletedBy { get; set; }
         public string DeletedSource { get; set; }
         public DateTime? Deleted { get; set; }
