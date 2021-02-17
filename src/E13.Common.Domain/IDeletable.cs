@@ -8,6 +8,8 @@ namespace E13.Common.Domain
     {
         string DeletedBy { get; set; }
         string DeletedSource { get; set; }
-        DateTime Deleted { get; set; }
+        DateTime? Deleted { get; set; }
+        public bool IsDeleted()
+        { return Deleted == null; }
     }
 }

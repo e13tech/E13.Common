@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Nunit.UI", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Api.AzureAD", "src\E13.Common.Api.AzureAD\E13.Common.Api.AzureAD.csproj", "{3A9E46CA-6D1A-4811-93DB-1D9C0193E135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E13.Common.Data.Db.Tests", "test\E13.Common.Data.Db.Tests\E13.Common.Data.Db.Tests.csproj", "{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{3A9E46CA-6D1A-4811-93DB-1D9C0193E135}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A9E46CA-6D1A-4811-93DB-1D9C0193E135}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A9E46CA-6D1A-4811-93DB-1D9C0193E135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{C60CA223-5F6E-47BF-ACFE-66CD54F0D2DC} = {30D836B3-FF29-49DC-B503-94B8F9B6DC50}
 		{C4E41E15-6FBB-4861-84E8-B3ECA206948C} = {30D836B3-FF29-49DC-B503-94B8F9B6DC50}
 		{1C96B136-221B-4BF9-8626-F14637A37555} = {30D836B3-FF29-49DC-B503-94B8F9B6DC50}
+		{E57FB194-8742-4183-8FBF-0EDA6C09F4A6} = {30D836B3-FF29-49DC-B503-94B8F9B6DC50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86FB5264-87DD-494C-885E-05EA38F8DB19}

@@ -12,6 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
       <PrivateAssets>all</PrivateAssets>
@@ -20,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\E13.Common.Domain\E13.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\src\E13.Common.Data.Db\E13.Common.Data.Db.csproj" />
     <ProjectReference Include="..\..\src\E13.Common.Nunit\E13.Common.Nunit.csproj" />
   </ItemGroup>
-
 </Project>
