@@ -1,4 +1,5 @@
 ﻿using E13.Common.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -14,7 +15,9 @@ namespace E13.Common.Data.Db
     /// Defines the interfaces for generic repository.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TContext, TEntity> 
+        where TContext : DbContext
+        where TEntity : class
     {
         /// <summary>
 

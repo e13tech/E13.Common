@@ -1,9 +1,11 @@
-CI | CD | OWASP | License
------- | ------ | ------ | ------
-[![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/ci?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=29&branchName=master) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=30&branchName=master) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/owasp?branchName=mac)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=31&branchName=mac) | ![MIT](https://badgen.net/badge/license/MIT/blue)
-[![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/29)](https://dev.azure.com/e13tech/common/_build?definitionId=29) | [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/30)](https://dev.azure.com/e13tech/common/_build?definitionId=30) | [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/31)](https://dev.azure.com/e13tech/common/_build?definitionId=31) | 
+CI | CD | OWASP 
+------ | ------ | ------ 
+[![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/ci?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=29&branchName=master) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/cd?branchName=master)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=30&branchName=master) | [![Build Status](https://dev.azure.com/e13tech/common/_apis/build/status/owasp?branchName=mac)](https://dev.azure.com/e13tech/common/_build/latest?definitionId=31&branchName=mac) 
+[![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/29)](https://dev.azure.com/e13tech/common/_build?definitionId=29) | [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/30)](https://dev.azure.com/e13tech/common/_build?definitionId=30) | [![Build history](https://buildstats.info/azurepipelines/chart/e13tech/common/31)](https://dev.azure.com/e13tech/common/_build?definitionId=31) 
 
-
+License | ![MIT](https://badgen.net/badge/license/MIT/blue)
+------ | ------ 
+Codecy | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f68816611a5543f0bb5c55df77032ff0)](https://www.codacy.com/gh/e13tech/common/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=e13tech/common&amp;utm_campaign=Badge_Grade)
 
 
 # E13.common
