@@ -15,18 +15,39 @@ using System.Threading.Tasks;
 namespace E13.Common.Data.Db
 {
     /// <summary>
-    /// Represents a default generic repository implements the <see cref="IRepository{TEntity}"/> interface.
+    /// ShortHand for the <see cref="Repository{TContext, TEntity}"/> that accepts a base DbContext type for Repositories that do not need access to other domains
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    /// <seealso cref="Repository{TContext, TEntity}"/>
+    public class Repository<TEntity> : Repository<DbContext, TEntity> 
+        where TEntity : class
     {
-        protected DbContext Context { get; }
-        protected DbSet<TEntity> DbSet {get;}
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{TEntity}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         public Repository(DbContext dbContext)
+            : base(dbContext)
+        {}
+    }
+
+    /// <summary>
+    /// Represents a default generic repository implements the <see cref="IRepository{TContext, TEntity}"/> interface.
+    /// </summary>
+    /// <typeparam name="TContext">The type of the EFCore DbContext.</typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public class Repository<TContext, TEntity> : IRepository<TContext, TEntity> 
+        where TContext : DbContext
+        where TEntity : class
+    {
+        protected TContext Context { get; }
+        protected DbSet<TEntity> DbSet {get;}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Repository{TEntity}"/> class.
+        /// </summary>
+        /// <param name="dbContext">The database context.</param>
+        public Repository(TContext dbContext)
         {
             Context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             DbSet = Context.Set<TEntity>();
