@@ -22,22 +22,16 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=cobertura
+      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: upload coverage to codacy
       run: |
-        ls
-        cd test
-        ls
-        cd E13.Common.Core.Tests
-        ls
-        cd TestResults
-        ls
+        ls test/E13.Common.Core.Tests/TestResults/
     - name: upload coverage to codacy
       run: |
         export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Core.Test/TestResults/coverage.cobertura.xml --partial
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Data.Db.Test/TestResults/coverage.cobertura.xml --partial
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Domain.Test/TestResults/coverage.cobertura.xml --partial
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Nunit.Test/TestResults/coverage.cobertura.xml --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Core.Tests/TestResults/coverage.info --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Data.Db.Tests/TestResults/coverage.info --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Domain.Tests/TestResults/coverage.info --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Nunit.Tests/TestResults/coverage.info --partial
         bash <(curl -Ls https://coverage.codacy.com/get.sh) final
 
