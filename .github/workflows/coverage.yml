@@ -25,6 +25,15 @@ jobs:
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=cobertura
     - name: upload coverage to codacy
       run: |
+        ls
+        cd test
+        ls
+        cd E13.Common.Core.Test
+        ls
+        cd TestResults
+        ls
+    - name: upload coverage to codacy
+      run: |
         export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
         bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Core.Test/TestResults/coverage.cobertura.xml --partial
         bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r test/E13.Common.Data.Db.Test/TestResults/coverage.cobertura.xml --partial
