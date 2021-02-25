@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining a Data layer against an EFCore accessible backend</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{2EAFA9AE-F026-4BC5-845C-7D10193B942B}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>

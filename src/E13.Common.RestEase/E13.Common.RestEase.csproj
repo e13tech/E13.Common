@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package containing helpers projects using RestEase to interact w/ Apis</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{FD232243-C963-44DA-ADF8-A9A241551015}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>

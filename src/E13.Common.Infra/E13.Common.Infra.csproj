@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining helpers for defining a pulumi based deployment</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{AA494C7F-E15B-4CFE-9710-4762FF4F497C}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>

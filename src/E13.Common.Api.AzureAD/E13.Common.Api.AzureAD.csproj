@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package for defining an Api layer that has an Azure AD backing for authentication</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{A77B57D0-1675-4955-B499-6C29400263A7}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>

@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
     <Description>Common package containing helpers for an Nunit based testing project</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{B51D2805-F46C-4980-80CC-4A0E97E04717}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
