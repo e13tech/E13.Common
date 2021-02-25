@@ -1,0 +1,34 @@
+name: Code Coverage
+
+on:
+  push:
+    branches: [ disabled ]
+  pull_request:
+    branches: [ disabled ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    - name: upload coverage to codacy
+      run: |
+        export CODACY_PROJECT_TOKEN=${{ secrets.CODACY_PROJECT_TOKEN }}
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l C# -r test/E13.Common.Core.Test/TestResults/coverage.cobertura.xml --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l C# -r test/E13.Common.Data.Db.Test/TestResults/coverage.cobertura.xml --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l C# -r test/E13.Common.Domain.Test/TestResults/coverage.cobertura.xml --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l C# -r test/E13.Common.Nunit.Test/TestResults/coverage.cobertura.xml --partial
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) final
+
