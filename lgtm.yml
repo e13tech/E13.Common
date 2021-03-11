@@ -1,0 +1,7 @@
+extraction:
+  csharp:
+    index:
+      solution: E13.Common.sln
+      msbuild:
+        configuration: release   
+        platform: Any
