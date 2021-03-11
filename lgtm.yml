@@ -3,5 +3,5 @@ extraction:
     index:
       solution: E13.Common.sln
       msbuild:
-        configuration: release   
+        configuration: release
         platform: Any
