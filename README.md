@@ -6,7 +6,7 @@ CI | CD | OWASP
 License | ![MIT](https://badgen.net/badge/license/MIT/blue)
 ------ | ------ 
 Codecy | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f68816611a5543f0bb5c55df77032ff0)](https://www.codacy.com/gh/e13tech/common/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=e13tech/common&amp;utm_campaign=Badge_Grade)
-
+CodeFactor | [![CodeFactor](https://www.codefactor.io/repository/github/e13tech/common/badge)](https://www.codefactor.io/repository/github/e13tech/common)
 
 # E13.common
 
