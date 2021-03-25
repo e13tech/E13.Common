@@ -16,7 +16,7 @@ namespace E13.Common.Infra
     public static class StaticServiceExtensions
     {
         public static StaticService DefineStaticService(this SolutionStack stack, string serviceName)
-            => new StaticService(stack, serviceName);
+            => new(stack, serviceName);
     }
     public class StaticService
     {

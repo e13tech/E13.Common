@@ -8,11 +8,11 @@ namespace E13.Common.Infra
         [Abbrevation("dev")]
         Development,
 
-        [Abbrevation("int")]
-        Integration,
+        [Abbrevation("stg")]
+        Staging,
 
-        [Abbrevation("test")]
-        Test,
+        [Abbrevation("auto")]
+        Automation,
 
         [Abbrevation("prod")]
         Production

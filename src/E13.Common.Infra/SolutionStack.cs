@@ -16,6 +16,8 @@ namespace E13.Common.Infra
 {
     public class SolutionStack : Stack
     {
+        public static readonly string DefaultPassword = "P@ssword1";
+
         public string Prefix;
 
         public Output<string> RGName 
@@ -24,7 +26,7 @@ namespace E13.Common.Infra
             {
                 if(_rgName == null)
                 {
-                    var rg = new ResourceGroup($"{Prefix}rg", new ResourceGroupArgs
+                    var rg = new ResourceGroup($"{Prefix}-rg", new ResourceGroupArgs
                     {
                         Tags = StandardTags(),
                         Location = "centralus"
@@ -44,11 +46,11 @@ namespace E13.Common.Infra
                 {
                     var i = new Insights($"ai", new InsightsArgs
                     {
-                        ApplicationType = "web",
+                        //ApplicationType = "web",
                         ResourceGroupName = RGName.Apply(n => n),
 
                         Tags = StandardTags()
-                    }); ;
+                    });
                     _appInsightsKey = i.InstrumentationKey;
                 }
                 return _appInsightsKey;
@@ -63,7 +65,7 @@ namespace E13.Common.Infra
             {
                 if(_sqlServerName == null)
                 {
-                    var sql = new SqlServer($"{Prefix}sql", new SqlServerArgs
+                    var sql = new SqlServer($"{Prefix}-sql", new SqlServerArgs
                     {
                         ResourceGroupName = RGName,
                         AdministratorLogin = User,
@@ -109,12 +111,12 @@ namespace E13.Common.Infra
         public Environments TargetEnvironment => Configuration.Require("env") switch
         {
             "prod" => Environments.Production,
-            "test" => Environments.Test,
-            "int" => Environments.Integration,
+            "auto" => Environments.Automation,
+            "stg" => Environments.Staging,
             _ => Environments.Development,
         };
 
-        public readonly Pulumi.Config Configuration = new Pulumi.Config();
+        public readonly Pulumi.Config Configuration = new();
 
         public SolutionStack()
         {
@@ -125,7 +127,7 @@ namespace E13.Common.Infra
             => Output.Format($"Server= tcp:{SqlServerName.Apply(s => s)}.database.windows.net;initial catalog={database.Apply(d => d)};userID={User};password={Password};Min Pool Size=0;Max Pool Size=30;Persist Security Info=true;");
 
         public InputMap<string> StandardTags()
-            => new InputMap<string>
+            => new()
             {
                 { "Environment", TargetEnvironment.ToString() }
             };

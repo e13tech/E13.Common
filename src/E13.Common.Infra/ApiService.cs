@@ -8,7 +8,7 @@ using Pulumi.Azure.Network;
 using Pulumi.Azure.Sql;
 using Pulumi.Azure.Storage.Inputs;
 using Pulumi.AzureAD;
-using Pulumi.AzureNextGen.Maps.V20200201Preview;
+using Pulumi.AzureNative;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace E13.Common.Infra
     public static class ApiServiceExtensions 
     {
         public static ApiService DefineApiService(this SolutionStack stack, string serviceName, Persistence includedPersistence, bool registerSwagger = true)
-            => new ApiService(stack, serviceName, includedPersistence, registerSwagger);
+            => new(stack, serviceName, includedPersistence, registerSwagger);
     }
 
     public class ApiService

@@ -7,7 +7,7 @@ namespace E13.Common.Infra
 {
     public static class PlanSkus
     {
-        public static PlanSkuArgs AppService_Free() => new PlanSkuArgs
+        public static PlanSkuArgs AppService_Free() => new()
         {
             Tier = "Free",
             Size = "F1",

@@ -18,8 +18,8 @@ namespace System.Net.Http
     /// <seealso cref="https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Username-Password-Authentication"/>
     public static class HttpClientExtensions
     {
-        private static readonly string TenantId = Environment.GetEnvironmentVariable("HttpClient_TenantId");
-        private static readonly string PublicClientId = Environment.GetEnvironmentVariable("HttpClient_PublicClientId");
+        private static readonly string TenantId = Environment.GetEnvironmentVariable("TokenForAAD_TenantId");
+        private static readonly string PublicClientId = Environment.GetEnvironmentVariable("TokenForAAD_PublicClientId");
 
         /// <summary>
         /// Scopes to request access to the protected Web API (here Microsoft Graph)
