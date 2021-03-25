@@ -61,21 +61,11 @@ steps:
 - task: DotNetCoreCLI@2
   env:
     InMemory: true
-  displayName: dotnetcore API Test
+  displayName: dotnetcore Integration Test
   condition: succeededOrFailed()
   enabled: false
   inputs:
     command: test
-    projects: '**/*[Tt]estsApi/*.csproj'
+    projects: '**/*[Tt]estsInt/*.csproj'
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
-- task: DotNetCoreCLI@2
-  env:
-    InMemory: true
-  displayName: dotnetcore UI Test
-  condition: succeededOrFailed()
-  enabled: false
-  inputs:
-    command: test
-    projects: '**/*[Tt]estsUI/*.csproj'
-    arguments: '--no-build --configuration Release ' 

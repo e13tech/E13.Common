@@ -1,0 +1,3 @@
+name: common
+runtime: dotnet
+description: Infrastructure needed to validate the integration tests of the e13.common libs
