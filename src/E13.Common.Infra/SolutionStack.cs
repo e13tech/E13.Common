@@ -50,7 +50,7 @@ namespace E13.Common.Infra
                         ResourceGroupName = RGName.Apply(n => n),
 
                         Tags = StandardTags()
-                    }); ;
+                    });
                     _appInsightsKey = i.InstrumentationKey;
                 }
                 return _appInsightsKey;

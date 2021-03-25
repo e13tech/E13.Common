@@ -54,7 +54,7 @@ class CommonStack : SolutionStack
             }
         });
         // az ad app permission admin-consent --id 796fdf79-be86-4554-b34c-871f95cf3293
-        TestClientId = appReg.ApplicationId;//.Apply(s => TestClientId = Output.Create(s));
+        TestClientId = appReg.ApplicationId;
         //// Create an Azure Resource Group
         //var resourceGroup = new ResourceGroup("e13-rg-github");
 
