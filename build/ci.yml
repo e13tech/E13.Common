@@ -58,6 +58,18 @@ steps:
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
+- task: Pulumi@1
+  displayName: pulumi up
+  env:
+    PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
+    PULUMI_CONFIG_PASSPHRASE: $(pulumi.config.passphrase)
+  inputs:
+    azureSubscription: '$(subscription)'
+    command: 'up'
+    args: '--yes'
+    cwd: './infra'
+    stack: 'test'
+
 - task: DotNetCoreCLI@2
   env:
     InMemory: true
