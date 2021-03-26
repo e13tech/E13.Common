@@ -76,5 +76,6 @@ steps:
   inputs:
     azureSubscription: '$(subscription)'
     command: 'destroy'
+    args: '--yes'
     cwd: './infra'
     stack: 'test'
