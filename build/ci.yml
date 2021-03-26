@@ -7,12 +7,12 @@ pr:
 
 strategy:
   matrix:
-    #linux:
-    #  imageName: 'ubuntu-20.04'
+    linux:
+      imageName: 'ubuntu-20.04'
     #mac:
     #  imageName: 'macOS-latest'
-    windows:
-      imageName: 'windows-latest'
+    #windows:
+    #  imageName: 'windows-latest'
 
 pool:
   vmImage: $(imageName)
