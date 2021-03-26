@@ -22,7 +22,7 @@ namespace E13.Common.Core
         {
             if (_evLoaded) return;
 
-            using var file = File.OpenText("Properties\\launchSettings.json");
+            using var file = File.OpenText(Path.Combine("Properties", "launchSettings.json"));
             using var reader = new JsonTextReader(file);
 
             var jObject = JObject.Load(reader);
