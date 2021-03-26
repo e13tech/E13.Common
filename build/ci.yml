@@ -73,6 +73,7 @@ steps:
   displayName: pulumi destroy
   env:
     PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
+    PULUMI_CONFIG_PASSPHRASE: $(pulumi.config.passphrase)
   inputs:
     azureSubscription: '$(subscription)'
     command: 'destroy'
