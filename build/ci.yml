@@ -70,6 +70,9 @@ steps:
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
 - task: Pulumi@1
+  displayName: pulumi destroy
+  env:
+    PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
   inputs:
     azureSubscription: '$(subscription)'
     command: 'destroy'
