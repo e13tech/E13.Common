@@ -7,10 +7,10 @@ pr:
 
 strategy:
   matrix:
-    linux:
-      imageName: 'ubuntu-20.04'
-    mac:
-      imageName: 'macOS-latest'
+    #linux:
+    #  imageName: 'ubuntu-20.04'
+    #mac:
+    #  imageName: 'macOS-latest'
     windows:
       imageName: 'windows-latest'
 
@@ -63,7 +63,7 @@ steps:
     InMemory: true
   displayName: dotnetcore Integration Test
   condition: succeededOrFailed()
-  enabled: false
+  enabled: true
   inputs:
     command: test
     projects: '**/*[Tt]estsInt/*.csproj'
