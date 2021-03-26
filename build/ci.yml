@@ -69,3 +69,9 @@ steps:
     projects: '**/*[Tt]estsInt/*.csproj'
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
+- task: Pulumi@1
+  inputs:
+    azureSubscription: '$(subscription)'
+    command: 'destroy'
+    cwd: './infra'
+    stack: 'test'
