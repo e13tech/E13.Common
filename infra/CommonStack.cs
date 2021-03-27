@@ -12,6 +12,8 @@ class CommonStack : SolutionStack
 {
     public CommonStack()
     {
+        RG = RGName;
+
         var validDomain = Configuration.Require("autodomain");
         AutoUserPasswords = Output.Create(Configuration.Get("autopass") ?? DefaultPassword);
         AutoEnabledUser = Output.Create($"auto.enabled@{validDomain}");
@@ -84,6 +86,8 @@ class CommonStack : SolutionStack
     public Output<string> AutoDisabledUser { get; set; }
     [Output]
     public Output<string> TestClientId { get; set; }
+    [Output]
+    public Output<string> RG { get; set; }
     //[Output]
     //public Output<string> PrimaryStorageKey { get; set; }
 
