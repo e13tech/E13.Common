@@ -1,4 +1,4 @@
 encryptionsalt: v1:RejNIy9rukA=:v1:dtnDAMbTV/PKj5zn:39b/ABLva06VV8P3TnBYOra1alcwaA==
 config:
   common:autodomain: e13.tech
-  e13-common:env: auto
+  common:env: auto
