@@ -59,6 +59,7 @@ steps:
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
 - task: AzureCLI@2
+  enabled: false
   inputs:
     azureSubscription: '$(subscription)'
     scriptType: 'bash'
@@ -66,6 +67,7 @@ steps:
     inlineScript: 'az login'
     
 - task: AzureCLI@2
+  enabled: false
   inputs:
     azureSubscription: '$(subscription)'
     scriptType: 'bash'
@@ -78,7 +80,7 @@ steps:
     PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
     PULUMI_CONFIG_PASSPHRASE: $(pulumi.config.passphrase)
   inputs:
-    azureSubscription: '$(subscription)'
+    azureSubscription: 'JJ MPN'
     command: 'up'
     args: '--yes'
     cwd: './infra'
