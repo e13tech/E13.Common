@@ -58,6 +58,20 @@ steps:
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '$(subscription)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az login'
+    
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '$(subscription)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az account set --subscription e9992851-9828-4f92-afd8-3779a17aa380'
+    
 - task: Pulumi@1
   displayName: pulumi up
   env:
