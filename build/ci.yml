@@ -57,22 +57,6 @@ steps:
     command: test
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--no-build --configuration Release --collect:"Code Coverage"'
-
-- task: AzureCLI@2
-  enabled: false
-  inputs:
-    azureSubscription: '$(subscription)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az login'
-    
-- task: AzureCLI@2
-  enabled: false
-  inputs:
-    azureSubscription: '$(subscription)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az account set --subscription e9992851-9828-4f92-afd8-3779a17aa380'
     
 - task: Pulumi@1
   displayName: pulumi up
@@ -90,7 +74,7 @@ steps:
   env:
     InMemory: true
   displayName: dotnetcore Integration Test
-  condition: succeededOrFailed()
+  condition: succeeded()
   enabled: true
   inputs:
     command: test
@@ -99,11 +83,12 @@ steps:
 
 - task: Pulumi@1
   displayName: pulumi destroy
+  condition: succeededOrFailed()
   env:
     PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
     PULUMI_CONFIG_PASSPHRASE: $(pulumi.config.passphrase)
   inputs:
-    azureSubscription: '$(subscription)'
+    azureSubscription: 'JJ MPN'
     command: 'destroy'
     args: '--yes'
     cwd: './infra'
