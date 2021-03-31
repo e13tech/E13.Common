@@ -20,6 +20,12 @@ namespace E13.Common.Nunit.Api.TestsInt
         private static readonly string TestPassword = Environment.GetEnvironmentVariable("TokenForAAD_TestPass");
 
         [Test]
+        public void Test_Env()
+        {
+            TestContext.Out.WriteLine($"TestGoodUserName: {TestGoodUserName}");
+        }
+
+        [Test]
         public void TokenForAAD_ValidCredential_GetsBearerToken()
         {
             using var client = new HttpClient();
