@@ -60,6 +60,7 @@ steps:
     
 - task: Pulumi@1
   displayName: pulumi up
+  name: pulumi_up
   env:
     PULUMI_ACCESS_TOKEN: $(pulumi.access.token)
     PULUMI_CONFIG_PASSPHRASE: $(pulumi.config.passphrase)
@@ -69,10 +70,22 @@ steps:
     args: '--yes'
     cwd: './infra'
     stack: 'test'
+    
+- script: |
+    echo "##vso[task.setvariable variable=AutoDisabledUser;isOutput=true]$(pulumi stack output AutoDisabledUser)"
+    echo "##vso[task.setvariable variable=AutoEnabledUser;isOutput=true]$(pulumi stack output AutoEnabledUser)"
+    echo "##vso[task.setvariable variable=AutoUserPasswords;isOutput=true]$(pulumi stack output AutoUserPasswords)"
+    echo "##vso[task.setvariable variable=TestClientId;isOutput=true]$(pulumi stack output TestClientId)"
+  displayName: 'Set stack outputs as variables'
+  name: 'pulumi_vars'
 
 - task: DotNetCoreCLI@2
   env:
     InMemory: true
+    TokenForAAD_TestUser:  $[ pulumi_up.AutoEnabledUser ]
+    TokenForAAD_DisabledUser:  $[ pulumi_up.AutoDisabledUser ]
+    TokenForAAD_TestPass:  $[ pulumi_up.AutoUserPasswords ]
+    TestClientId:  $[ pulumi_up.TestClientId ]
   displayName: dotnetcore Integration Test
   condition: succeeded()
   enabled: true
