@@ -22,7 +22,7 @@ namespace E13.Common.Nunit.Api.TestsInt
         [Test]
         public void Test_Env()
         {
-            TestContext.Out.WriteLine($"TestGoodUserName: {TestGoodUserName}");
+            TestGoodUserName.Should().Be("unknown");
         }
 
         [Test]
