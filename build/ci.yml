@@ -82,10 +82,10 @@ steps:
 - task: DotNetCoreCLI@2
   env:
     InMemory: true
-    TokenForAAD_TestUser:  $(pulumi_vars.AutoEnabledUser)
-    TokenForAAD_DisabledUser:  $(pulumi_vars.AutoDisabledUser)
-    TokenForAAD_TestPass:  $(pulumi_vars.AutoUserPasswords)
-    TestClientId:  $(pulumi_vars.TestClientId)
+    TokenForAAD_TestUser:  $(AutoEnabledUser)
+    TokenForAAD_DisabledUser:  $(AutoDisabledUser)
+    TokenForAAD_TestPass:  $(AutoUserPasswords)
+    TestClientId:  $(TestClientId)
   displayName: dotnetcore Integration Test
   condition: succeeded()
   enabled: true
