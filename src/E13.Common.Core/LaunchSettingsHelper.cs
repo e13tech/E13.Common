@@ -36,7 +36,13 @@ namespace E13.Common.Core
                 .SelectMany(prop => prop.Value.Children<JProperty>())
                 .ToList();
 
-            variables.ForEach(v => Environment.SetEnvironmentVariable(v.Name, v.Value.ToString()));
+            variables.ForEach(v =>
+            {
+                if (Environment.GetEnvironmentVariable(v.Name) == null)
+                {
+                    Environment.SetEnvironmentVariable(v.Name, v.Value.ToString());
+                }
+            });
             _evLoaded = true;
         }
     }
