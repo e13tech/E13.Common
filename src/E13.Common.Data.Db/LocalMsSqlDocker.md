@@ -12,10 +12,8 @@ docker pull mcr.microsoft.com/mssql/server
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssword!" -p 1433:1433 --name <container_name> -d mcr.microsoft.com/mssql/server
 ```
 5.  Ensure that SQL Server services are not running on your system, stop and set them to manual start so they do not start again.
-
 6.  You can now log into the server using SSMS
-```
-Server Name: localhost,1433
+```Server Name: localhost,1433
 User Id: sa
 Password: P@ssword!
 ```
