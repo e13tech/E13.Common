@@ -1,9 +1,9 @@
 ## Install Docker with SQL Server instance (for local testing)
 1.  Install Docker if it is not already on your machine 
-   - [Docker Getting Started](https://www.docker.com/get-started)
+- [Docker Getting Started](https://www.docker.com/get-started)
 
- 2. Open Powershell
- 3. Download the SQL Server docker image
+2. Open Powershell
+3. Download the SQL Server docker image
 ```powershell
 docker pull mcr.microsoft.com/mssql/server
 ```
