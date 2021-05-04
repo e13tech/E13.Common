@@ -62,6 +62,13 @@ foreach($file in $changes){
     Write-Host "##vso[task.setvariable variable=includesCore]true"
     break
     }
+
+foreach($file in $changes){
+    if($null -ne ("src/E13.Common.Cli/"| ? { $file.StartsWith($_) })){
+    Write-Host "##vso[build.addbuildtag]Cli"
+    Write-Host "##vso[task.setvariable variable=includesCli]true"
+    break
+    }
 }
 
 foreach($file in $changes){

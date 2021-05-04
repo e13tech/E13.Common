@@ -65,6 +65,11 @@ stages:
       name: infra
       project: E13.Common.Infra
 
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: cli
+      project: E13.Common.Cli
+
 #  - template: templates/job_npm.yml
 #    parameters:
 #      name: react
