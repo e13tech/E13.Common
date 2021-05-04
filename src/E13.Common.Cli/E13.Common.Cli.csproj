@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <Company>E13 Tech</Company>
+    <Authors>JJ Bussert</Authors>
+    <PackageProjectUrl>https://www.e13.tech</PackageProjectUrl>
+    <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
+    <PackageIcon>E13.png</PackageIcon>
+    <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
+    <Description>Base project for a custom Command Line Interface (CLI)</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{A96111A4-8348-4EB7-A7D7-8DDA857D7414}</ProjectGuid>
+
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>..\..\doc\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\design\E13.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E13.Common.Core\E13.Common.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
