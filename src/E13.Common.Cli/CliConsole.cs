@@ -108,7 +108,6 @@ namespace E13.Cli
                 next = $"{Template[0..(AnimationLength + TemplatePadding - progress.Length)]}{progress}{Template[(AnimationLength + TemplatePadding - 1)..]}";
             }
 
-
             if (Counter >= AnimationLength + ProgressMaxLength)
                 Counter = 1;
             else
