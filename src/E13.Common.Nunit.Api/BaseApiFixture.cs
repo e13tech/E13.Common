@@ -9,8 +9,8 @@ namespace E13.Common.Nunit.Api
 {
     public class BaseApiFixture : LaunchSettingsFixture
     {
-        private TestServer Server { get; set; }
-        private string BaseUrl { get; }
+        private TestServer? Server { get; set; }
+        private string? BaseUrl { get; }
         private string ProjectName { get; }
         private Func<IWebHostBuilder> BuilderFunc { get; }
 
@@ -21,9 +21,9 @@ namespace E13.Common.Nunit.Api
             BuilderFunc = builderFunc;
         }
 
-        private static HttpClient _singleton;
+        private static HttpClient? _singleton;
 
-        public HttpClient GetHttpClient()
+        public HttpClient? GetHttpClient()
         {
             // only init a single HttpClient
             if (_singleton != null)
@@ -39,7 +39,7 @@ namespace E13.Common.Nunit.Api
                 Directory.GetCurrentDirectory().ParentSiblingDirectory(ProjectName),
                 BuilderFunc());
 
-            _singleton = Server.CreateClient();
+            _singleton = Server?.CreateClient();
 
             return _singleton;
         }
