@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>E13.Common.Cli</name>
+    </assembly>
+    <members>
+        <member name="T:E13.Cli.E13ConsoleBase">
+            <summary>
+            Base implementation of CliConsole used for E13.Tech CLI commands
+            
+            Also serves as a concrete example to use for reference to build your own
+            </summary>
+        </member>
+        <member name="M:E13.Cli.E13ConsoleBase.NonInteractiveHeader">
+            <summary>
+            Simple Non-Interactive CLI header
+            </summary>
+        </member>
+        <member name="T:E13.Cli.E13ConsoleSimple">
+            <summary>
+            Default implementation of CliConsole used for E13.Tech CLI commands
+            
+            Also serves as a concrete example to use for reference to build your own
+            </summary>
+        </member>
+        <member name="M:E13.Cli.E13ConsoleSimple.InteractiveHeader">
+            <summary>
+            Interactive CLI header with a single color ASCII version of the E13 Logo
+            </summary>
+        </member>
+        <member name="T:E13.Cli.E13FancyConsole">
+            <summary>
+            Default implementation of CliConsole used for E13.Tech CLI commands
+            
+            Also serves as a concrete example to use for reference to build your own
+            </summary>
+        </member>
+        <member name="M:E13.Cli.E13FancyConsole.InteractiveHeader">
+            <summary>
+            Interactive CLI header with a colored ASCII version of the E13 Logo
+            </summary>
+        </member>
+    </members>
+</doc>
