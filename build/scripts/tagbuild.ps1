@@ -1,10 +1,10 @@
 git fetch
-git checkout --track -b master origin/main
+git checkout --track -b main origin/main
 git pull
 git checkout --track -b deploy origin/deploy
 git pull
 git branch
-$changes = git diff deploy...master --name-only
+$changes = git diff deploy...main --name-only
 
 foreach($file in $changes){
     Write-Host $file
