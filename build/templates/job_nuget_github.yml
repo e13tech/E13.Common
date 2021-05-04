@@ -9,14 +9,14 @@ jobs:
   steps:
   - pwsh: |
         git fetch
-        git checkout --track -b master origin/master
+        git checkout --track -b main origin/main
         git pull
         git checkout --track -b deploy origin/deploy
         git pull
         git branch
-        $files = git diff deploy...master --name-only
+        $files = git diff deploy...main --name-only
 
-        Write-Host "Files from master needing to be deployed"
+        Write-Host "Files from main needing to be deployed"
         $files
         
         Write-Host "##vso[task.setvariable variable=exists;isOutput=true]false"
