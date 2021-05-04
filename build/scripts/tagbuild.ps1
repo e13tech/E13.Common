@@ -1,5 +1,5 @@
 git fetch
-git checkout --track -b master origin/master
+git checkout --track -b master origin/main
 git pull
 git checkout --track -b deploy origin/deploy
 git pull
