@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using E13.Common.Nunit.UI.Extensions;
+using System.Runtime.Versioning;
 
 namespace PuppeteerSharp
 {
@@ -19,6 +20,7 @@ namespace PuppeteerSharp
         public static readonly string ScreensDirectory = $"{TestContext.CurrentContext.WorkDirectory}/../../../screens/";
 
 
+        [SupportedOSPlatform("windows")]
         public static async Task ConfirmScreenshot(this Page page, string name = null)
         {
             if (page == null)

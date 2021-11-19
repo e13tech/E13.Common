@@ -56,7 +56,10 @@ namespace E13.Common.Nunit.UI
                 response = await Page.GoToAsync(AuthUrl, WaitUntilNavigation.Networkidle2).ConfigureAwait(false);
 
                 Thread.Sleep(delay);
-                await Page.ConfirmScreenshot(screensName).ConfigureAwait(false); ;
+
+                if(OperatingSystem.IsWindows())
+                    await Page.ConfirmScreenshot(screensName).ConfigureAwait(false);
+
                 response.Url.Should().Contain("login.microsoftonline.com");
                 await Page.WaitForSelectorAsync("input[name='loginfmt']").ConfigureAwait(false);
                 await Page.Keyboard.SendCharacterAsync(TestGoodUserName).ConfigureAwait(false);
@@ -68,7 +71,9 @@ namespace E13.Common.Nunit.UI
                 await Page.WaitForSelectorAsync("input[id='idSIButton9']").ConfigureAwait(false); ;
 
                 Thread.Sleep(delay);
-                await Page.ConfirmScreenshot(screensName).ConfigureAwait(false); ;
+                if (OperatingSystem.IsWindows())
+                    await Page.ConfirmScreenshot(screensName).ConfigureAwait(false);
+
                 await Page.Keyboard.PressAsync(Key.Enter).ConfigureAwait(false);
                 await Page.GoToAsync(AuthUrl, options: new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle0 } }).ConfigureAwait(false);
                 //response = await page.WaitForNavigationAsync().ConfigureAwait(false);
