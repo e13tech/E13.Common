@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
     <Company>E13 Tech</Company>
     <Authors>JJ Bussert</Authors>
@@ -7,9 +7,9 @@
     <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
     <PackageIcon>E13.png</PackageIcon>
     <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
-    <Description>Common package for lowest level common code, this is not typically referenced directly</Description>
+    <Description>Base project for a custom Command Line Interface (CLI)</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <ProjectGuid>{FF9DFA0C-9FA5-48DB-8BDC-6B3EC1519B01}</ProjectGuid>
+    <ProjectGuid>{A96111A4-8348-4EB7-A7D7-8DDA857D7414}</ProjectGuid>
 
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -26,15 +26,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E13.Common.Core\E13.Common.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="Polly" Version="7.2.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

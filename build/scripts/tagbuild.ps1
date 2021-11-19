@@ -1,10 +1,10 @@
 git fetch
-git checkout --track -b master origin/master
+git checkout --track -b main origin/main
 git pull
 git checkout --track -b deploy origin/deploy
 git pull
 git branch
-$changes = git diff deploy...master --name-only
+$changes = git diff deploy...main --name-only
 
 foreach($file in $changes){
     Write-Host $file
@@ -60,6 +60,14 @@ foreach($file in $changes){
     if($null -ne ("src/E13.Common.Core/"| ? { $file.StartsWith($_) })){
     Write-Host "##vso[build.addbuildtag]Core"
     Write-Host "##vso[task.setvariable variable=includesCore]true"
+    break
+    }
+}
+
+foreach($file in $changes){
+    if($null -ne ("src/E13.Common.Cli/"| ? { $file.StartsWith($_) })){
+    Write-Host "##vso[build.addbuildtag]Cli"
+    Write-Host "##vso[task.setvariable variable=includesCli]true"
     break
     }
 }
