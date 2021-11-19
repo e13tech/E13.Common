@@ -11,7 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ProjectGuid>{7C1485D7-D19A-4353-9B64-0E9E8C3771AA}</ProjectGuid>
 
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -25,14 +25,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="PuppeteerSharp" Version="2.0.4" />
-    <PackageReference Include="PuppeteerSharp.Contrib.Extensions" Version="3.0.0" />
-    <PackageReference Include="PuppeteerSharp.Contrib.Should" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="PuppeteerSharp" Version="5.1.0" />
+    <PackageReference Include="PuppeteerSharp.Contrib.Extensions" Version="4.0.0" />
+    <PackageReference Include="PuppeteerSharp.Contrib.Should" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
