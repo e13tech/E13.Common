@@ -2,11 +2,13 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.Versioning;
 
 namespace System.Drawing
 {
     public static class BitmapExtensions
     {
+        [SupportedOSPlatform("windows")]
         public static bool IsIdentical(this Bitmap original, Bitmap compare)
         {
             var result = original.Compare(compare);
@@ -14,6 +16,8 @@ namespace System.Drawing
             // if result == null then the files are identical
             return result == null;
         }
+
+        [SupportedOSPlatform("windows")]
         public static Bitmap Compare(this Bitmap original, Bitmap compare )
         {
             if (original == null)

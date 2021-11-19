@@ -57,7 +57,7 @@ namespace E13.Common.Nunit.UI
             if (InMemory)
                 BuilderFunc().RunConsoleAsync(CancelSource.Token);
 
-            new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision).Wait();
+            new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultChromiumRevision).Wait();
             Browser = Puppeteer.LaunchAsync(new LaunchOptions
             {
                 Headless = true,
@@ -70,7 +70,7 @@ namespace E13.Common.Nunit.UI
             Page.SetViewportAsync(new ViewPortOptions { Width = PageWidth, Height = PageHeight });
         }
 
-        protected void WriteLine(string s) 
+        protected static void WriteLine(string s) 
             => TestContext.WriteLine(s);
 
         #region IDisposable Support
