@@ -33,9 +33,9 @@ class CommonStack : SolutionStack
         });
         var appReg = new Application("auto.registration", new ApplicationArgs
         {
-            PublicClient = true,
-            Oauth2AllowImplicitFlow = true,
-            AvailableToOtherTenants = true,
+            //PublicClient = true,
+            //Oauth2AllowImplicitFlow = true,
+            //AvailableToOtherTenants = true,
             DisplayName = "auto.registration",
             RequiredResourceAccesses =
             {
