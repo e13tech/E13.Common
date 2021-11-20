@@ -39,6 +39,12 @@ jobs:
   - task: NuGetToolInstaller@1
     displayName: 'Use NuGet '
 
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core sdk 6.x'
+    inputs:
+      version: 6.x
+      includePreviewVersions: true
+
   - pwsh: |
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
         $projects = dotnet list $(Agent.BuildDirectory)/s/src/${{ parameters.project }}/${{ parameters.project }}.csproj reference
@@ -51,13 +57,6 @@ jobs:
         }
 
     name: fix_references
-
-  
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core sdk 6.x'
-    inputs:
-      version: 6.x
-      includePreviewVersions: true
 
   - task: DotNetCoreCLI@2
     displayName: dotnet Restore
