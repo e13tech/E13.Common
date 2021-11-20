@@ -1,6 +1,7 @@
 ﻿using E13.Common.Nunit.Extensions;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace E13.Common.Nunit.Tests.Extensions
 
         [Test]
         [SupportedOSPlatform("windows")]
+        [Platform(Include = "Win")]
         public void Compare_SameImage_NullResult()
         {
             Console.WriteLine(CWD);
@@ -37,6 +39,7 @@ namespace E13.Common.Nunit.Tests.Extensions
 
         [Test]
         [SupportedOSPlatform("windows")]
+        [Platform(Include = "Win")]
         public void Compare_DifferentImages_GenerateExpected()
         {
             var tempPath = Path.Combine(CWD, Extensions, BitmapExtensionsFiles, $"{nameof(Compare_DifferentImages_GenerateExpected)}.jpg");
@@ -55,6 +58,7 @@ namespace E13.Common.Nunit.Tests.Extensions
 
         [Test]
         [SupportedOSPlatform("windows")]
+        [Platform(Include = "Win")]
         public void IsIdentical_SameImage_True()
         {
             using var imageA1 = new Bitmap(ImageA);
@@ -66,6 +70,7 @@ namespace E13.Common.Nunit.Tests.Extensions
 
         [Test]
         [SupportedOSPlatform("windows")]
+        [Platform(Include = "Win")]
         public void IsIdentical_SameImage_False()
         {
             using var imageA = new Bitmap(ImageA);
