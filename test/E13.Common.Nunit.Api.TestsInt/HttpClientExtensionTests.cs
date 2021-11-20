@@ -37,7 +37,7 @@ namespace E13.Common.Nunit.Api.TestsInt
             Action a = () => client.TokenForAAD(TestDisabledUserName, TestPassword.Secure());
 
             a.Should().Throw<AggregateException>().WithInnerException<MsalUiRequiredException>()
-                .WithMessage("AADSTS50057: *").And
+                .WithMessage("AADSTS50126: *").And
                 .ErrorCode.Should().Be("invalid_grant");
         }
         [Test]

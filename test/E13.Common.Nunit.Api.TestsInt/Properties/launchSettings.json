@@ -3,14 +3,14 @@
     "E13.Common.Nunit.Api.TestsInt": {
       "commandName": "Project",
       "environmentVariables": {
-        "TokenForAAD_PublicClientId": "796fdf79-be86-4554-b34c-871f95cf3293",
+        "TokenForAAD_PublicClientId": "85227dc0-b522-4cc7-bebf-f0ea9711474c",
         "TokenForAAD_TenantId": "28245680-ad2a-4c90-875a-8ac07c11e8da",
 
-        "TokenForAAD_TestUser": "auto.enabled@e13.tech",
+        "TokenForAAD_TestUser": "test.enabled@e13.tech",
         "TokenForAAD_InvalidUser": "test.invalid@e13.tech",
-        "TokenForAAD_DisabledUser": "auto.disabled@e13.tech",
+        "TokenForAAD_DisabledUser": "test.disabled@e13.tech",
 
-        "TokenForAAD_TestPass": "P@ssword1"
+        "TokenForAAD_TestPass": "kLsPfRDo4xs9g#AS"
       }
     }
   }
