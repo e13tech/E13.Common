@@ -100,13 +100,6 @@ jobs:
       versioningScheme: 'byBuildNumber'
       configuration: Release
       nobuild: true
-  
- # - task: DotNetCoreCLI@2
- #   inputs:
- #     command: 'push'
- #     packagesToPush: '$(Build.ArtifactStagingDirectory)/${{ parameters.project }}.*.nupkg'
- #     nuGetFeedType: 'external'
- #     publishFeedCredentials: 'nuget'
 
   - task: DotNetCoreCLI@2
     displayName: dotnetcore Push
