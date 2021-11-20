@@ -4,7 +4,7 @@ parameters:
 - name: project
   type: string
 
-  #Your build pipeline references an undefined variable named ‘$env:SYSTEM_ACCESSTOKEN’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+  #Your build pipeline references an undefined variable named â€˜$env:SYSTEM_ACCESSTOKENâ€™. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 
 jobs:
 - job: check${{ parameters.name }}
@@ -72,6 +72,12 @@ jobs:
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core sdk 6.x'
+      inputs:
+      version: 6.x
+      includePreviewVersions: true
+        
   - task: DotNetCoreCLI@2
     displayName: dotnetcore Restore
     inputs:
