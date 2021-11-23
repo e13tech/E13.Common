@@ -166,34 +166,6 @@ namespace E13.Common.Data.Db
             }
         }
 
-
-        /// <inheritdoc />
-        public virtual async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
-        {
-            IQueryable<TEntity> query = DbSet;
-
-            if (include != null)
-            {
-                query = include(query);
-            }
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            if (orderBy != null)
-            {
-                return await orderBy(query).FirstOrDefaultAsync().ConfigureAwait(true);
-            }
-            else
-            {
-                return await query.FirstOrDefaultAsync().ConfigureAwait(true);
-            }
-        }
-
         /// <summary>
         /// Gets the first or default entity based on a predicate, orderby delegate and include delegate. This method default no-tracking query.
         /// </summary>
@@ -227,34 +199,6 @@ namespace E13.Common.Data.Db
             else
             {
                 return query.Select(selector).FirstOrDefault();
-            }
-        }
-
-        /// <inheritdoc />
-        public virtual async Task<TResult> GetFirstOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                  Expression<Func<TEntity, bool>> predicate = null,
-                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
-        {
-            IQueryable<TEntity> query = DbSet;
-
-            if (include != null)
-            {
-                query = include(query);
-            }
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            if (orderBy != null)
-            {
-                return await orderBy(query).Select(selector).FirstOrDefaultAsync().ConfigureAwait(true);
-            }
-            else
-            {
-                return await query.Select(selector).FirstOrDefaultAsync().ConfigureAwait(true);
             }
         }
 
@@ -297,54 +241,12 @@ namespace E13.Common.Data.Db
         public virtual void Insert(IEnumerable<TEntity> entities) => DbSet.AddRange(entities);
 
         /// <summary>
-        /// Inserts a new entity asynchronously.
-        /// </summary>
-        /// <param name="entity">The entity to insert.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
-        /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
-        public virtual ValueTask<EntityEntry<TEntity>> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            return DbSet.AddAsync(entity, cancellationToken);
-
-            // Shadow properties?
-            //var property = _dbContext.Entry(entity).Property("Created");
-            //if (property != null) {
-            //property.CurrentValue = DateTime.Now;
-            //}
-        }
-
-        /// <summary>
-        /// Inserts a range of entities asynchronously.
-        /// </summary>
-        /// <param name="entities">The entities to insert.</param>
-        /// <returns>A <see cref="Task" /> that represents the asynchronous insert operation.</returns>
-        public virtual Task InsertAsync(params TEntity[] entities) => DbSet.AddRangeAsync(entities);
-
-        /// <summary>
-        /// Inserts a range of entities asynchronously.
-        /// </summary>
-        /// <param name="entities">The entities to insert.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
-        /// <returns>A <see cref="Task"/> that represents the asynchronous insert operation.</returns>
-        public virtual Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) => DbSet.AddRangeAsync(entities, cancellationToken);
-
-        /// <summary>
         /// Updates the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
         public virtual void Update(TEntity entity)
         {
             DbSet.Update(entity);
-        }
-
-        /// <summary>
-        /// Updates the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        public virtual void UpdateAsync(TEntity entity)
-        {
-            DbSet.Update(entity);
-
         }
 
         /// <summary>
