@@ -14,20 +14,19 @@ using System.Runtime.Versioning;
 
 namespace PuppeteerSharp
 {
-    public static class PageExtensions
+    public static class IPageExtensions
     {
         private static readonly bool InMemory = Environment.GetEnvironmentVariable("InMemory").DefaultParse(false);
         public static readonly string ScreensDirectory = $"{TestContext.CurrentContext.WorkDirectory}/../../../screens/";
 
 
         [SupportedOSPlatform("windows")]
-        public static async Task ConfirmScreenshot(this Page page, string name = null)
+        public static async Task ConfirmScreenshot(this IPage page, string name = null)
         {
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
 
-            if (name == null)
-                name = TestContext.CurrentContext.Test.Name;
+            name ??= TestContext.CurrentContext.Test.Name;
 
             var w = page.Viewport.Width;
             var h = page.Viewport.Height;

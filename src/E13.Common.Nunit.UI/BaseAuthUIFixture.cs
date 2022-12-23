@@ -45,9 +45,9 @@ namespace E13.Common.Nunit.UI
         {
 
         }
-        public async Task<Response> AzureADLogin()
+        public async Task<IResponse> AzureADLogin()
         {
-            Response response;
+            IResponse response;
             if (!Authorized)
             {
                 var screensName = "_AzureADLogin";
