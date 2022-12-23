@@ -11,7 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ProjectGuid>{AA494C7F-E15B-4CFE-9710-4762FF4F497C}</ProjectGuid>
 
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
@@ -25,13 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Pulumi.Azure" Version="4.27.0" />
-    <PackageReference Include="Pulumi.AzureAD" Version="5.8.0" />
-    <PackageReference Include="Pulumi.AzureNative" Version="1.46.0" />
+    <PackageReference Include="Pulumi.Azure" Version="5.28.0" />
+    <PackageReference Include="Pulumi.AzureAD" Version="5.32.0" />
+    <PackageReference Include="Pulumi.AzureNative" Version="1.90.0" />
   </ItemGroup>
 
   <ItemGroup>

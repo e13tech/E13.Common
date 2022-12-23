@@ -31,8 +31,8 @@ namespace E13.Common.Nunit.UI
         private readonly int PageWidth;
         private readonly int PageHeight;
 
-        protected Browser Browser { get; set; }
-        protected Page Page { get; set; }
+        protected IBrowser Browser { get; set; }
+        protected IPage Page { get; set; }
 
         protected BaseUIFixture(int w, int h, Func<IHostBuilder> builderFunc)
         {
@@ -47,7 +47,7 @@ namespace E13.Common.Nunit.UI
         public void SetUp()
         {
             // print out the directory the screens are saved to for ease of navigating locally
-            WriteLine($"Screens Directory: {PageExtensions.ScreensDirectory}");
+            WriteLine($"Screens Directory: {IPageExtensions.ScreensDirectory}");
         }
         [OneTimeSetUp]
         public void OneTimeSetUp()
