@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
     <Company>E13 Tech</Company>
   </PropertyGroup>
 
