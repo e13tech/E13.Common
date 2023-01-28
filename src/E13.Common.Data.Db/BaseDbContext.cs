@@ -89,14 +89,27 @@ namespace E13.Common.Data.Db
                     modifiable.ModifiedSource = source;
                 }
 
-                if (entry.State == EntityState.Deleted && entry.Entity is IDeletable deletable)
+                if (entry.Entity is IDeletable deletable)
                 {
-                    // Implementing IDeletable implies soft deletes required
-                    entry.State = EntityState.Modified;
+                    if(entry.State == EntityState.Deleted)
+                    {
+                        // Implementing IDeletable implies soft deletes required
+                        entry.State = EntityState.Modified;
 
-                    deletable.Deleted = utcNow;
-                    deletable.DeletedBy = user;
-                    deletable.DeletedSource = source;
+                        deletable.Deleted = utcNow;
+                        deletable.DeletedBy = user;
+                        deletable.DeletedSource = source;
+                    } 
+                    else if(deletable.Deleted != null || deletable.DeletedBy != null || deletable.DeletedSource != null)
+                        // if any of the deleted values are not null then 
+                    {
+                        entry.State = EntityState.Modified;
+                        // If state is not Deleted then ensure the IDeletable properties need to be nulled out
+                        deletable.Deleted = null;
+                        deletable.DeletedBy = null;
+                        deletable.DeletedSource = null;
+                    }
+                    
                 }
             }
         }
