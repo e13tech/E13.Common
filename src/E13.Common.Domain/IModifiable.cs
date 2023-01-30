@@ -8,8 +8,8 @@ namespace E13.Common.Domain
 {
     public interface IModifiable : IEntity
     {
-        string ModifiedBy { get; set; }
-        string ModifiedSource { get; set; }
+        string? ModifiedBy { get; set; }
+        string? ModifiedSource { get; set; }
         DateTime? Modified { get; set; }
     }
 }

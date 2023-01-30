@@ -10,8 +10,8 @@ namespace E13.Common.Data.Db.Tests.Sample
     public class TestDeletable : IDeletable
     {
         public Guid Id { get; set; }
-        public string DeletedBy { get; set; }
-        public string DeletedSource { get; set; }
+        public string? DeletedBy { get; set; }
+        public string? DeletedSource { get; set; }
         public DateTime? Deleted { get; set; }
     }
 }

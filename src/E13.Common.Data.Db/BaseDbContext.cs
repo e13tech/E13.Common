@@ -8,6 +8,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using E13.Common.Data.Db.Extensions;
 
 namespace E13.Common.Data.Db
 {
@@ -30,7 +35,14 @@ namespace E13.Common.Data.Db
             base.OnConfiguring(optionsBuilder);
         }
 
-        public int SaveChanges(string user, string source = null)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasQueryFiltersFor<IDeletable>(e => e.Deleted != null);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public int SaveChanges(string user, string? source = null)
         {
             if(source == null)
             {
@@ -46,6 +58,23 @@ namespace E13.Common.Data.Db
             base.SaveChanges();
 
             return result;
+        }
+
+        /// <summary>
+        /// This is used by E13.Common.Data.Db.Tests in order to allow TestDbContext.TestSeed() to seed
+        /// data without going through the TagEntries.
+        /// 
+        /// This is necessary so that the unit tests can, via code, initialize the context with data that
+        /// may normally be prevented by TagChanges().  An example being a scenario where a backend database
+        /// is manually adjusted via raw SQL and puts entities into an invalid state.
+        /// 
+        /// The tests will be ensuring that subsequent calls automatically clean up bad entity states caused
+        /// by manual data manipulation.
+        /// </summary>
+        /// <returns></returns>
+        internal int SaveChanges_NoTagEntries()
+        {
+            return base.SaveChanges();
         }
 
         public override int SaveChanges()
