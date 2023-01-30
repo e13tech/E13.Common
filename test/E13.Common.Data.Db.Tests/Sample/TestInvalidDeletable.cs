@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestEffectable : IEffectable
+    public class TestInvalidDeletable : IDeletable
     {
         public Guid Id { get; set; }
-        public string EffectiveBy { get; set; } = "EffectiveBy";
-        public string EffectiveSource { get; set; } = "EffectiveSource";
-        public DateTime Effective { get; set; }
+        public string? DeletedBy { get; set; }
+        public string? DeletedSource { get; set; }
+        public DateTime? Deleted { get; set; }
     }
 }

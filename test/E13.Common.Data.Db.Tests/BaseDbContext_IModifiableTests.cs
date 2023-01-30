@@ -50,7 +50,7 @@ namespace E13.Common.Data.Db.Tests
         public void SaveChanges_UnspecifiedUser_ModifiedByUnknown()
         {
             var initial = Context.Modifiables.First();
-            initial.Text.Should().BeNull();
+            initial.Text.Should().BeEmpty();
 
             //act
             initial.Text = $"{Guid.NewGuid()}";
@@ -78,7 +78,7 @@ namespace E13.Common.Data.Db.Tests
         public void SaveChanges_NamedUser_UpdatesModifiedBy()
         {
             var arranged = Context.Modifiables.First();
-            arranged.Text.Should().BeNull();
+            arranged.Text.Should().BeEmpty();
 
             //act
             arranged.Text = $"{Guid.NewGuid()}";

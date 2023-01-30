@@ -30,7 +30,7 @@ namespace E13.Common.Data.Db.Tests
         {
             Context.Creatables.Count().Should().Be(1);
             Context.Modifiables.Count().Should().Be(1);
-            Context.Deletable.Count().Should().Be(1);
+            Context.Deletable.IgnoreQueryFilters().Count().Should().Be(1);
             Context.Effectable.Count().Should().Be(1);
             Context.Ownable.Count().Should().Be(1);
         }
@@ -43,7 +43,7 @@ namespace E13.Common.Data.Db.Tests
         {
             Context.Creatables.All(e => e.Id == Guid.Empty).Should().BeFalse();
             Context.Modifiables.All(e => e.Id == Guid.Empty).Should().BeFalse();
-            Context.Deletable.All(e => e.Id == Guid.Empty).Should().BeFalse();
+            Context.Deletable.IgnoreQueryFilters().All(e => e.Id == Guid.Empty).Should().BeFalse();
             Context.Effectable.All(e => e.Id == Guid.Empty).Should().BeFalse();
             Context.Ownable.All(e => e.Id == Guid.Empty).Should().BeFalse();
         }

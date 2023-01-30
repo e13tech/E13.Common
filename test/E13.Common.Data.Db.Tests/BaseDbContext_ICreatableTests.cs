@@ -16,7 +16,11 @@ namespace E13.Common.Data.Db.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddDbContext<TestDbContext>(o => o.UseInMemoryDatabase($"{Guid.NewGuid()}"));
+            services.AddDbContext<TestDbContext>(o =>
+            {
+                o.UseInMemoryDatabase($"{Guid.NewGuid()}");
+                o.EnableSensitiveDataLogging();
+            });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
             Context.AddTestData();

@@ -10,8 +10,8 @@ namespace E13.Common.Data.Db.Tests.Sample
     public class TestOwnable : IOwnable
     {
         public Guid Id { get; set; }
-        public string OwnedBy { get; set; }
-        public string OwnedSource { get; set; }
+        public string OwnedBy { get; set; } = "OwnedBy";
+        public string OwnedSource { get; set; } = "OwnedSource";
         public DateTime Owned { get; set; }
     }
 }
