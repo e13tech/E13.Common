@@ -11,7 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ProjectGuid>{FD232243-C963-44DA-ADF8-A9A241551015}</ProjectGuid>
 
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
@@ -25,15 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="9.0.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestEase" Version="1.6.1" />
+    <PackageReference Include="RestEase" Version="1.6.4" />
   </ItemGroup>
 
 </Project>

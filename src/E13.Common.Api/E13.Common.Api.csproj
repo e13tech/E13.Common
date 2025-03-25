@@ -10,8 +10,8 @@
     <Description>Common package for defining an Api layer for a webapi project</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ProjectGuid>{34192520-7740-4032-BF07-34E3074EFB03}</ProjectGuid>
-    
-    <TargetFramework>net7.0</TargetFramework>
+
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
@@ -29,28 +29,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.10" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.8.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.7.0" />
   </ItemGroup>
 
   <ItemGroup>
