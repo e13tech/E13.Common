@@ -12,8 +12,8 @@ namespace E13.Common.Data.Db.Tests.Sample
         public Guid Id { get; set; }
         public string Text { get; set; } = string.Empty;
 
-        public string CreatedBy { get; set; } = "CreatedBy";
-        public string CreatedSource { get; set; } = "CreatedSource";
-        public DateTime Created { get; set; }
+        public string? CreatedBy { get; set; } = "CreatedBy";
+        public string? CreatedSource { get; set; } = "CreatedSource";
+        public DateTime? Created { get; set; }
     }
 }
