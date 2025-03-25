@@ -4,12 +4,72 @@
         <name>E13.Common.Cli</name>
     </assembly>
     <members>
+        <member name="T:E13.Common.Cli.BaseOptions">
+            <summary>
+            Base Options Class for implementing the E13 standard CLI options such as logging output control
+            </summary>
+        </member>
+        <member name="F:E13.Common.Cli.BaseOptions.LoggingGroup">
+            <summary>
+            Logging group const to ensure that only one logging option is provided
+            </summary>
+        </member>
+        <member name="P:E13.Common.Cli.BaseOptions.LoggingVerbose">
+            <summary>
+            Verbose output: default LogLevel to Info
+            </summary>
+        </member>
+        <member name="P:E13.Common.Cli.BaseOptions.LoggingQuiet">
+            <summary>
+            Quiet output: default LogLevel to Error
+            </summary>
+        </member>
+        <member name="T:E13.Cli.CliConsole">
+            <summary>
+            Base class for a CliConsole that has a simple progress bar animation and options for interactive and non-interactive
+            headers so locally you get a more enjoyable experience but in a DevOps pipeline you avoid cluttering up the console log
+            </summary>
+        </member>
+        <member name="M:E13.Cli.CliConsole.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Constructor that Starts the Console itself printing appropriate headers and begins the
+            spinner if this ia an InteractiveCli
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:E13.Cli.CliConsole.InteractiveHeader">
+            <summary>
+            Called to print a CLI header for an interactive window
+            </summary>
+        </member>
+        <member name="M:E13.Cli.CliConsole.NonInteractiveHeader">
+            <summary>
+            Called to print a CLI header for a non-interactive window
+            </summary>
+        </member>
+        <member name="M:E13.Cli.CliConsole.Dispose(System.Boolean)">
+            <summary>
+            Dispose pattern
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:E13.Cli.CliConsole.Dispose">
+            <summary>
+            Dispose Pattern
+            </summary>
+        </member>
         <member name="T:E13.Cli.E13ConsoleBase">
             <summary>
             Base implementation of CliConsole used for E13.Tech CLI commands
             
             Also serves as a concrete example to use for reference to build your own
             </summary>
+        </member>
+        <member name="M:E13.Cli.E13ConsoleBase.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Simple Empty Constructor relaying ILogger to base(...)
+            </summary>
+            <param name="logger"></param>
         </member>
         <member name="M:E13.Cli.E13ConsoleBase.NonInteractiveHeader">
             <summary>
@@ -23,6 +83,12 @@
             Also serves as a concrete example to use for reference to build your own
             </summary>
         </member>
+        <member name="M:E13.Cli.E13ConsoleSimple.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Simple Empty Constructor relaying ILogger to base(...)
+            </summary>
+            <param name="logger"></param>
+        </member>
         <member name="M:E13.Cli.E13ConsoleSimple.InteractiveHeader">
             <summary>
             Interactive CLI header with a single color ASCII version of the E13 Logo
@@ -34,6 +100,12 @@
             
             Also serves as a concrete example to use for reference to build your own
             </summary>
+        </member>
+        <member name="M:E13.Cli.E13FancyConsole.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Simple Empty Constructor relaying ILogger to base(...)
+            </summary>
+            <param name="logger"></param>
         </member>
         <member name="M:E13.Cli.E13FancyConsole.InteractiveHeader">
             <summary>
