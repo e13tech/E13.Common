@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Domain.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.RestEase", "src\E13.Common.RestEase\E13.Common.RestEase.csproj", "{FD232243-C963-44DA-ADF8-A9A241551015}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Infra", "src\E13.Common.Infra\E13.Common.Infra.csproj", "{AA494C7F-E15B-4CFE-9710-4762FF4F497C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.AspNet", "src\E13.Common.AspNet\E13.Common.AspNet.csproj", "{F2BC1446-F50E-4535-836F-239BD0DE8A3A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Data.Db", "src\E13.Common.Data.Db\E13.Common.Data.Db.csproj", "{2EAFA9AE-F026-4BC5-845C-7D10193B942B}"
@@ -77,10 +75,6 @@ Global
 		{FD232243-C963-44DA-ADF8-A9A241551015}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD232243-C963-44DA-ADF8-A9A241551015}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD232243-C963-44DA-ADF8-A9A241551015}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA494C7F-E15B-4CFE-9710-4762FF4F497C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA494C7F-E15B-4CFE-9710-4762FF4F497C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA494C7F-E15B-4CFE-9710-4762FF4F497C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA494C7F-E15B-4CFE-9710-4762FF4F497C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2BC1446-F50E-4535-836F-239BD0DE8A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2BC1446-F50E-4535-836F-239BD0DE8A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2BC1446-F50E-4535-836F-239BD0DE8A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
