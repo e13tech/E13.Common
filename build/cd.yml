@@ -22,6 +22,7 @@ stages:
     steps:
     - checkout: self
       persistCredentials: true
+      fetchDepth: 0
           
     - task: UseDotNet@2
       displayName: 'Use .Net Core sdk 9.x'
