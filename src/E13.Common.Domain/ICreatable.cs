@@ -8,8 +8,8 @@ namespace E13.Common.Domain
 {
     public interface ICreatable : IEntity
     {
-        string CreatedBy { get; set; }
-        string CreatedSource { get; set; }
-        DateTime Created { get; set; }
+        string? CreatedBy { get; set; }
+        string? CreatedSource { get; set; }
+        DateTime? Created { get; set; }
     }
 }
