@@ -8,14 +8,18 @@ jobs:
 - job: check${{ parameters.name }}
   steps:
   - pwsh: |
-        git fetch
-        git checkout --track -b main origin/main
-        git pull
-        git checkout --track -b deploy origin/deploy
-        git pull
-        git branch
-        $files = git diff deploy...main --name-only
+        git fetch --all --prune
 
+        git checkout -b main origin/main
+        git checkout -b deploy origin/deploy
+        
+        git branch
+        $mergeBase = git merge-base deploy main
+        if (-not $mergeBase) {
+            throw "No merge base found between deploy and main"
+        }
+        
+        $files = git diff deploy...main --name-only
         Write-Host "Files from main needing to be deployed"
         $files
         
