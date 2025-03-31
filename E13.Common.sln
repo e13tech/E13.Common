@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{30D836B3-FF29-49DC-B503-94B8F9B6DC50}"
 EndProject
@@ -34,8 +34,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Api.AzureAD", "src\E13.Common.Api.AzureAD\E13.Common.Api.AzureAD.csproj", "{A77B57D0-1675-4955-B499-6C29400263A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Data.Db.Tests", "test\E13.Common.Data.Db.Tests\E13.Common.Data.Db.Tests.csproj", "{E57FB194-8742-4183-8FBF-0EDA6C09F4A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{1984981E-4AF6-4080-8180-F135AF445C80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E13.Common.Nunit.Api.TestsInt", "test\E13.Common.Nunit.Api.TestsInt\E13.Common.Nunit.Api.TestsInt.csproj", "{F05A8C35-D9A8-48C6-8709-9E009AEC84C1}"
 EndProject
