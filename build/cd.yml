@@ -61,10 +61,10 @@ stages:
       name: restease
       project: E13.Common.RestEase
 
-  - template: templates/job_nuget_github.yml
-    parameters:
-      name: infra
-      project: E13.Common.Infra
+  # - template: templates/job_nuget_github.yml
+  #   parameters:
+  #     name: infra
+  #     project: E13.Common.Infra
 
   - template: templates/job_nuget_github.yml
     parameters:
