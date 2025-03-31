@@ -6,8 +6,8 @@ namespace E13.Common.Domain
 {
     public interface IEffectable : IEntity
     {
-        string EffectiveBy { get; set; }
-        string EffectiveSource { get; set; }
-        DateTime Effective { get; set; }
+        string? EffectiveBy { get; set; }
+        string? EffectiveSource { get; set; }
+        DateTime? Effective { get; set; }
     }
 }
