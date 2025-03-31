@@ -129,14 +129,6 @@ foreach($file in $changes){
 }
 
 foreach($file in $changes){
-    if($null -ne ("src/E13.Common.Infra/"| ? { $file.StartsWith($_) })){
-    Write-Host "##vso[build.addbuildtag]Infra"
-    Write-Host "##vso[task.setvariable variable=includesInfra]true"
-    break
-    }
-}
-
-foreach($file in $changes){
     if($null -ne ("src/E13.Common.React/"| ? { $file.StartsWith($_) })){
     Write-Host "##vso[build.addbuildtag]React"
     Write-Host "##vso[task.setvariable variable=includesReact]true"
