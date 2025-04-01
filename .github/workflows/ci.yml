@@ -31,16 +31,9 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # Restore dependencies
-    - name: Restore
-      run: dotnet restore src/**/*.csproj
-    
-    - name: Restore tests
-      run: dotnet restore test/**/*.csproj
-
     # Build
     - name: Build
-      run: dotnet build src/**/*.csproj --configuration Release --no-restore
+      run: dotnet build src/**/*.csproj --configuration Release
 
     # Run unit tests
     - name: Unit Tests
