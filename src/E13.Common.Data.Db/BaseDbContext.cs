@@ -79,7 +79,7 @@ namespace E13.Common.Data.Db
 
         public override int SaveChanges()
         {
-            var caller = new StackFrame(1).GetMethod();
+            var caller = new StackFrame(1).GetMethod()!; // This is safe because the method is called from somewhere
 
             return SaveChanges(UnknownUser, $"{caller.DeclaringType}.{caller.Name}");
         }
@@ -90,56 +90,58 @@ namespace E13.Common.Data.Db
 
         private void TagEntries(string source, string user)
         {
-            var e = ChangeTracker.Entries().ToList();
-
-            var entries = ChangeTracker.Entries().Where(e => 
-                e.Entity is IEntity && 
+            var entries = ChangeTracker.Entries().Where(e =>
+                e.Entity is IEntity &&
                 (e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
             );
 
             Logger.LogInformation($"ChangeTracker Contains {entries.Count()}/{ChangeTracker.Entries().Count()} in an Added or Modified state.");
 
-            foreach(var entry in entries)
+            foreach (var entry in entries)
             {
                 Logger.LogDebug($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
                 var utcNow = DateTime.UtcNow;
 
-                if (entry.State == EntityState.Added && entry.Entity is ICreatable creatable)
+                if (entry.State == EntityState.Added && entry.Entity is ICreatable)
                 {
-                    creatable.Created = utcNow;
-                    creatable.CreatedBy = user;
-                    creatable.CreatedSource = source;
+                    SetProperty(entry.Entity, "Created", utcNow);
+                    SetProperty(entry.Entity, "CreatedBy", user);
+                    SetProperty(entry.Entity, "CreatedSource", source);
                 }
 
-                if (entry.Entity is IModifiable modifiable)
+                if (entry.Entity is IModifiable)
                 {
-                    modifiable.Modified = utcNow;
-                    modifiable.ModifiedBy = user;
-                    modifiable.ModifiedSource = source;
+                    SetProperty(entry.Entity, "Modified", utcNow);
+                    SetProperty(entry.Entity, "ModifiedBy", user);
+                    SetProperty(entry.Entity, "ModifiedSource", source);
                 }
 
                 if (entry.Entity is IDeletable deletable)
                 {
-                    if(entry.State == EntityState.Deleted)
-                    {
-                        // Implementing IDeletable implies soft deletes required
-                        entry.State = EntityState.Modified;
-
-                        deletable.Deleted = utcNow;
-                        deletable.DeletedBy = user;
-                        deletable.DeletedSource = source;
-                    } 
-                    else if(deletable.Deleted != null || deletable.DeletedBy != null || deletable.DeletedSource != null)
-                        // if any of the deleted values are not null then 
+                    if (entry.State == EntityState.Deleted)
                     {
                         entry.State = EntityState.Modified;
-                        // If state is not Deleted then ensure the IDeletable properties need to be nulled out
-                        deletable.Deleted = null;
-                        deletable.DeletedBy = null;
-                        deletable.DeletedSource = null;
+                        SetProperty(entry.Entity, "Deleted", utcNow);
+                        SetProperty(entry.Entity, "DeletedBy", user);
+                        SetProperty(entry.Entity, "DeletedSource", source);
                     }
-                    
+                    else if (deletable.Deleted != null || deletable.DeletedBy != null || deletable.DeletedSource != null)
+                    {
+                        entry.State = EntityState.Modified;
+                        SetProperty(entry.Entity, "Deleted", null);
+                        SetProperty(entry.Entity, "DeletedBy", null);
+                        SetProperty(entry.Entity, "DeletedSource", null);
+                    }
                 }
+            }
+        }
+
+        private void SetProperty(object entity, string propertyName, object? value)
+        {
+            var property = entity.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+            if (property != null && property.CanWrite)
+            {
+                property.SetValue(entity, value);
             }
         }
     }
