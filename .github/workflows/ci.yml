@@ -31,20 +31,24 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    # Restore dependencies
+    - name: Restore
+      run: dotnet restore
+
     # Build
     - name: Build
-      run: dotnet build src/**/*.csproj --configuration Release
+      run: dotnet build --configuration Release --no-restore
 
     # Run unit tests
     - name: Unit Tests
-      run: dotnet test test/**/*[Tt]ests/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+      run: dotnet test --no-build --configuration Release --collect:"Code Coverage" --filter "FullyQualifiedName!~TestsInt"
 
     # Run integration tests (disabled as per original)
     - name: Integration Tests
       if: false # This keeps the step disabled as in original
       env:
         InMemory: true
-      run: dotnet test test/**/*[Tt]estsInt/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+      run: dotnet test --no-build --configuration Release --collect:"Code Coverage" --filter "FullyQualifiedName~TestsInt"
 
     # Upload test results (optional but recommended)
     - name: Upload test results
@@ -54,7 +58,7 @@ jobs:
         name: test-results-${{ matrix.os }}
         path: TestResults/**/*.trx
 
-    # Upload code coverage (optional but recommended)
+    # Upload code coverage
     - name: Upload coverage
       if: always()
       uses: actions/upload-artifact@v4
