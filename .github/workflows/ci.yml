@@ -33,7 +33,10 @@ jobs:
 
     # Restore dependencies
     - name: Restore
-      run: dotnet restore **/*.csproj
+      run: dotnet restore src/**/*.csproj
+    
+    - name: Restore tests
+      run: dotnet restore test/**/*.csproj
 
     # Build
     - name: Build
