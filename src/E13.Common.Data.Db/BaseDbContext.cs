@@ -47,7 +47,7 @@ namespace E13.Common.Data.Db
             if(source == null)
             {
                 var caller = new StackFrame(1).GetMethod();
-                source = $"{caller.DeclaringType}.{caller.Name}";
+                source = $"{caller.DeclaringType?.FullName}.{caller.Name}";
             }
 
             TagEntries(source, user);
