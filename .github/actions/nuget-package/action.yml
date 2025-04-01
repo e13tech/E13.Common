@@ -1,0 +1,54 @@
+name: 'Build and Push NuGet Package'
+description: 'Builds and pushes a NuGet package to NuGet.org and GitHub Packages'
+
+inputs:
+  project:
+    description: 'The project name to build and publish'
+    required: true
+  nuget-key:
+    description: 'NuGet API Key'
+    required: true
+  github-token:
+    description: 'GitHub Token'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x'
+        include-prerelease: true
+
+    - name: Fix Project References
+      shell: pwsh
+      run: |
+        $projects = dotnet list src/${{ inputs.project }}/${{ inputs.project }}.csproj reference
+        $projects = $projects | select-object -skip 2
+        foreach($project in $projects){ 
+            $start = $project.LastIndexOf('\') + 1
+            $package = $project.Substring($start, $project.IndexOf('.csproj') - $start)
+            dotnet remove src/${{ inputs.project }}/${{ inputs.project }}.csproj reference $project
+            dotnet add src/${{ inputs.project }}/${{ inputs.project }}.csproj package $package
+        }
+
+    - name: Restore
+      shell: bash
+      run: dotnet restore src/${{ inputs.project }}/${{ inputs.project }}.csproj
+
+    - name: Build
+      shell: bash
+      run: dotnet build src/${{ inputs.project }}/${{ inputs.project }}.csproj --configuration Release --no-restore
+
+    - name: Pack
+      shell: bash
+      run: dotnet pack src/${{ inputs.project }}/${{ inputs.project }}.csproj --configuration Release --no-build --output .
+
+    - name: Push to NuGet.org
+      shell: bash
+      run: dotnet nuget push ${{ inputs.project }}.*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ inputs.nuget-key }}
+
+    - name: Push to GitHub Packages
+      shell: bash
+      run: |
+        dotnet nuget push ${{ inputs.project }}.*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ inputs.github-token }}

@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: true
+
+    # Install mono-libgdiplus on macOS
+    - name: Install mono-libgdiplus (macOS)
+      if: runner.os == 'macOS'
+      run: brew install mono-libgdiplus
+
+    # Setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    # Restore dependencies
+    - name: Restore
+      run: dotnet restore **/*.csproj
+
+    # Build
+    - name: Build
+      run: dotnet build **/*.csproj --configuration Release --no-restore
+
+    # Run unit tests
+    - name: Unit Tests
+      run: dotnet test **/*[Tt]ests/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+
+    # Run integration tests (disabled as per original)
+    - name: Integration Tests
+      if: false # This keeps the step disabled as in original
+      env:
+        InMemory: true
+      run: dotnet test **/*[Tt]estsInt/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+
+    # Upload test results (optional but recommended)
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.os }}
+        path: TestResults/**/*.trx
+
+    # Upload code coverage (optional but recommended)
+    - name: Upload coverage
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-${{ matrix.os }}
+        path: '**/coverage.cobertura.xml'
