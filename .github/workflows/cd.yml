@@ -1,0 +1,138 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  pre:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Tag Build
+        shell: pwsh
+        run: ./build/scripts/tagbuild.ps1
+
+  batch0:
+    needs: pre
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Push Core
+        uses: ./.github/actions/nuget-package
+        with:
+          project: E13.Common.Core
+          nuget-key: ${{ secrets.NUGET_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  batch1:
+    needs: batch0
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [E13.Common.Nunit, E13.Common.Domain, E13.Common.RestEase, E13.Common.Cli]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Push ${{ matrix.project }}
+        uses: ./.github/actions/nuget-package
+        with:
+          project: ${{ matrix.project }}
+          nuget-key: ${{ secrets.NUGET_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  batch2:
+    needs: batch1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [E13.Common.Data.Db, E13.Common.AspNet]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Push ${{ matrix.project }}
+        uses: ./.github/actions/nuget-package
+        with:
+          project: ${{ matrix.project }}
+          nuget-key: ${{ secrets.NUGET_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  batch3:
+    needs: batch2
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [E13.Common.Api, E13.Common.Blazor, E13.Common.Logic, E13.Common.Nunit.UI]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Push ${{ matrix.project }}
+        uses: ./.github/actions/nuget-package
+        with:
+          project: ${{ matrix.project }}
+          nuget-key: ${{ secrets.NUGET_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  batch4:
+    needs: batch3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Push Nunit.Api
+        uses: ./.github/actions/nuget-package
+        with:
+          project: E13.Common.Nunit.Api
+          nuget-key: ${{ secrets.NUGET_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  post:
+    needs: batch4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Git Setup
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          
+      - name: Merge and Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout -b main origin/main
+          git checkout -b deploy origin/deploy
+          files=$(git diff deploy...main --name-only)
+          create_release=false
+          for file in $files; do
+            if [[ $file == src/* ]]; then
+              create_release=true
+              break
+            fi
+          done
+          echo "CREATE_RELEASE=$create_release" >> $GITHUB_ENV
+          git merge main
+          git push origin deploy
+
+      - name: Create Release
+        if: env.CREATE_RELEASE == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
