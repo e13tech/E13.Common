@@ -18,7 +18,6 @@ runs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '9.0.x'
-        include-prerelease: true
 
     - name: Fix Project References
       shell: pwsh
