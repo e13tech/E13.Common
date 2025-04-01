@@ -11,11 +11,24 @@ env:
 jobs:
   pre:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: true
+
+      - name: Set Version
+        id: set-version
+        run: |
+          year=$(date +%Y)
+          day=$(date +%j)
+          # Get the run number for today
+          run_number=$(( ${{ github.run_number }} % 1000 ))  # Ensures number stays within reasonable range
+          version="${year}.${day}.${run_number}"
+          echo "version=${version}" >> $GITHUB_OUTPUT
+          echo "Version: ${version}"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -35,6 +48,7 @@ jobs:
         uses: ./.github/actions/nuget-package
         with:
           project: E13.Common.Core
+          version: ${{ needs.pre.outputs.version }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,6 +64,7 @@ jobs:
         uses: ./.github/actions/nuget-package
         with:
           project: ${{ matrix.project }}
+          version: ${{ needs.pre.outputs.version }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -65,6 +80,7 @@ jobs:
         uses: ./.github/actions/nuget-package
         with:
           project: ${{ matrix.project }}
+          version: ${{ needs.pre.outputs.version }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -80,6 +96,7 @@ jobs:
         uses: ./.github/actions/nuget-package
         with:
           project: ${{ matrix.project }}
+          version: ${{ needs.pre.outputs.version }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -92,6 +109,7 @@ jobs:
         uses: ./.github/actions/nuget-package
         with:
           project: E13.Common.Nunit.Api
+          version: ${{ needs.pre.outputs.version }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -131,7 +149,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: ${{ needs.pre.outputs.version }}
+          release_name: Release ${{ needs.pre.outputs.version }}
           draft: false
           prerelease: false
