@@ -53,7 +53,7 @@ jobs:
     # Upload test results (optional but recommended)
     - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-${{ matrix.os }}
         path: TestResults/**/*.trx
@@ -61,7 +61,7 @@ jobs:
     # Upload code coverage (optional but recommended)
     - name: Upload coverage
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage-${{ matrix.os }}
         path: '**/coverage.cobertura.xml'
