@@ -5,6 +5,9 @@ inputs:
   project:
     description: 'The project name to build and publish'
     required: true
+  version:
+    description: 'The version of the package'
+    required: true
   nuget-key:
     description: 'NuGet API Key'
     required: true
@@ -41,7 +44,7 @@ runs:
 
     - name: Pack
       shell: bash
-      run: dotnet pack src/${{ inputs.project }}/${{ inputs.project }}.csproj --configuration Release --no-build --output .
+      run: dotnet pack src/${{ inputs.project }}/${{ inputs.project }}.csproj --configuration Release --no-build --output . /p:Version=${{ inputs.version }}
 
     - name: Push to NuGet.org
       shell: bash
