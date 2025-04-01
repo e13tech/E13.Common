@@ -37,18 +37,18 @@ jobs:
 
     # Build
     - name: Build
-      run: dotnet build **/*.csproj --configuration Release --no-restore
+      run: dotnet build src/**/*.csproj --configuration Release --no-restore
 
     # Run unit tests
     - name: Unit Tests
-      run: dotnet test **/*[Tt]ests/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+      run: dotnet test test/**/*[Tt]ests/*.csproj --no-build --configuration Release --collect:"Code Coverage"
 
     # Run integration tests (disabled as per original)
     - name: Integration Tests
       if: false # This keeps the step disabled as in original
       env:
         InMemory: true
-      run: dotnet test **/*[Tt]estsInt/*.csproj --no-build --configuration Release --collect:"Code Coverage"
+      run: dotnet test test/**/*[Tt]estsInt/*.csproj --no-build --configuration Release --collect:"Code Coverage"
 
     # Upload test results (optional but recommended)
     - name: Upload test results
