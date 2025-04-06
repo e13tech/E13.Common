@@ -15,8 +15,7 @@ namespace E13.Common.Nunit
 
         public void ApplyToTest(Test test)
         {
-            if (test == null)
-                throw new ArgumentNullException(nameof(test));
+            ArgumentNullException.ThrowIfNull(test);
 
             LaunchSettingsHelper.EnsureEnvironmentVariables();
 

@@ -17,8 +17,7 @@ namespace E13.Common.Api
         public static IApplicationBuilder InitializeDbContext<TContext>(this IApplicationBuilder app, IConfiguration config)//, IHostEnvironment env)//, IDataSeed<TContext> dataSeed = null)
             where TContext : DbContext
         {
-            if (app == null)
-                throw new ArgumentNullException(nameof(app));
+            ArgumentNullException.ThrowIfNull(app);
 
             if (config.RunningInMemory())
             {

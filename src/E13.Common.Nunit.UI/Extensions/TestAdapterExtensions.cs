@@ -13,10 +13,9 @@ namespace E13.Common.Nunit.UI.Extensions
 
         public static int GetScreenIndex(this TestAdapter t, string name = null)
         {
-            if (t == null)
-                throw new ArgumentNullException(nameof(t));
+            ArgumentNullException.ThrowIfNull(t);
 
-            if(name == null)
+            if (name == null)
             {
                 name = t.Name;
             }

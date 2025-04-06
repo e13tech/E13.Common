@@ -22,8 +22,7 @@ namespace Microsoft.AspNetCore.Authentication
         /// <returns>The <c>issuer</c> if it's valid, or otherwise <c>SecurityTokenInvalidIssuerException</c> is thrown</returns>
         public static string ValidateAadIssuer(string issuer, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
-            if (validationParameters == null)
-                throw new ArgumentNullException(nameof(validationParameters));
+            ArgumentNullException.ThrowIfNull(validationParameters);
 
             if (!(securityToken is JwtSecurityToken jwtToken))
             {

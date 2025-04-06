@@ -14,8 +14,7 @@ namespace E13.Common.Api
         /// <returns></returns>
         public static Dictionary<string, string> AzureAd(this IConfiguration config)
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
+            ArgumentNullException.ThrowIfNull(config);
 
             return new Dictionary<string, string>()
             {
