@@ -36,8 +36,15 @@ namespace System
             foreach (var enumValue in enumValues)
             {
                 var type = enumValue.GetType();
-                var name = Enum.GetName(type, enumValue);
-                var attribute = type.GetField(name).GetCustomAttribute<DisplayAttribute>();
+
+                var name = Enum.GetName(type, enumValue)
+                    ?? throw new ArgumentException($"Enum value '{enumValue}' not found in type '{type.Name}'", nameof(value));
+
+                var nameAttr = type.GetField(name)
+                    ?? throw new ArgumentException($"Enum {name} not found in type {type.Name}", nameof(value));
+
+                var attribute = nameAttr.GetCustomAttribute<DisplayAttribute>()
+                    ?? throw new ArgumentException($"Enum {name} does not have a DisplayAttribute", nameof(value));
 
                 if (attribute.StringValue == value)
                     return (T)enumValue;
