@@ -11,7 +11,7 @@ namespace E13.Common.Domain.Tests.Specifications
     /// </summary>
     public class TrueSpecification : Specification<object>
     {
-        public override Expression<Func<object, bool>> ToExpression()
+        public override Expression<Func<object?, bool>> ToExpression()
         {
             return b => true;
         }
@@ -21,7 +21,7 @@ namespace E13.Common.Domain.Tests.Specifications
     /// </summary>
     public class FalseSpecification : Specification<object>
     {
-        public override Expression<Func<object, bool>> ToExpression()
+        public override Expression<Func<object?, bool>> ToExpression()
         {
             return b => false;
         }

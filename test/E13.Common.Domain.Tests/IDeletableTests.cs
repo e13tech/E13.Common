@@ -19,8 +19,8 @@ namespace E13.Common.Domain.Tests
     public class IDeletableSample : IDeletable
     {
         public Guid Id { get; set; }
-        public string DeletedBy { get; set; }
-        public string DeletedSource { get; set; }
+        public string? DeletedBy { get; set; }
+        public string? DeletedSource { get; set; }
         public DateTime? Deleted { get; set; }
         
     }

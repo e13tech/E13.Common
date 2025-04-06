@@ -46,7 +46,7 @@ namespace E13.Common.Nunit.Tests.Extensions
             using var imageA = new Bitmap(ImageA);
             using var imageB = new Bitmap(ImageB);
 
-            var difference = imageA.Compare(imageB);
+            var difference = imageA.Compare(imageB) ?? throw new Exception("unable to compare images");
             difference.Save(tempPath);
 
             using var compare = new Bitmap(tempPath);
