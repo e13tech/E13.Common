@@ -43,20 +43,20 @@ namespace Microsoft.AspNetCore.Authentication
         public static string GetDisplayName(this ClaimsPrincipal claimsPrincipal)
         {
             // Attempting the claims brought by an Azure AD v2.0 token first
-            string displayName = claimsPrincipal.FindFirstValue("preferred_username");
+            string? displayName = claimsPrincipal.FindFirstValue("preferred_username");
 
             // Otherwise falling back to the claims brought by an Azure AD v1.0 token
             if (string.IsNullOrWhiteSpace(displayName))
             {
                 displayName = claimsPrincipal.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
             }
-            
+
             // Finally falling back to name
             if (string.IsNullOrWhiteSpace(displayName))
             {
                 displayName = claimsPrincipal.FindFirstValue("name");
             }
-            return displayName;
+            return displayName ?? string.Empty;
         }
     }
 }

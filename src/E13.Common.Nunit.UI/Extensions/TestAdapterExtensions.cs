@@ -11,7 +11,7 @@ namespace E13.Common.Nunit.UI.Extensions
         private const int StartingIndex = 0;
         private static readonly Dictionary<string, int> ScreenIndex = new Dictionary<string, int>();
 
-        public static int GetScreenIndex(this TestAdapter t, string name = null)
+        public static int GetScreenIndex(this TestAdapter t, string? name = null)
         {
             ArgumentNullException.ThrowIfNull(t);
 

@@ -10,15 +10,16 @@ namespace E13.Common.Data.Db
     {
         public T CreateDbContext(string[] args)
         {
-            string designString = Environment.GetEnvironmentVariable("DESIGN_CONTEXT");
+            string? designString = Environment.GetEnvironmentVariable("DESIGN_CONTEXT");
+
             var optionsBuilder = new DbContextOptionsBuilder<T>();
             optionsBuilder.UseSqlServer(designString);
 
-            var dbContext = (T)Activator.CreateInstance(
+            var dbContext = Activator.CreateInstance(
                 typeof(T),
-                optionsBuilder.Options);
+                optionsBuilder.Options) as T;
 
-            return dbContext;
+            return dbContext ?? throw new Exception($"Unable to create a DbContext of type {nameof(T)}");
         }
     }
 }

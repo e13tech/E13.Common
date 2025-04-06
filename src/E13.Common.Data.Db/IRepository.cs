@@ -31,9 +31,9 @@ namespace E13.Common.Data.Db
         /// <param name="pageSize">The size of the page.</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        PagedCollection<TEntity> GetPagedList(Expression<Func<TEntity, bool>> predicate = null,
-                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        PagedCollection<TEntity> GetPagedList(Expression<Func<TEntity, bool>>? predicate = null,
+                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                          int pageIndex = 0,
                                          int pageSize = 20);
 
@@ -45,9 +45,9 @@ namespace E13.Common.Data.Db
         /// <param name="include">A function to include navigation properties</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method defaults to a read-only, no-tracking query.</remarks>
-        TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate = null,
-                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
+        TEntity? GetFirstOrDefault(Expression<Func<TEntity, bool>>? predicate = null,
+                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null);
 
         /// <summary>
         /// Gets the first or default entity based on a predicate, orderby delegate and include delegate. This method defaults to a read-only, no-tracking query.
@@ -58,17 +58,17 @@ namespace E13.Common.Data.Db
         /// <param name="include">A function to include navigation properties</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method defaults to a read-only, no-tracking query.</remarks>
-        TResult GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                           Expression<Func<TEntity, bool>> predicate = null,
-                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
+        TResult? GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
+                                           Expression<Func<TEntity, bool>>? predicate = null,
+                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                           Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null);
 
         /// <summary>
         /// Gets the count based on a predicate.
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        int Count(Expression<Func<TEntity, bool>> predicate = null);
+        int Count(Expression<Func<TEntity, bool>>? predicate = null);
 
         /// <summary>
         /// Inserts a new entity synchronously.

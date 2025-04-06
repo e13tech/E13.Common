@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Authority += "/v2.0";
 
                 // The valid audiences are both the Client ID (options.Audience) and api://{ClientID}
-                options.TokenValidationParameters.ValidAudiences = new string[] { options.Audience, $"api://{options.Audience}" };
+                options.TokenValidationParameters.ValidAudiences = [options.Audience, $"api://{options.Audience}"];
 
                 // Instead of using the default validation (validating against a single tenant, as we do in line of business apps),
                 // we inject our own multitenant validation logic (which even accepts both V1 and V2 tokens)

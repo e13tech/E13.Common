@@ -13,7 +13,7 @@ namespace E13.Common.Nunit.Extensions
     {
         public PointOfInterest this[int index]
         {
-            get { return (PointOfInterest)List[index]; }
+            get { return List[index] as PointOfInterest ?? throw new InvalidOperationException("PointOfInterest is null"); }
         }
 
         public void Add(PointOfInterest pointOfInterest)

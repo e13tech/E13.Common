@@ -18,15 +18,15 @@ namespace System.Net.Http
     /// <seealso cref="https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Username-Password-Authentication"/>
     public static class HttpClientExtensions
     {
-        private static readonly string TenantId = Environment.GetEnvironmentVariable("TokenForAAD_TenantId");
-        private static readonly string PublicClientId = Environment.GetEnvironmentVariable("TokenForAAD_PublicClientId");
+        private static readonly string? TenantId = Environment.GetEnvironmentVariable("TokenForAAD_TenantId");
+        private static readonly string? PublicClientId = Environment.GetEnvironmentVariable("TokenForAAD_PublicClientId");
 
         /// <summary>
         /// Scopes to request access to the protected Web API (here Microsoft Graph)
         /// </summary>
         private static string[] Scopes { get; set; } = new string[] { "user.read.all" };
 
-        public static void TokenForAAD(this HttpClient client, string username, SecureString password, string[] additionalScopes = null)
+        public static void TokenForAAD(this HttpClient client, string username, SecureString password, string[]? additionalScopes = null)
         {
             ArgumentNullException.ThrowIfNull(client);
 
@@ -35,7 +35,7 @@ namespace System.Net.Http
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
-        public static string GetTokenForAAD(this HttpClient client, string username, SecureString password, string[] additionalScopes = null)
+        public static string GetTokenForAAD(this HttpClient client, string username, SecureString password, string[]? additionalScopes = null)
         {
             ArgumentNullException.ThrowIfNull(client);
 

@@ -21,7 +21,7 @@ namespace PuppeteerSharp
 
 
         [SupportedOSPlatform("windows")]
-        public static async Task ConfirmScreenshot(this IPage page, string name = null)
+        public static async Task ConfirmScreenshot(this IPage page, string? name = null)
         {
             ArgumentNullException.ThrowIfNull(page);
 

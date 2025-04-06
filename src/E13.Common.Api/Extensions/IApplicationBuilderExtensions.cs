@@ -22,7 +22,8 @@ namespace E13.Common.Api
             if (config.RunningInMemory())
             {
                 using var scope = app.ApplicationServices.CreateScope();
-                using var ctx = scope.ServiceProvider.GetService<TContext>();
+                using var ctx = scope.ServiceProvider.GetService<TContext>()
+                    ?? throw new Exception($"Unable to create {typeof(TContext).Name}");
 
                 ctx.Database.EnsureCreated();
 
