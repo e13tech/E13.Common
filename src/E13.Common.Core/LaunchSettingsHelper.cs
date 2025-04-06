@@ -25,10 +25,13 @@ namespace E13.Common.Core
             using var file = File.OpenText("Properties\\launchSettings.json");
             using var reader = new JsonTextReader(file);
 
-            var jObject = JObject.Load(reader);
+            var jObject = JObject.Load(reader) 
+                ?? throw new InvalidOperationException("Unable to load launchSettings.json");
 
-            var variables = jObject
-                .GetValue("profiles", StringComparison.InvariantCultureIgnoreCase)
+            var value = jObject.GetValue("profiles", StringComparison.InvariantCultureIgnoreCase) 
+                ?? throw new InvalidOperationException("The 'profiles' section is missing in launchSettings.json");
+
+            var variables = value
                 //select a proper profile here
                 .SelectMany(profiles => profiles.Children())
                 .SelectMany(profile => profile.Children<JProperty>())
