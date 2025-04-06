@@ -10,7 +10,7 @@ namespace E13.Common.Data.Db.Tests
 {
     public class BaseDbContextTests
     {
-        private TestDbContext Context;
+        private TestDbContext? Context;
 
         [SetUp]
         public void Setup()
@@ -19,6 +19,9 @@ namespace E13.Common.Data.Db.Tests
             services.AddDbContext<TestDbContext>(o => o.UseInMemoryDatabase($"{Guid.NewGuid()}"));
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
+            if(Context == null)
+                throw new Exception("Unable to create TestDbContext");
+
             Context.AddTestData();
         }
 
@@ -28,6 +31,9 @@ namespace E13.Common.Data.Db.Tests
         [Test]
         public void InMemory_Baseline_OnePerTable()
         {
+            if(Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             Context.Creatables.Count().Should().Be(1);
             Context.Modifiables.Count().Should().Be(1);
             Context.Deletable.IgnoreQueryFilters().Count().Should().Be(1);
@@ -41,6 +47,9 @@ namespace E13.Common.Data.Db.Tests
         [Test]
         public void InMemory_Baseline_EmptyGuids()
         {
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             Context.Creatables.All(e => e.Id == Guid.Empty).Should().BeFalse();
             Context.Modifiables.All(e => e.Id == Guid.Empty).Should().BeFalse();
             Context.Deletable.IgnoreQueryFilters().All(e => e.Id == Guid.Empty).Should().BeFalse();

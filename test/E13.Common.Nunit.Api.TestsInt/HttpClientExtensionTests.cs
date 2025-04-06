@@ -13,25 +13,35 @@ namespace E13.Common.Nunit.Api.TestsInt
          * Set-AzureADUser -ObjectId <user ID> -PasswordPolicies DisablePasswordExpiration
          */
 
-        private static readonly string TestGoodUserName = Environment.GetEnvironmentVariable("TokenForAAD_TestUser");
-        private static readonly string TestDisabledUserName = Environment.GetEnvironmentVariable("TokenForAAD_DisabledUser");
-        private static readonly string TestInvalidUserName = Environment.GetEnvironmentVariable("TokenForAAD_InvalidUser");
+        private static readonly string? TestGoodUserName = Environment.GetEnvironmentVariable("TokenForAAD_TestUser");
+        private static readonly string? TestDisabledUserName = Environment.GetEnvironmentVariable("TokenForAAD_DisabledUser");
+        private static readonly string? TestInvalidUserName = Environment.GetEnvironmentVariable("TokenForAAD_InvalidUser");
 
-        private static readonly string TestPassword = Environment.GetEnvironmentVariable("TokenForAAD_TestPass");
+        private static readonly string? TestPassword = Environment.GetEnvironmentVariable("TokenForAAD_TestPass");
 
         [Test]
         public void TokenForAAD_ValidCredential_GetsBearerToken()
         {
+            if(TestGoodUserName == null || TestPassword == null)
+                Assert.Ignore("Test credentials not set in environment variables");
+
             using var client = new HttpClient();
 
             client.TokenForAAD(TestGoodUserName, TestPassword.Secure());
 
-            client.DefaultRequestHeaders.Authorization.Scheme.Should().Be("Bearer");
-            client.DefaultRequestHeaders.Authorization.Parameter.Should().NotBeNullOrWhiteSpace();
+            var auth = client.DefaultRequestHeaders.Authorization
+                ?? throw new Exception("Unable to get Auth from DefaultRequestHeaders");
+            
+
+            auth.Scheme.Should().Be("Bearer");
+            auth.Parameter.Should().NotBeNullOrWhiteSpace();
         }
         [Test]
         public void TokenForAAD_DisabledUser_Unauthorized()
         {
+            if(TestDisabledUserName == null || TestPassword == null)
+                Assert.Ignore("Test credentials not set in environment variables");
+
             using var client = new HttpClient();
 
             Action a = () => client.TokenForAAD(TestDisabledUserName, TestPassword.Secure());
@@ -43,6 +53,9 @@ namespace E13.Common.Nunit.Api.TestsInt
         [Test]
         public void TokenForAAD_InvalidUser_Unauthorized()
         {
+            if(TestInvalidUserName == null)
+                Assert.Ignore("Test credentials not set in environment variables");
+
             using var client = new HttpClient();
 
             Action a = () => client.TokenForAAD(TestInvalidUserName, "junk".Secure());

@@ -10,7 +10,7 @@ namespace E13.Common.Data.Db.Tests
 {
     public class BaseDbContext_ICreatableTests
     {
-        private TestDbContext Context;
+        private TestDbContext? Context;
 
         [SetUp]
         public void Setup()
@@ -23,11 +23,18 @@ namespace E13.Common.Data.Db.Tests
             });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
+
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             Context.AddTestData();
         }
         [Test]
         public void InitialData_CreatedSource_AddTestData()
         {
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             var arranged = Context.Creatables.First();
 
             arranged.CreatedSource.Should().Be("E13.Common.Data.Db.Tests.Sample.TestDbContext.AddTestData");
@@ -36,6 +43,9 @@ namespace E13.Common.Data.Db.Tests
         [Test]
         public void InitialData_CreatedBy_Unknown()
         {
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             var arranged = Context.Creatables.First();
 
             arranged.CreatedBy.Should().Be(BaseDbContext.UnknownUser);
@@ -44,6 +54,9 @@ namespace E13.Common.Data.Db.Tests
         [Test]
         public void SaveChanges_UnknownUser_CreatedByUnknown()
         {
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             var id = Guid.NewGuid();
             Context.Creatables.Add(new TestCreatable { Id = id });
             Context.SaveChanges();
@@ -56,6 +69,9 @@ namespace E13.Common.Data.Db.Tests
         [Test]
         public void SaveChanges_NamedUser_CreatedByNamedUser()
         {
+            if (Context == null)
+                throw new Exception("TestDbContext did not Setup() successfully");
+
             var id = Guid.NewGuid();
             Context.Creatables.Add(new TestCreatable { Id = id });
             Context.SaveChanges(nameof(SaveChanges_NamedUser_CreatedByNamedUser));
