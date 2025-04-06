@@ -17,7 +17,6 @@ namespace E13.Common.Api
     public abstract class AuthorizedControllerBase : ControllerBase
     {
         protected ILogger Logger { get; }
-        private IWebHostEnvironment Environment { get; }
         private IConfiguration Configuration { get; }
         //protected bool IsDevelopment => Environment.IsDevelopment();
 
@@ -28,7 +27,7 @@ namespace E13.Common.Api
         }
         
         protected string Name
-            => User.Claims.FirstOrDefault(c => c.Type == "name").Value;
+            => User.Claims.First(c => c.Type == "name").Value;
 
         protected string Username
         { 
@@ -42,7 +41,8 @@ namespace E13.Common.Api
                 if (un != null)
                     return un.Value;
 
-                dynamic me = CallGraphApiOnBehalfOfUser().Result;
+                dynamic? me = CallGraphApiOnBehalfOfUser().Result ?? throw new Exception("Unable to retrieve user information from Graph API");
+
                 return me.userPrincipalName;
             }
         }
@@ -52,22 +52,23 @@ namespace E13.Common.Api
             get
             {
                 var auth = Request.Headers["Authorization"];
-                if (auth.Count < 1 || auth[0].Length < 8)
+
+                if (auth.Count < 1 || auth[0]!.Length < 8)
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
                     throw new ArgumentException("Request Header does not contain a valid Bearer Token");
 #pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
-                var bearer = auth[0][7..];
+                var bearer = auth[0]![7..];
                 return bearer;
             }
         }
 
-        private async Task<dynamic> CallGraphApiOnBehalfOfUser()
+        private async Task<dynamic?> CallGraphApiOnBehalfOfUser()
         {
             // Get the token to use on behalf of the user
             string[] scopes = { "user.read.all" };
 
-            string appKey = Configuration.GetValue<string>("AzureAd:ClientSecret");
-            string clientId = Configuration.GetValue<string>("AzureAd:ClientId");
+            string? appKey = Configuration.GetValue<string>("AzureAd:ClientSecret");
+            string? clientId = Configuration.GetValue<string>("AzureAd:ClientId");
 
             var app = ConfidentialClientApplicationBuilder.Create(clientId)
               .WithClientSecret(appKey)
@@ -85,7 +86,7 @@ namespace E13.Common.Api
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                dynamic me = JsonConvert.DeserializeObject(content);
+                dynamic? me = JsonConvert.DeserializeObject(content);
                 return me;
             }
 

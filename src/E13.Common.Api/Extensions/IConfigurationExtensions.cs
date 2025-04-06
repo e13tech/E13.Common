@@ -12,11 +12,11 @@ namespace E13.Common.Api
         /// </summary>
         /// <param name="config">configuration for the current micro-service</param>
         /// <returns></returns>
-        public static Dictionary<string, string> AzureAd(this IConfiguration config)
+        public static Dictionary<string, string?> AzureAd(this IConfiguration config)
         {
             ArgumentNullException.ThrowIfNull(config);
 
-            return new Dictionary<string, string>()
+            return new Dictionary<string, string?>()
             {
                 {"TenantId" , config["AzureAd:TenantId"] },
                 {"ClientId" , config["AzureAd:ClientId"] },
@@ -31,9 +31,9 @@ namespace E13.Common.Api
         /// <param name="config">configuration object for the current micro-service</param>
         /// <param name="configKey">configuration key for the micro-service's database connection string</param>
         /// <returns></returns>
-        public static Dictionary<string, string> ConnectionStrings(this IConfiguration config, string configKey)
+        public static Dictionary<string, string?> ConnectionStrings(this IConfiguration config, string configKey)
         {
-            return new Dictionary<string, string>()
+            return new Dictionary<string, string?>()
             {
                 { configKey , config.GetConnectionString(configKey) },
             };

@@ -14,6 +14,9 @@ namespace System.Net.Http
         public static void TokenForAAD_TestEnabled(this HttpClient client, string[] apiScopes)
 #pragma warning restore CA1707 // Identifiers should not contain underscores
         {
+            if(TestUser == null || TestPass == null)
+                throw new Exception("TokenForAAD_TestUser and TokenForAAD_TestPass must be set in the environment variables");
+
             client.TokenForAAD(TestUser, TestPass.Secure(), apiScopes);
         }
     }

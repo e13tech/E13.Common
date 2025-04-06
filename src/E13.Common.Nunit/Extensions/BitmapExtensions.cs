@@ -18,7 +18,7 @@ namespace System.Drawing
         }
 
         [SupportedOSPlatform("windows")]
-        public static Bitmap Compare(this Bitmap original, Bitmap compare )
+        public static Bitmap? Compare(this Bitmap original, Bitmap compare )
         {
             ArgumentNullException.ThrowIfNull(original);
 

@@ -63,9 +63,9 @@ namespace E13.Common.Data.Db
         /// <param name="pageSize">The size of the page.</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual PagedCollection<TEntity> GetPagedList(Expression<Func<TEntity, bool>> predicate = null,
-                                                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+        public virtual PagedCollection<TEntity> GetPagedList(Expression<Func<TEntity, bool>>? predicate = null,
+                                                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                 int pageIndex = 0,
                                                 int pageSize = 20)
         {
@@ -103,9 +103,9 @@ namespace E13.Common.Data.Db
         /// <returns>An <see cref="IPagedCollection{TResult}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
         public virtual PagedCollection<TResult> GetPagedList<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                         Expression<Func<TEntity, bool>> predicate = null,
-                                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                                         Expression<Func<TEntity, bool>>? predicate = null,
+                                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                                                          int pageIndex = 0,
                                                          int pageSize = 20)
             where TResult : class
@@ -140,9 +140,9 @@ namespace E13.Common.Data.Db
         /// <param name="include">A function to include navigation properties</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> predicate = null,
-                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        public virtual TEntity? GetFirstOrDefault(Expression<Func<TEntity, bool>>? predicate = null,
+                                         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
             IQueryable<TEntity> query = DbSet;
 
@@ -158,7 +158,8 @@ namespace E13.Common.Data.Db
 
             if (orderBy != null)
             {
-                return orderBy(query).FirstOrDefault();
+                var orderedQuery = orderBy(query) ?? throw new ArgumentException("Unable to order query by orderBy", nameof(orderBy));
+                return orderedQuery.FirstOrDefault();
             }
             else
             {
@@ -175,10 +176,10 @@ namespace E13.Common.Data.Db
         /// <param name="include">A function to include navigation properties</param>
         /// <returns>An <see cref="IPagedCollection{TEntity}"/> that contains elements that satisfy the condition specified by <paramref name="predicate"/>.</returns>
         /// <remarks>This method default no-tracking query.</remarks>
-        public virtual TResult GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
-                                                  Expression<Func<TEntity, bool>> predicate = null,
-                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
+        public virtual TResult? GetFirstOrDefault<TResult>(Expression<Func<TEntity, TResult>> selector,
+                                                  Expression<Func<TEntity, bool>>? predicate = null,
+                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                  Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
             IQueryable<TEntity> query = DbSet;
 
@@ -207,7 +208,7 @@ namespace E13.Common.Data.Db
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual int Count(Expression<Func<TEntity, bool>> predicate = null)
+        public virtual int Count(Expression<Func<TEntity, bool>>? predicate = null)
         {
             if (predicate == null)
             {
@@ -275,8 +276,14 @@ namespace E13.Common.Data.Db
         {
             // using a stub entity to mark for deletion
             var typeInfo = typeof(TEntity).GetTypeInfo();
-            var key = Context.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties?[0];
-            var property = typeInfo.GetProperty(key?.Name);
+
+            var entityType = Context.Model.FindEntityType(typeInfo) 
+                ?? throw new InvalidOperationException($"Entity type {typeInfo.FullName} not found in the model.");
+
+            var key = (entityType.FindPrimaryKey()?.Properties?[0]) 
+                ?? throw new InvalidOperationException($"Primary key not found for entity type {typeInfo.FullName}.");
+
+            var property = typeInfo.GetProperty(key.Name);
             if (property != null)
             {
                 var entity = Activator.CreateInstance<TEntity>();

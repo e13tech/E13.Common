@@ -7,12 +7,15 @@ namespace E13.Common.Api
     {
         public static object GetDiagnosticInfo(IConfiguration config, bool isDevelopmentEnv, string configKey)
         {
+            var entryAssembly = Assembly.GetEntryAssembly();
+            var assemblyVersion = entryAssembly?.GetName().Version;
+
             if (isDevelopmentEnv)
             {
                 return new
                 {
                     AzureAd = config.AzureAd(),
-                    AssemblyVersion = Assembly.GetEntryAssembly().GetName().Version,
+                    AssemblyVersion = assemblyVersion,
                     ConnectionStrings = config.ConnectionStrings(configKey),
                 };
             }
@@ -20,7 +23,7 @@ namespace E13.Common.Api
             {
                 return new
                 {
-                    AssemblyVersion = Assembly.GetEntryAssembly().GetName().Version,
+                    AssemblyVersion = assemblyVersion,
                 };
             }
         }

@@ -46,7 +46,9 @@ namespace E13.Common.Data.Db
         {
             if(source == null)
             {
-                var caller = new StackFrame(1).GetMethod();
+                var caller = new StackFrame(1).GetMethod() 
+                    ?? throw new Exception("Unable to determine the calling method source from new StackFrame(1).GetMethod()");
+
                 source = $"{caller.DeclaringType?.FullName}.{caller.Name}";
             }
 
