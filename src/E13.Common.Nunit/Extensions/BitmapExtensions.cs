@@ -20,11 +20,9 @@ namespace System.Drawing
         [SupportedOSPlatform("windows")]
         public static Bitmap Compare(this Bitmap original, Bitmap compare )
         {
-            if (original == null)
-                throw new ArgumentNullException(nameof(original));
+            ArgumentNullException.ThrowIfNull(original);
 
-            if (compare == null)
-                throw new ArgumentNullException(nameof(compare));
+            ArgumentNullException.ThrowIfNull(compare);
 
             int xCoordinate = 0;
             int yCoordinate = 0;

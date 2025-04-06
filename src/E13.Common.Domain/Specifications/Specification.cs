@@ -45,24 +45,21 @@ namespace E13.Common.Domain.Specifications
         #region Operators
         public static Specification<T> operator &(Specification<T> left, Specification<T> right)
         {
-            if (left == null)
-                throw new ArgumentNullException(nameof(left));
+            ArgumentNullException.ThrowIfNull(left);
 
             return left.BitwiseAnd(right);
         }
 
         public static Specification<T> operator |(Specification<T> left, Specification<T> right)
         {
-            if (left == null)
-                throw new ArgumentNullException(nameof(left));
+            ArgumentNullException.ThrowIfNull(left);
 
             return left.BitwiseOr(right);
         }
 
         public static Specification<T> operator !(Specification<T> not)
         {
-            if (not == null)
-                throw new ArgumentNullException(nameof(not));
+            ArgumentNullException.ThrowIfNull(not);
 
             return not.LogicalNot();
         }

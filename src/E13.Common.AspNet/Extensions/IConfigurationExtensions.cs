@@ -15,8 +15,7 @@ namespace Microsoft.Extensions.Configuration
         /// <returns></returns>
         public static bool RunningInMemory(this IConfiguration config)
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
+            ArgumentNullException.ThrowIfNull(config);
 
             //return config.GetValue<bool>("InMemory");
 

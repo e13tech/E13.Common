@@ -28,8 +28,7 @@ namespace System.Net.Http
 
         public static void TokenForAAD(this HttpClient client, string username, SecureString password, string[] additionalScopes = null)
         {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
+            ArgumentNullException.ThrowIfNull(client);
 
             var token = client.GetTokenForAAD(username, password, additionalScopes);
 
@@ -38,8 +37,7 @@ namespace System.Net.Http
 
         public static string GetTokenForAAD(this HttpClient client, string username, SecureString password, string[] additionalScopes = null)
         {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
+            ArgumentNullException.ThrowIfNull(client);
 
             try
             {
