@@ -24,13 +24,20 @@ namespace System
             foreach (var enumValue in enumValues)
             {
                 var type = enumValue.GetType();
-                var name = Enum.GetName(type, enumValue);
-                var attribute = type.GetField(name).GetCustomAttribute<GuidAttribute>();
+
+                var name = Enum.GetName(type, enumValue)
+                    ?? throw new ArgumentException($"Enum value '{enumValue}' not found in type '{type.Name}'", nameof(value));
+
+                var nameAttr = type.GetField(name)
+                    ?? throw new ArgumentException($"Enum {name} not found in type {type.Name}", nameof(value));
+
+                var attribute = nameAttr.GetCustomAttribute<GuidAttribute>()
+                    ?? throw new ArgumentException($"Enum {name} does not have a GuidAttribute", nameof(value));
 
                 if (attribute.Value == value)
                     return (T)enumValue;
             }
-            throw new ArgumentException($"Cannot find enum of type {typeof(T).Name} with Guid {value}");
+            throw new ArgumentException($"Cannot find enum of type {typeof(T).Name} with Guid {value}", nameof(value));
         }
     }
 }
