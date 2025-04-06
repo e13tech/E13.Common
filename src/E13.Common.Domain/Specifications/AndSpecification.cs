@@ -16,14 +16,14 @@ namespace E13.Common.Domain.Specifications
             Left = left;
             Right = right;
         }
-        public override Expression<Func<T, bool>> ToExpression()
+        public override Expression<Func<T?, bool>> ToExpression()
         {
             var leftExpression = Left.ToExpression();
             var rightExpression = Right.ToExpression();
 
             var andExpression = Expression.AndAlso(leftExpression.Body, rightExpression.Body);
 
-            return Expression.Lambda<Func<T, bool>>(andExpression, leftExpression.Parameters.Single());
+            return Expression.Lambda<Func<T?, bool>>(andExpression, leftExpression.Parameters.Single());
         }
     }
 }

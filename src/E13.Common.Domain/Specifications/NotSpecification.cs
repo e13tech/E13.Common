@@ -14,13 +14,13 @@ namespace E13.Common.Domain.Specifications
         {
             Not = not;
         }
-        public override Expression<Func<T, bool>> ToExpression()
+        public override Expression<Func<T?, bool>> ToExpression()
         {
             var notExpression = Not.ToExpression();
 
             var unaryExpression = Expression.Not(notExpression.Body);
 
-            return Expression.Lambda<Func<T, bool>>(unaryExpression, notExpression.Parameters.Single());
+            return Expression.Lambda<Func<T?, bool>>(unaryExpression, notExpression.Parameters.Single());
         }
     }
 }
