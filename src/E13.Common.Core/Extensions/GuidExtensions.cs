@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
+// suppressing this message because I wanted this to be in the System namespace so it's automatically available everywhere Guids are referenced
 namespace System
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 {
     /// <summary>
     /// Extension methods for streamlining guid to GuidAttrribute interactions
