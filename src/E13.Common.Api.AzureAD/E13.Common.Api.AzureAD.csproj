@@ -18,6 +18,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
       <PackagePath>\</PackagePath>
       <Pack>true</Pack>
     </None>
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
