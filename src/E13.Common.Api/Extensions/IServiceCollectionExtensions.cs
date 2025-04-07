@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using E13.Common.Core;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddStandardDbContext<TContext>(this IServiceCollection services, IConfiguration configuration, string configKey)
             where TContext : DbContext
         {
-            if(configuration.RunningInMemory())
+            if(EnvironmentVars.IsRunningInMemory())
             {
                 services.AddDbContext<TContext>(options => 
                     options.UseInMemoryDatabase($"{typeof(TContext).Name}"));

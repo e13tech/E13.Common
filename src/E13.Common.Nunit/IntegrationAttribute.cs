@@ -11,8 +11,6 @@ namespace E13.Common.Nunit
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class IntegrationAttribute : Attribute, IApplyToTest
     {
-        protected static readonly bool InMemory = Environment.GetEnvironmentVariable("InMemory").DefaultParse(false);
-
         public void ApplyToTest(Test test)
         {
             ArgumentNullException.ThrowIfNull(test);
@@ -20,7 +18,7 @@ namespace E13.Common.Nunit
             LaunchSettingsHelper.EnsureEnvironmentVariables();
 
             // If this test is running in memory then skip the test
-            if (InMemory)
+            if (EnvironmentVars.IsRunningInMemory())
                 test.RunState = RunState.Ignored; 
         }
     }

@@ -44,5 +44,9 @@
   <ItemGroup>
     <ProjectReference Include="..\E13.Common.Core\E13.Common.Core.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 
 </Project>
