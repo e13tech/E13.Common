@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
+using E13.Common.Core;
 
 namespace E13.Common.Api
 {
@@ -19,7 +20,7 @@ namespace E13.Common.Api
         {
             ArgumentNullException.ThrowIfNull(app);
 
-            if (config.RunningInMemory())
+            if (EnvironmentVars.IsRunningInMemory())
             {
                 using var scope = app.ApplicationServices.CreateScope();
                 using var ctx = scope.ServiceProvider.GetService<TContext>()
@@ -36,7 +37,7 @@ namespace E13.Common.Api
         }
         public static IApplicationBuilder UseStandardApi(this IApplicationBuilder app, IConfiguration configuration, string apiTitle, string apiVersion)
         {
-            if(!configuration.RunningInMemory())
+            if(!EnvironmentVars.IsRunningInMemory())
                 app.UseHttpsRedirection();
 
             app.UseAuthentication();

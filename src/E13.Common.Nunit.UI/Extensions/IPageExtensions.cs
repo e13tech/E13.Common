@@ -11,12 +11,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using E13.Common.Nunit.UI.Extensions;
 using System.Runtime.Versioning;
+using E13.Common.Core;
 
 namespace PuppeteerSharp
 {
     public static class IPageExtensions
     {
-        private static readonly bool InMemory = Environment.GetEnvironmentVariable("InMemory").DefaultParse(false);
         public static readonly string ScreensDirectory = $"{TestContext.CurrentContext.WorkDirectory}/../../../screens/";
 
 
@@ -35,7 +35,7 @@ namespace PuppeteerSharp
             var screenDir = $"{ScreensDirectory}{TestContext.CurrentContext.Test.ClassName}/{w}_{h}/{name}/";
             new DirectoryInfo(screenDir).Create();
 
-            var expectedPath = InMemory ? 
+            var expectedPath = EnvironmentVars.IsRunningInMemory() ? 
                 $"{screenDir}{name}_{index}_ExpectedIM.png" 
                 : 
                 $"{screenDir}{index}_Expected.png";
