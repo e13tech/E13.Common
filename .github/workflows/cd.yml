@@ -37,7 +37,7 @@ jobs:
 
       - name: Tag Build
         shell: pwsh
-        run: ./build/scripts/tagbuild.ps1
+        run: ./.github/scripts/tagbuild.ps1
 
   batch0:
     needs: pre
