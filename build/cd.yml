@@ -82,7 +82,7 @@ stages:
   - template: templates/job_nuget_github.yml
     parameters:
       name: data
-      project: E13.Common.Data.Db
+      project: E13.Common.Data
 
   - template: templates/job_nuget_github.yml
     parameters:
@@ -92,6 +92,11 @@ stages:
 - stage: Batch3  
   dependsOn: Batch2
   jobs:
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: datadb
+      project: E13.Common.Data.Db
+
   - template: templates/job_nuget_github.yml
     parameters:
       name: api
@@ -104,24 +109,30 @@ stages:
 
   - template: templates/job_nuget_github.yml
     parameters:
-      name: logic
-      project: E13.Common.Logic
-
-  - template: templates/job_nuget_github.yml
-    parameters:
       name: nunit_ui
       project: E13.Common.Nunit.UI
-
+      
 - stage: Batch4  
   dependsOn: Batch3
   jobs:
+
+  - template: templates/job_nuget_github.yml
+    parameters:
+      name: logic
+      project: E13.Common.Logic
+
+- stage: Batch5  
+  dependsOn: 
+    - Batch4
+  jobs:
+
   - template: templates/job_nuget_github.yml
     parameters:
       name: nunit_api
       project: E13.Common.Nunit.Api
 
 - stage: Post
-  dependsOn: Batch4
+  dependsOn: Batch5
   jobs:
     - job: git_cleanup
       steps:

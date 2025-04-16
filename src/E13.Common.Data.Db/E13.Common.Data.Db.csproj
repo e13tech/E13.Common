@@ -42,6 +42,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\E13.Common.Core\E13.Common.Core.csproj" />
+    <ProjectReference Include="..\E13.Common.Data\E13.Common.Data.csproj" />
     <ProjectReference Include="..\E13.Common.Domain\E13.Common.Domain.csproj" />
   </ItemGroup>
 
