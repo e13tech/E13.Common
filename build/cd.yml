@@ -122,7 +122,8 @@ stages:
       project: E13.Common.Logic
 
 - stage: Batch5  
-  dependsOn: Batch4
+  dependsOn: 
+    - Batch4
   jobs:
 
   - template: templates/job_nuget_github.yml
