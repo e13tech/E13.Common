@@ -52,6 +52,17 @@
             the Guid representation of the string that was constructed
             </summary>
         </member>
+        <member name="T:E13.Common.Core.EnvironmentVars">
+            <summary>
+            Environment variables used by E13.Common
+            </summary>
+        </member>
+        <member name="M:E13.Common.Core.EnvironmentVars.IsRunningInMemory">
+            <summary>
+            Checks if the InMemory environment variable is set to true
+            </summary>
+            <returns>false if "InMemory" has a value of "false" or is not set, true otherwise</returns>
+        </member>
         <member name="T:E13.Common.Core.LaunchSettingsHelper">
             <summary>
             Helpers used to help getting settings primarily for unit test execution
@@ -135,6 +146,7 @@
             </summary>
             <param name="value">enum to extend</param>
             <returns>DisplayAttribute.StringValue</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the enum does not have an Attribute of type DisplayAttribute or if the enum itself was not found</exception>
         </member>
         <member name="M:System.EnumExtensions.AsAbbreviation(System.Enum)">
             <summary>
@@ -142,6 +154,7 @@
             </summary>
             <param name="value">enum to extend</param>
             <returns>AbbrevationAttribute.StringValue</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the enum does not have an Attribute of type AbbrevationAttribute or if the enum itself was not found</exception>
         </member>
         <member name="M:System.EnumExtensions.AsGuid(System.Enum)">
             <summary>
@@ -149,6 +162,18 @@
             </summary>
             <param name="value">enum to extend</param>
             <returns>GuidAttribute.Value</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the enum does not have an Attribute of type GuidAttribute or if the enum itself was not found</exception>
+        </member>
+        <member name="M:System.EnumExtensions.AsValue``2(System.Enum,System.Func{``0,``1})">
+            <summary>
+            Private method used by other extension methods to get an appropriate value for an enum's attribute
+            </summary>
+            <typeparam name="TAttributeType">Attribute Type to be resolved to retrieve the value</typeparam>
+            <typeparam name="TValue">Type of the value to be returned</typeparam>
+            <param name="e">enum value</param>
+            <param name="valueFunc">Function to resolve the return value</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Thrown if the enum does not have an Attribute of TAttributeType or if the enum itself was not found</exception>
         </member>
         <member name="T:System.GuidExtensions">
             <summary>
