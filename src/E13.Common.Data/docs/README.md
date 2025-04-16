@@ -5,8 +5,7 @@
 
 ## Overview
 
-E13.Common.Data is a package within the E13.Common collection designed for implementing a data layers. 
-
+E13.Common.Data is a package within the E13.Common collection designed for implementing a data layer. 
 ## Features
 
 - **Data Exception**: Exception to help identify data-related issues
