@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [E13.Common.Data.Db, E13.Common.AspNet]
+        project: [E13.Common.Data, E13.Common.AspNet]
     steps:
       - uses: actions/checkout@v4
       - name: Build and Push ${{ matrix.project }}
@@ -89,7 +89,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [E13.Common.Api, E13.Common.Blazor, E13.Common.Logic, E13.Common.Nunit.UI]
+        project: [E13.Common.Api, E13.Common.Blazor, E13.Common.Data.Db, E13.Common.Logic, E13.Common.Nunit.UI]
     steps:
       - uses: actions/checkout@v4
       - name: Build and Push ${{ matrix.project }}
