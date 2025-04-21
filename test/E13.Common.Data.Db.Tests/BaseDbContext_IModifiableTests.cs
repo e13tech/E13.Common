@@ -1,3 +1,4 @@
+using E13.Common.Data.Db.Interceptors;
 using E13.Common.Data.Db.Tests.Sample;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,12 @@ namespace E13.Common.Data.Db.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddDbContext<TestDbContext>(o => o.UseInMemoryDatabase($"{Guid.NewGuid()}"));
+            services.AddDbContext<TestDbContext>(o => {
+                o.UseInMemoryDatabase($"{Guid.NewGuid()}");
+                o.AddInterceptors(new CreatableInterceptor());
+                o.AddInterceptors(new ModifiableInterceptor());
+                o.AddInterceptors(new SoftDeleteInterceptor());
+            });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
 
@@ -99,12 +105,14 @@ namespace E13.Common.Data.Db.Tests
             if (Context == null)
                 throw new Exception("TestDbContext did not Setup() successfully");
 
+
+            Context.AuditUser = nameof(SaveChanges_NamedUser_UpdatesModifiedBy);
             var arranged = Context.Modifiables.First();
             arranged.Text.Should().BeEmpty();
 
             //act
             arranged.Text = $"{Guid.NewGuid()}";
-            Context.SaveChanges(nameof(SaveChanges_NamedUser_UpdatesModifiedBy));
+            Context.SaveChanges();
 
             var assert = Context.Modifiables.First();
             assert.ModifiedBy.Should().Be(nameof(SaveChanges_NamedUser_UpdatesModifiedBy));
@@ -116,11 +124,11 @@ namespace E13.Common.Data.Db.Tests
             if (Context == null)
                 throw new Exception("TestDbContext did not Setup() successfully");
 
+            Context.AuditUser = nameof(SaveChanges_NamedUser_ModifiedUpdates);
             var arranged = Context.Modifiables.First();
 
             //act
             arranged.Text = $"{Guid.NewGuid()}";
-            Context.SaveChanges(nameof(SaveChanges_NamedUser_ModifiedUpdates));
 
             var actual = Context.Modifiables.First();
             actual.Modified.Should().NotBeNull();
