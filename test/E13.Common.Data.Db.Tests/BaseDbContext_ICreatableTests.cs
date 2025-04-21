@@ -1,3 +1,4 @@
+using E13.Common.Data.Db.Interceptors;
 using E13.Common.Data.Db.Tests.Sample;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,17 @@ namespace E13.Common.Data.Db.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddDbContext<TestDbContext>(o =>
+            services.AddScoped<CreatableInterceptor>();
+            services.AddScoped<ModifiableInterceptor>();
+            services.AddScoped<SoftDeleteInterceptor>();
+            services.AddDbContext<IAuditContext, TestDbContext>((sp, o) =>
             {
                 o.UseInMemoryDatabase($"{Guid.NewGuid()}");
                 o.EnableSensitiveDataLogging();
+                o.AddInterceptors(
+                    sp.GetRequiredService<CreatableInterceptor>(),
+                    sp.GetRequiredService<ModifiableInterceptor>(),
+                    sp.GetRequiredService<SoftDeleteInterceptor>());
             });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
@@ -72,9 +80,10 @@ namespace E13.Common.Data.Db.Tests
             if (Context == null)
                 throw new Exception("TestDbContext did not Setup() successfully");
 
+            Context.AuditUser = nameof(SaveChanges_NamedUser_CreatedByNamedUser);
             var id = Guid.NewGuid();
             Context.Creatables.Add(new TestCreatable { Id = id });
-            Context.SaveChanges(nameof(SaveChanges_NamedUser_CreatedByNamedUser));
+            Context.SaveChanges();
 
             var arranged = Context.Creatables.First(e => e.Id == id);
 

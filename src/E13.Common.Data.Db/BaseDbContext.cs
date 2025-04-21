@@ -16,7 +16,7 @@ using E13.Common.Data.Db.Extensions;
 
 namespace E13.Common.Data.Db
 {
-    public abstract class BaseDbContext : DbContext
+    public abstract class BaseDbContext : DbContext, IAuditContext
     {
         /// <summary>
         /// The user name used when the user name is null
@@ -24,6 +24,11 @@ namespace E13.Common.Data.Db
         public const string UnknownUser = "*Unknown";
 
         protected ILogger Logger { get;}
+
+        public string? AuditUser { get; set; }
+
+        public string? Source { get; set; }
+
         protected BaseDbContext(DbContextOptions options, ILogger logger)
             : base(options)
         {
@@ -40,26 +45,6 @@ namespace E13.Common.Data.Db
             modelBuilder.HasQueryFiltersFor<IDeletable>(e => e.Deleted != null);
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        public int SaveChanges(string user, string? source = null)
-        {
-            if(source == null)
-            {
-                var caller = new StackFrame(1).GetMethod() 
-                    ?? throw new Exception("Unable to determine the calling method source from new StackFrame(1).GetMethod()");
-
-                source = $"{caller.DeclaringType?.FullName}.{caller.Name}";
-            }
-
-            TagEntries(source, user);
-            var result = base.SaveChanges();
-
-            // saving after a reload effectively clears the change tracker affecting no records
-            Reload();
-            base.SaveChanges();
-
-            return result;
         }
 
         /// <summary>
@@ -81,70 +66,17 @@ namespace E13.Common.Data.Db
 
         public override int SaveChanges()
         {
-            var caller = new StackFrame(1).GetMethod()!; // This is safe because the method is called from somewhere
+            // 1 – Get caller outside EF
+            var caller = new StackFrame(1).GetMethod();
+            var source = $"{caller?.DeclaringType?.FullName}.{caller?.Name}";
 
-            return SaveChanges(UnknownUser, $"{caller.DeclaringType}.{caller.Name}");
+            // 2 – Stash it in the scoped audit context (injected)
+            Source = source ?? "Unknown";
+            AuditUser = AuditUser ?? UnknownUser;
+
+            // 3 – Proceed. Interceptors now have Source & User.
+            return base.SaveChanges();
         }
 
-        public void Reload() => ChangeTracker.Entries()
-            .Where(e => e.Entity != null).ToList()
-            .ForEach(e => e.State = EntityState.Detached);
-
-        private void TagEntries(string source, string user)
-        {
-            var entries = ChangeTracker.Entries().Where(e =>
-                e.Entity is IEntity &&
-                (e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
-            );
-
-            Logger.LogInformation($"ChangeTracker Contains {entries.Count()}/{ChangeTracker.Entries().Count()} in an Added or Modified state.");
-
-            foreach (var entry in entries)
-            {
-                Logger.LogDebug($"Entity: {entry.Entity.GetType().Name}, State: {entry.State}");
-                var utcNow = DateTime.UtcNow;
-
-                if (entry.State == EntityState.Added && entry.Entity is ICreatable)
-                {
-                    SetProperty(entry.Entity, "Created", utcNow);
-                    SetProperty(entry.Entity, "CreatedBy", user);
-                    SetProperty(entry.Entity, "CreatedSource", source);
-                }
-
-                if (entry.Entity is IModifiable)
-                {
-                    SetProperty(entry.Entity, "Modified", utcNow);
-                    SetProperty(entry.Entity, "ModifiedBy", user);
-                    SetProperty(entry.Entity, "ModifiedSource", source);
-                }
-
-                if (entry.Entity is IDeletable deletable)
-                {
-                    if (entry.State == EntityState.Deleted)
-                    {
-                        entry.State = EntityState.Modified;
-                        SetProperty(entry.Entity, "Deleted", utcNow);
-                        SetProperty(entry.Entity, "DeletedBy", user);
-                        SetProperty(entry.Entity, "DeletedSource", source);
-                    }
-                    else if (deletable.Deleted != null || deletable.DeletedBy != null || deletable.DeletedSource != null)
-                    {
-                        entry.State = EntityState.Modified;
-                        SetProperty(entry.Entity, "Deleted", null);
-                        SetProperty(entry.Entity, "DeletedBy", null);
-                        SetProperty(entry.Entity, "DeletedSource", null);
-                    }
-                }
-            }
-        }
-
-        private void SetProperty(object entity, string propertyName, object? value)
-        {
-            var property = entity.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-            if (property != null && property.CanWrite)
-            {
-                property.SetValue(entity, value);
-            }
-        }
     }
 }

@@ -1,3 +1,4 @@
+using E13.Common.Data.Db.Interceptors;
 using E13.Common.Data.Db.Tests.Sample;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,12 @@ namespace E13.Common.Data.Db.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddDbContext<TestDbContext>(o => o.UseInMemoryDatabase($"{Guid.NewGuid()}"));
+            services.AddDbContext<TestDbContext>(o => {
+                o.UseInMemoryDatabase($"{Guid.NewGuid()}");
+                o.AddInterceptors(new CreatableInterceptor());
+                o.AddInterceptors(new ModifiableInterceptor());
+                o.AddInterceptors(new SoftDeleteInterceptor());
+            });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
             if (Context == null)
@@ -62,12 +68,13 @@ namespace E13.Common.Data.Db.Tests
             if (Context == null)
                 throw new Exception("TestDbContext did not Setup() successfully");
 
+            Context.AuditUser = nameof(SaveChangesForUser_Deleting_SetsDeletedBy);
             Context.Deletable.IgnoreQueryFilters().Count().Should().Be(1);
             Context.Deletable.IgnoreQueryFilters().Count(e => e.DeletedBy == null).Should().Be(1);
             var arranged = Context.Deletable.IgnoreQueryFilters().First(f => f.Deleted == null);
 
             Context.Deletable.Remove(arranged);
-            Context.SaveChanges(nameof(SaveChangesForUser_Deleting_SetsDeletedBy));
+            Context.SaveChanges();
 
             Context.Deletable.IgnoreQueryFilters().Count().Should().Be(1);
             Context.Deletable.IgnoreQueryFilters().Count(e => e.DeletedBy == null).Should().Be(0);
