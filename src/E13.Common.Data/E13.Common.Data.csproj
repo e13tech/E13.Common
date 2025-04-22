@@ -1,9 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Company>E13 Tech</Company>
+    <Authors>JJ Bussert</Authors>
+    <PackageProjectUrl>https://www.e13.tech</PackageProjectUrl>
+    <ApplicationIcon>..\..\design\E13.ico</ApplicationIcon>
+    <PackageIcon>E13.png</PackageIcon>
+    <RepositoryUrl>https://github.com/e13tech/common</RepositoryUrl>
+    <Description>Common package containing components common for any Data layer</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectGuid>{3A53E164-213D-4C16-A18E-DB73FABC354D}</ProjectGuid>
+
     <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
     <Nullable>enable</Nullable>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\design\E13.png" Pack="true" PackagePath="\" />
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
