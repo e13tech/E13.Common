@@ -1,4 +1,6 @@
-﻿namespace E13.Common.Data
+﻿using System;
+
+namespace E13.Common.Data
 {
     public class DataException : Exception
     {
