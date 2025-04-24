@@ -4,9 +4,9 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IDeletable : IEntity
+    public interface IDeletable<T> : IEntity
     {
-        string? DeletedBy { get; set; }
+        T DeletedBy { get; set; }
         string? DeletedSource { get; set; }
         DateTime? Deleted { get; set; }
 

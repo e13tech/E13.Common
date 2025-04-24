@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db
 {
-    public interface IAuditContext
+    public interface IAuditContext<T>
     {
-        string? AuditUser { get; }
+        T AuditUser { get; }
         string? Source { get; }
     }
 }

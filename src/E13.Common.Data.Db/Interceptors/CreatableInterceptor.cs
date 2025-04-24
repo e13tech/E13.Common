@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Interceptors
 {
-    public sealed class CreatableInterceptor : SaveChangesInterceptor
+    public sealed class CreatableInterceptor<T> : SaveChangesInterceptor
     {
         public override InterceptionResult<int> SavingChanges(
             DbContextEventData eventData,
             InterceptionResult<int> result)
         {
-            var auditContext = eventData.Context as IAuditContext ?? throw new Exception("Audit context is not set.");
+            var auditContext = eventData.Context as IAuditContext<T> ?? throw new Exception("Audit context is not set.");
 
             HandleEventData(eventData, auditContext);
 
@@ -28,7 +28,7 @@ namespace E13.Common.Data.Db.Interceptors
             InterceptionResult<int> result, 
             CancellationToken cancellationToken = default)
         {
-            var auditContext = eventData.Context as IAuditContext ?? throw new Exception("Audit context is not set.");
+            var auditContext = eventData.Context as IAuditContext<T> ?? throw new Exception("Audit context is not set.");
 
             HandleEventData(eventData, auditContext);
 
@@ -40,9 +40,9 @@ namespace E13.Common.Data.Db.Interceptors
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="auditContext"></param>
-        private static void HandleEventData(DbContextEventData eventData, IAuditContext auditContext)
+        private static void HandleEventData(DbContextEventData eventData, IAuditContext<T> auditContext)
         {
-            foreach (var entry in eventData.Context!.ChangeTracker.Entries<ICreatable>()
+            foreach (var entry in eventData.Context!.ChangeTracker.Entries<ICreatable<T>>()
                          .Where(e => e.State == EntityState.Added))
             {
                 entry.Entity.Created = DateTime.UtcNow;

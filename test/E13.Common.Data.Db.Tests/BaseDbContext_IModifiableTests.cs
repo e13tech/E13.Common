@@ -19,9 +19,9 @@ namespace E13.Common.Data.Db.Tests
             var services = new ServiceCollection();
             services.AddDbContext<TestDbContext>(o => {
                 o.UseInMemoryDatabase($"{Guid.NewGuid()}");
-                o.AddInterceptors(new CreatableInterceptor());
-                o.AddInterceptors(new ModifiableInterceptor());
-                o.AddInterceptors(new SoftDeleteInterceptor());
+                o.AddInterceptors(new CreatableInterceptor<string>());
+                o.AddInterceptors(new ModifiableInterceptor<string>());
+                o.AddInterceptors(new SoftDeleteInterceptor<string>());
             });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
@@ -79,7 +79,7 @@ namespace E13.Common.Data.Db.Tests
             Context.SaveChanges();
 
             var assert = Context.Modifiables.First();
-            assert.ModifiedBy.Should().Be(BaseDbContext.UnknownUser);
+            assert.ModifiedBy.Should().Be(BaseDbContext<string>.UnknownUser);
         }
 
         [Test]

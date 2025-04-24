@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestEffectable : IEffectable
+    public class TestEffectable : IEffectable<string>
     {
         public Guid Id { get; set; }
         public string? EffectiveBy { get; set; } = "EffectiveBy";

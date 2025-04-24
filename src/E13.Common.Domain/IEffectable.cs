@@ -4,9 +4,9 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IEffectable : IEntity
+    public interface IEffectable<T> : IEntity
     {
-        string? EffectiveBy { get; set; }
+        T EffectiveBy { get; set; }
         string? EffectiveSource { get; set; }
         DateTime? Effective { get; set; }
     }

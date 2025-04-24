@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestDbContext : BaseDbContext
+    public class TestDbContext : BaseDbContext<string>
     {
         public DbSet<TestCreatable> Creatables { get; set; }
         public DbSet<TestModifiable> Modifiables { get; set; }
@@ -29,6 +29,9 @@ namespace E13.Common.Data.Db.Tests.Sample
 
         public void AddTestData()
         {
+            AuditUser = UnknownUser;
+            Source = "E13.Common.Data.Db.Tests.Sample.TestDbContext.AddTestData";
+
             Creatables.Add(new TestCreatable
             {
                 Id = Guid.Empty
@@ -66,7 +69,7 @@ namespace E13.Common.Data.Db.Tests.Sample
                 DeletedSource = "PreviousSource"
             });
             // Because invalid data is being arranged the internal SaveChanges avoiding the TagEntries code must be used.
-            SaveChanges_NoTagEntries();
+            SaveChanges();
         }
     }
 }

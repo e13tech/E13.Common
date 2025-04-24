@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestDeletable : IDeletable
+    public class TestDeletable : IDeletable<string>
     {
         public Guid Id { get; set; }
         public string? DeletedBy { get; set; }

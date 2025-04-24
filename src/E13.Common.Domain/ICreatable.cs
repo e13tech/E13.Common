@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Domain
 {
-    public interface ICreatable : IEntity
+    public interface ICreatable<T> : IEntity
     {
-        string? CreatedBy { get; set; }
+        T? CreatedBy { get; set; }
         string? CreatedSource { get; set; }
         DateTime? Created { get; set; }
     }

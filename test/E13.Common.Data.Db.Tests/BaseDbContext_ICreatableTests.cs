@@ -17,17 +17,17 @@ namespace E13.Common.Data.Db.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddScoped<CreatableInterceptor>();
-            services.AddScoped<ModifiableInterceptor>();
-            services.AddScoped<SoftDeleteInterceptor>();
-            services.AddDbContext<IAuditContext, TestDbContext>((sp, o) =>
+            services.AddScoped<CreatableInterceptor<string>>();
+            services.AddScoped<ModifiableInterceptor<string>>();
+            services.AddScoped<SoftDeleteInterceptor<string>>();
+            services.AddDbContext<IAuditContext<string>, TestDbContext>((sp, o) =>
             {
                 o.UseInMemoryDatabase($"{Guid.NewGuid()}");
                 o.EnableSensitiveDataLogging();
                 o.AddInterceptors(
-                    sp.GetRequiredService<CreatableInterceptor>(),
-                    sp.GetRequiredService<ModifiableInterceptor>(),
-                    sp.GetRequiredService<SoftDeleteInterceptor>());
+                    sp.GetRequiredService<CreatableInterceptor<string>>(),
+                    sp.GetRequiredService<ModifiableInterceptor<string>>(),
+                    sp.GetRequiredService<SoftDeleteInterceptor<string>>());
             });
 
             Context = services.BuildServiceProvider().GetService<TestDbContext>();
@@ -56,7 +56,7 @@ namespace E13.Common.Data.Db.Tests
 
             var arranged = Context.Creatables.First();
 
-            arranged.CreatedBy.Should().Be(BaseDbContext.UnknownUser);
+            arranged.CreatedBy.Should().Be(BaseDbContext<string>.UnknownUser);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace E13.Common.Data.Db.Tests
 
             var arranged = Context.Creatables.First(e => e.Id == id);
 
-            arranged.CreatedBy.Should().Be(BaseDbContext.UnknownUser);
+            arranged.CreatedBy.Should().Be(BaseDbContext<string>.UnknownUser);
         }
 
         [Test]
