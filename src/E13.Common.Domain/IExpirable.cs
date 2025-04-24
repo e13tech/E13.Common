@@ -4,10 +4,10 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IExpirable : IEntity
+    public interface IExpirable<T> : IEntity
     {
-        string ExpirationBy { get; set; }
-        string ExpirationSource { get; set; }
-        DateTime Expiration { get; set; }
+        T ExpirationBy { get; set; }
+        string? ExpirationSource { get; set; }
+        DateTime? Expiration { get; set; }
     }
 }

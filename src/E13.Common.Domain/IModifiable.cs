@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Domain
 {
-    public interface IModifiable : IEntity
+    public interface IModifiable<T> : IEntity
     {
-        string? ModifiedBy { get; set; }
+        T ModifiedBy { get; set; }
         string? ModifiedSource { get; set; }
         DateTime? Modified { get; set; }
     }

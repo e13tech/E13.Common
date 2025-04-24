@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestCreatable : ICreatable
+    public class TestCreatable : ICreatable<string>
     {
         public Guid Id { get; set; }
         public string Text { get; set; } = string.Empty;

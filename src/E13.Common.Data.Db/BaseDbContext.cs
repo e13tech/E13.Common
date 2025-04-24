@@ -16,7 +16,7 @@ using E13.Common.Data.Db.Extensions;
 
 namespace E13.Common.Data.Db
 {
-    public abstract class BaseDbContext : DbContext, IAuditContext
+    public abstract class BaseDbContext<T> : DbContext, IAuditContext<T>
     {
         /// <summary>
         /// The user name used when the user name is null
@@ -25,7 +25,7 @@ namespace E13.Common.Data.Db
 
         protected ILogger Logger { get;}
 
-        public string? AuditUser { get; set; }
+        public required T AuditUser { get; set; }
 
         public string? Source { get; set; }
 
@@ -42,41 +42,9 @@ namespace E13.Common.Data.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasQueryFiltersFor<IDeletable>(e => e.Deleted != null);
+            modelBuilder.HasQueryFiltersFor<IDeletable<T>>(e => e.Deleted != null);
 
             base.OnModelCreating(modelBuilder);
         }
-
-        /// <summary>
-        /// This is used by E13.Common.Data.Db.Tests in order to allow TestDbContext.TestSeed() to seed
-        /// data without going through the TagEntries.
-        /// 
-        /// This is necessary so that the unit tests can, via code, initialize the context with data that
-        /// may normally be prevented by TagChanges().  An example being a scenario where a backend database
-        /// is manually adjusted via raw SQL and puts entities into an invalid state.
-        /// 
-        /// The tests will be ensuring that subsequent calls automatically clean up bad entity states caused
-        /// by manual data manipulation.
-        /// </summary>
-        /// <returns></returns>
-        internal int SaveChanges_NoTagEntries()
-        {
-            return base.SaveChanges();
-        }
-
-        public override int SaveChanges()
-        {
-            // 1 – Get caller outside EF
-            var caller = new StackFrame(1).GetMethod();
-            var source = $"{caller?.DeclaringType?.FullName}.{caller?.Name}";
-
-            // 2 – Stash it in the scoped audit context (injected)
-            Source = source ?? "Unknown";
-            AuditUser = AuditUser ?? UnknownUser;
-
-            // 3 – Proceed. Interceptors now have Source & User.
-            return base.SaveChanges();
-        }
-
     }
 }
