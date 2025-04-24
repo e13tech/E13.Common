@@ -4,9 +4,9 @@ using System.Text;
 
 namespace E13.Common.Domain
 {
-    public interface IOwnable : IEntity
+    public interface IOwnable<T> : IEntity
     {
-        string OwnedBy { get; set; }
+        T OwnedBy { get; set; }
         string OwnedSource { get; set; }
         DateTime Owned { get; set; }
     }
