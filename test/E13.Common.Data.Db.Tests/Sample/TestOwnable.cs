@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E13.Common.Data.Db.Tests.Sample
 {
-    public class TestOwnable : IOwnable
+    public class TestOwnable : IOwnable<string>
     {
         public Guid Id { get; set; }
         public string OwnedBy { get; set; } = "OwnedBy";
