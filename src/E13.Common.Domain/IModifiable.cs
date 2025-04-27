@@ -8,7 +8,7 @@ namespace E13.Common.Domain
 {
     public interface IModifiable<T> : IEntity
     {
-        T ModifiedBy { get; set; }
+        T? ModifiedBy { get; set; }
         string? ModifiedSource { get; set; }
         DateTime? Modified { get; set; }
     }
